@@ -3,10 +3,11 @@ package br.com.fabrica.modelo;
 public class Venda {
 	public final int codigo = ++geraCodigo;
 	private static int geraCodigo;
+	private int auxiliarCodigo;
 	private String data;
 	private String hora;
 	private Produto produto;
-	private int quantidade;
+	private int quantidade;// verificar pois o objeto produto já possui o atributo quantidade
 	
 	public Venda() {	}
 
@@ -49,6 +50,19 @@ public class Venda {
 		this.quantidade = quantidade;
 	}
 
+	public int getAuxiliarCodigo() {
+		return auxiliarCodigo;
+	}
+
+	public void setAuxiliarCodigo(int auxiliarCodigo) {
+		this.auxiliarCodigo = auxiliarCodigo;
+	}
+	
+	public float valorTotalVendaPorProduto() {
+		
+		return produto.getPrecoFabricacao() * produto.getQuantidadeProduto();
+	}
+	
 	@Override
 	public String toString() {
 		return String.format("Codigo: %d, data: %s, hora: %s, produto: %s, quantidade: %d",

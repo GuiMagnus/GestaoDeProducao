@@ -5,7 +5,8 @@ import java.util.List;
 
 /**
  * 
- * @author Rafaela
+ * @author Rafaela e Guilherme
+ * 
  * Classe responsável por armazenar os dados de um insumo(Tudo que for necessário para
  * a produção de um produto).
  * Exemplos de Insumo: 
@@ -14,6 +15,8 @@ import java.util.List;
 public class Insumo {
 	public final int codigo = ++geraCodigo;
 	private static int geraCodigo;
+	private int codigoProduto;
+	private int auxiliarCodigo;
 	private String nome;
 	private int quantidade;
 	private float precoUnitario;
@@ -35,7 +38,9 @@ public class Insumo {
 	 * @param precoUnitario preço inicial do insumo
 	 * @param historico atualização de preços do insumo
 	 */
-	public Insumo(String nome, int quantidade, float precoUnitario, List<HistoricoPreco> historico) {
+	public Insumo(int codigoProduto, String nome, int quantidade, float precoUnitario, List<HistoricoPreco> historico) {
+		super();
+		this.codigoProduto = codigoProduto;
 		this.nome = nome;
 		this.quantidade = quantidade;
 		this.precoUnitario = precoUnitario;
@@ -50,6 +55,7 @@ public class Insumo {
 		return nome;
 	}
 
+	
 	/***
 	 * Atribui um nome ao objeto da classe Insumo.
 	 * @param nome nomeação do insumo a ser atribuída na classe.
@@ -104,6 +110,36 @@ public class Insumo {
 	 */
 	public void setHistorico(List<HistoricoPreco> historico) {
 		this.historico = historico;
+	}
+
+	
+	/**
+	 * Retorna o código na qual aquele insumo pertence.
+	 * @return  valor que referencia a que produto este insumo pertence.
+	 */
+	public int getCodigoProduto() {
+		return codigoProduto;
+	}
+
+	/**
+	 * Atribui ao insumo o código na qual aquele produto ele pertence.
+	 * @param codigoProduto contém a referência indicativa de um produto.
+	 */
+	public void setCodigoProduto(int codigoProduto) {
+		this.codigoProduto = codigoProduto;
+	}
+	
+	
+	/**
+	 *
+	 * @return
+	 */
+	public int getAuxiliarCodigo() {
+		return auxiliarCodigo;
+	}
+
+	public void setAuxiliarCodigo(int auxiliarCodigo) {
+		this.auxiliarCodigo = auxiliarCodigo;
 	}
 
 	/**

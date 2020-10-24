@@ -6,6 +6,7 @@ import java.util.List;
 public class Produto {
 	public final int codigo = ++geraCodigo;
 	private static int geraCodigo;
+	private int auxiliarCodigo;
 	private String nome;
 	private UnidadeMedida unidadeMedida;
 	private float margemLucro;
@@ -22,7 +23,6 @@ public class Produto {
 
 	public Produto(String nome, UnidadeMedida unidadeMedida, float margemLucro, float precoVenda,
 			int quantidadeProduto, List<HistoricoPreco> historicoPrecos, List<Insumo> insumos) {
-		super();
 		this.nome = nome;
 		this.unidadeMedida = unidadeMedida;
 		this.margemLucro = margemLucro;
@@ -92,13 +92,22 @@ public class Produto {
 		this.insumos = insumos;
 	}
 
+	
+	public int getAuxiliarCodigo() {
+		return auxiliarCodigo;
+	}
+
+	public void setAuxiliarCodigo(int auxiliarCodigo) {
+		this.auxiliarCodigo = auxiliarCodigo;
+	}
+
 	@Override
 	public String toString() {
 		return String.format(
 				"Código: %d, nome: %s, unidadeMedida: %s, margemLucro: %.2f, precoFabricacao: %.2f,"
-				+ " precoVenda: %.2f, quantidadeProduto: %d, historicoPrecos: %s, insumos: %s",
-				codigo, nome, unidadeMedida.getUnidade(), margemLucro, precoFabricacao, precoVenda,
-				quantidadeProduto, historicoPrecos, insumos);
+				+ " precoVenda: %.2f, quantidadeProduto: %d",
+				getAuxiliarCodigo(), nome, unidadeMedida.getUnidade(), margemLucro, precoFabricacao, precoVenda,
+				quantidadeProduto);//, historicoPrecos, insumos);
 	}
 	
 }
