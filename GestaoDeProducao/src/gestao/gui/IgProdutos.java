@@ -24,7 +24,7 @@ public class IgProdutos extends JFrame {
 	private JLabel lblPreoUnitrio;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNome;
-	private JButton btnNewButton_2;
+	private JButton btnInsumo;
 	private JButton btnGravar;
 	private JButton btnCancelar;
 	private JFrame jf;
@@ -46,16 +46,17 @@ public class IgProdutos extends JFrame {
 		//jf.setResizable(false);
 		
 		jf.setSize(525, 473);
+		jf.setVisible(true);
 		
 		btnGravar = new JButton("Gravar");
 		jf.getContentPane().add(btnGravar);
 		btnGravar.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnGravar.setBounds(273, 307, 96, 25);
 		
-		btnNewButton_2 = new JButton("Cadastrar Insumo...");
-		jf.getContentPane().add(btnNewButton_2);
-		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnNewButton_2.setBounds(298, 255, 164, 25);
+		btnInsumo = new JButton("Cadastrar Insumo...");
+		jf.getContentPane().add(btnInsumo);
+		btnInsumo.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnInsumo.setBounds(298, 255, 164, 25);
 		
 		btnCancelar = new JButton("Cancelar");
 		jf.getContentPane().add(btnCancelar);
@@ -113,8 +114,6 @@ public class IgProdutos extends JFrame {
 					um.getUnidade() ));
 		}
 		
-		jf.setVisible(true);
-		
 		btnGravar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -134,6 +133,25 @@ public class IgProdutos extends JFrame {
 			}
 		});
 		
-		
+		btnInsumo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				jf.setVisible(false);
+				IgInsumos igInsumos = new IgInsumos();
+				igInsumos.getJf().setVisible(true);
+				//System.out.println(igInsumos.getJf());
+			}
+		});
 	}
+
+	public JFrame getJf() {
+		return jf;
+	}
+
+	public void setJf(JFrame jf) {
+		this.jf = jf;
+	}
+	
+	
 }

@@ -10,9 +10,9 @@ import br.com.fabrica.modelo.UnidadeMedida;
 
 public class CadastroDeInformacoes {
 	
-	public static void cadastraInsumo(String nome, JComboBox<String> comboBox) {
+	public static void cadastraInsumo(JTextField tfNome, JComboBox<String> comboBox) {
 		Insumo insumo = new Insumo();
-		insumo.setNome(nome);
+		//insumo.setNome(nome);
 		//insumo.set
 		//TODO
 		

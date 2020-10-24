@@ -42,47 +42,48 @@ public class IgInsumos extends JFrame{
 
 		// Define a janela como não redimensionável.
 		//jf.setResizable(false);
+		jf.setSize(525, 675);
 		jf.setVisible(true);
 		getContentPane().setLayout(null);
 		
 		lblNewLabel = new JLabel("Insumo");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(204, 27, 59, 19);
-		getContentPane().add(lblNewLabel);
+		jf.getContentPane().add(lblNewLabel);
 		
 		lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNome.setBounds(108, 72, 40, 16);
-		getContentPane().add(lblNome);
+		jf.getContentPane().add(lblNome);
 		
 		lblNewLabel_1_1 = new JLabel("Tamanho da unidade:");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_1_1.setBounds(21, 121, 138, 16);
-		getContentPane().add(lblNewLabel_1_1);
+		jf.getContentPane().add(lblNewLabel_1_1);
 		
 		tfNome = new JTextField();
 		tfNome.setBounds(158, 71, 298, 20);
-		getContentPane().add(tfNome);
+		jf.getContentPane().add(tfNome);
 		tfNome.setColumns(10);
 		
 		lblNewLabel_1 = new JLabel("Insumos");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel_1.setBounds(204, 168, 83, 19);
-		getContentPane().add(lblNewLabel_1);
+		jf.getContentPane().add(lblNewLabel_1);
 		
 		btnGravar = new JButton("Gravar");
 		btnGravar.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnGravar.setBounds(297, 587, 83, 25);
-		getContentPane().add(btnGravar);
+		jf.getContentPane().add(btnGravar);
 		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnCancelar.setBounds(390, 587, 83, 25);
-		getContentPane().add(btnCancelar);
+		jf.getContentPane().add(btnCancelar);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(21, 198, 452, 365);
-		getContentPane().add(scrollPane);
+		jf.getContentPane().add(scrollPane);
 		
 		table = new JTable();
 		table.setBounds(40, 158, 411, 256);
@@ -90,9 +91,8 @@ public class IgInsumos extends JFrame{
 		
 		comboBox = new JComboBox<String>();
 		comboBox.setBounds(165, 119, 138, 22);
-		getContentPane().add(comboBox);
+		jf.getContentPane().add(comboBox);
 		
-		getContentPane().add(comboBox);
 		
 		for(UnidadeMedida um : UnidadeMedida.values()) {
 			comboBox.addItem(String.format("%s (%s)", um.getNome(),
@@ -111,20 +111,23 @@ public class IgInsumos extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				jf.setVisible(false);
+				IgProdutos igProdutos = new IgProdutos();
+				igProdutos.getJf().setVisible(true);
 			}
 		});
-		
-		// Define que o programa deve ser finalizado quando o usuário clicar no botão Fechar da janela.
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+	
+	}
 
-		// Define a janela como não redimensionável.
-		setResizable(false);
-		
-		setSize(514, 670);
-		setLocationRelativeTo(null);
-		setVisible(true);
+	public JFrame getJf() {
+		return jf;
+	}
+
+	public void setJf(JFrame jf) {
+		this.jf = jf;
 	}	
+	
+	
 	
 	
 }
