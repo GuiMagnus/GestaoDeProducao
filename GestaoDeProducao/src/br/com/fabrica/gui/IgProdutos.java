@@ -45,13 +45,13 @@ public class IgProdutos extends JFrame {
 		// Define a janela como não redimensionável.
 		//jf.setResizable(false);
 		
-		jf.setSize(525, 473);
+		jf.setSize(525, 399);
 		jf.setVisible(true);
 		
 		btnGravar = new JButton("Gravar");
 		jf.getContentPane().add(btnGravar);
 		btnGravar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnGravar.setBounds(273, 307, 96, 25);
+		btnGravar.setBounds(259, 307, 96, 25);
 		
 		btnInsumo = new JButton("Cadastrar Insumo...");
 		jf.getContentPane().add(btnInsumo);
@@ -61,7 +61,7 @@ public class IgProdutos extends JFrame {
 		btnCancelar = new JButton("Cancelar");
 		jf.getContentPane().add(btnCancelar);
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnCancelar.setBounds(379, 307, 83, 25);
+		btnCancelar.setBounds(366, 307, 96, 25);
 		
 		lblNome = new JLabel("Nome:");
 		jf.getContentPane().add(lblNome);
@@ -140,7 +140,6 @@ public class IgProdutos extends JFrame {
 				jf.setVisible(false);
 				IgInsumos igInsumos = new IgInsumos();
 				igInsumos.getJf().setVisible(true);
-				//System.out.println(igInsumos.getJf());
 			}
 		});
 	}
