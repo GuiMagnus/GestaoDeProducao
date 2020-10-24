@@ -1,9 +1,11 @@
 package br.com.fabrica.validacoes;
 
+
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
+import br.com.fabrica.arquivo.aleatorio.ArquivoProduto;
 import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.UnidadeMedida;
@@ -12,18 +14,16 @@ public class CadastroDeInformacoes {
 	
 	public static void cadastraInsumo(JTextField tfNome, JComboBox<String> comboBox) {
 		Insumo insumo = new Insumo();
-		//insumo.setNome(nome);
-		//insumo.set
-		//TODO
 		
 	}
 	
-	public static void cadastrarProdutos(JTextField tfNome, JComboBox<String> comboBox, 
-			JSpinner spinner) {
+	public static void cadastrarProdutos(JTextField tfNome, JComboBox<String> comboBox, JSpinner spinner) {
 		Produto produto = new Produto();
 		produto.setNome(tfNome.getText());
 		produto.setUnidadeMedida(obtemUnidade(comboBox));
 		produto.setMargemLucro(Float.parseFloat(spinner.getValue().toString()));
+		ArquivoProduto arqProduto = new ArquivoProduto();
+		arqProduto.escreveProdutoNoArquivo(produto);
 		
 	}
 	

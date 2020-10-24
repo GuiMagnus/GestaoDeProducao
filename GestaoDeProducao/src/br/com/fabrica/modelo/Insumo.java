@@ -142,6 +142,9 @@ public class Insumo {
 		this.auxiliarCodigo = auxiliarCodigo;
 	}
 
+	public float obtemPrecoRecente() {
+		return historico.get(historico.size()).getPreco();
+	}
 	/**
 	 * Representação dos dados do objeto da classe Insumo em forma de Texto.
 	 */

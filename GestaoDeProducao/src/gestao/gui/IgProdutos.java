@@ -118,6 +118,7 @@ public class IgProdutos extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				CadastroDeInformacoes.cadastrarProdutos(tfNome, comboBox, spinner);
 				tfNome.setText("");
 				comboBox.setSelectedIndex(0);

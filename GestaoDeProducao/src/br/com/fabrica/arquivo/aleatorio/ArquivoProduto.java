@@ -1,5 +1,6 @@
 package br.com.fabrica.arquivo.aleatorio;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import br.com.fabrica.modelo.Produto;
@@ -28,7 +29,39 @@ public class ArquivoProduto extends BinaryFile{
 		// TODO Auto-generated method stub
 		return 120;
 	}
-
+	
+	public boolean escreveProdutoNoArquivo(Produto produto) {
+		BinaryFile bf = new ArquivoProduto();
+		try {
+			bf.openFile("produto.dat");
+			bf.setFilePointer(bf.recordQuantity());
+			writeObject(produto);
+			bf.closeFile();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public Produto leProdutoNoArquivo() {
+		BinaryFile bf = new ArquivoProduto();
+		try {
+			bf.openFile("/arquivos/produto.dat");
+			Produto produto = (Produto) readObject();
+			bf.closeFile();
+			return produto;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	/**
 	 * Escreve o objeto como um registro do arquivo.
@@ -47,7 +80,8 @@ public class ArquivoProduto extends BinaryFile{
 			produto = (Produto) objeto;
 		else
 			throw new ClassCastException();
-
+		
+		System.out.println(produto.getNome());
 		randomAccessFile.writeChars(setStringLength(produto.getNome(), 50));
 		randomAccessFile.writeInt(produto.codigo);
 		randomAccessFile.writeChars(setStringLength(produto.getUnidadeMedida().getUnidade(), 2));

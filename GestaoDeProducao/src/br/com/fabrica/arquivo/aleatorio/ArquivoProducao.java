@@ -1,5 +1,6 @@
 package br.com.fabrica.arquivo.aleatorio;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import br.com.fabrica.modelo.Producao;
@@ -30,6 +31,40 @@ public class ArquivoProducao extends BinaryFile{
 		return 128;
 	}
 
+	
+	public boolean escreveProducaoNoArquivo(Producao producao) {
+		BinaryFile bf = new ArquivoProducao();
+		try {
+			bf.openFile("/arquivos/producao.dat");
+			writeObject(producao);
+			bf.closeFile();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public Producao leProducaoNoArquivo() {
+		BinaryFile bf = new ArquivoProduto();
+		try {
+			bf.openFile("/arquivos/producao.dat");
+			Producao producao = (Producao) readObject();
+			bf.closeFile();
+			return producao;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
 	
 	
 	/**

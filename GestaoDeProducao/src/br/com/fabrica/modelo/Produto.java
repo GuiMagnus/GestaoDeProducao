@@ -100,6 +100,7 @@ public class Produto {
 	public void setAuxiliarCodigo(int auxiliarCodigo) {
 		this.auxiliarCodigo = auxiliarCodigo;
 	}
+	
 
 	@Override
 	public String toString() {
