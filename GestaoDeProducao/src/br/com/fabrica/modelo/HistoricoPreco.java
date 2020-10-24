@@ -7,6 +7,8 @@ package br.com.fabrica.modelo;
 public class HistoricoPreco {
 	public final int codigo = ++geraCodigo;
 	private static int geraCodigo;
+	private int auxiliarCodigo;
+	private int codigoReferenciaDeDado;
 	private float preco;
 	private String data;
 	
@@ -18,9 +20,9 @@ public class HistoricoPreco {
 
 	/**
 	 * Construtor sobrecarregado da Classe HistoricoPreco atribuindo os valores passados como 
-	 * parâmetro 
-	 * @param preco valor em dinheiro atual ou não referente ao item
-	 * @param data referente ao período inicial em que determinado preço foi atribuído a um item
+	 * parâmetro. 
+	 * @param preco valor em dinheiro atual ou não referente ao item.
+	 * @param data referente ao período inicial em que determinado preço foi atribuído a um item.
 	 */
 	public HistoricoPreco(float preco, String data) {
 		this.preco = preco;
@@ -34,6 +36,8 @@ public class HistoricoPreco {
 	public float getPreco() {
 		return preco;
 	}
+	
+
 	/**
 	 * Atribui a variável preço um valor referente a um item.
 	 * @param preco valor a ser atribuído a um objeto da classe item.
@@ -54,10 +58,40 @@ public class HistoricoPreco {
 		this.data = data;
 	}
 
+	
+	/**
+	 * Obtém o código de referência ao Produto ou insumo que teve seu preço atual ou antigo ajustado.
+	 * @return Obtém o código de referência ao Produto ou insumo que teve seu preço atual ou antigo ajustado e o retorna.
+	 */
+	public int getCodigoReferenciaDeDado() {
+		return codigoReferenciaDeDado;
+	}
+
+	
+	/**
+	 * Atribui o código de referencia do Produto ou insumo que teve seu preço atual ou antigo ajustado.
+	 * @param codigoReferenciaDeDado referência do produto ou insumo aquele preço pertence.
+	 */
+	public void setCodigoReferenciaDeDado(int codigoReferenciaDeDado) {
+		this.codigoReferenciaDeDado = codigoReferenciaDeDado;
+	}
+
+	
+	public int getAuxiliarCodigo() {
+		return auxiliarCodigo;
+	}
+
+	public void setAuxiliarCodigo(int auxiliarCodigo) {
+		this.auxiliarCodigo = auxiliarCodigo;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("Preço: %.2f, data: %s", preco, data);
+		return String.format(
+				"codigo:%s, codigoReferência:%s, preco:%s, data:%s",
+				getAuxiliarCodigo(), codigoReferenciaDeDado, preco, data);
 	}
+
 	
 	
 	

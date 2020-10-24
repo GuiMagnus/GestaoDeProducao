@@ -3,11 +3,11 @@ package br.com.fabrica.modelo;
 public class Producao {
 	public final int codigo = ++geraCodigo;
 	private static int geraCodigo;
+	private int auxiliarCodigo;
 	private Produto produto;
 	private int quantidade;
 	private String data;
 	private float custoProducao;
-	
 	public Producao() {	}
 
 	public Producao(Produto produto, int quantidade, String data, float custoProducao) {
@@ -40,6 +40,14 @@ public class Producao {
 	public void setData(String data) {
 		this.data = data;
 	}
+	
+	public int getAuxiliarCodigo() {
+		return auxiliarCodigo;
+	}
+
+	public void setAuxiliarCodigo(int auxiliarCodigo) {
+		this.auxiliarCodigo = auxiliarCodigo;
+	}
 
 	public float getCustoProducao() {
 		return custoProducao;
@@ -52,11 +60,11 @@ public class Producao {
 	public float obtemCustoProducao() {
 		return produto.getPrecoFabricacao() * quantidade;
 	}
-
+	
 	@Override
 	public String toString() {
 		return String.format("Codigo: %d, produto: %s, quantidade: %d, data: %s, custoProducao:%s",
-				codigo, produto, quantidade, data, custoProducao);
+				codigo, produto.getNome(), quantidade, data, custoProducao);
 	}
 	
 }
