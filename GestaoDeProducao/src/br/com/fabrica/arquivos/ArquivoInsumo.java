@@ -1,7 +1,9 @@
-package br.com.fabrica.arquivo.aleatorio;
+package br.com.fabrica.arquivos;
 
+import static br.com.fabrica.strings.Constantes.ARQ_INSUMO;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
-
 
 import br.com.fabrica.modelo.Insumo;
 
@@ -54,7 +56,7 @@ public class ArquivoInsumo extends BinaryFile{
 		randomAccessFile.writeInt(insumo.codigo);
 		randomAccessFile.writeInt(insumo.getCodigoProduto());
 		randomAccessFile.writeChars(setStringLength(insumo.getNome(), 50));
-		randomAccessFile.writeInt(insumo.getQuantidade());
+		randomAccessFile.writeFloat(insumo.getQuantidade());
 		randomAccessFile.writeFloat(insumo.getPrecoUnitario());
 	}
 
@@ -83,6 +85,38 @@ public class ArquivoInsumo extends BinaryFile{
 		insumo.setPrecoUnitario(randomAccessFile.readFloat());
 
 		return insumo;
+	}
+	
+	public boolean escreveInsumoNoArquivo(Insumo insumo) {
+		try {
+			openFile(ARQ_INSUMO);
+			setFilePointer(recordQuantity());
+			writeObject(insumo);
+			closeFile();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false; 
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public Insumo leInsumoNoArquivo() {
+		try {
+			openFile(ARQ_INSUMO);
+			setFilePointer(0);
+			Insumo insummo = (Insumo) readObject();
+			closeFile();
+			return insummo;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

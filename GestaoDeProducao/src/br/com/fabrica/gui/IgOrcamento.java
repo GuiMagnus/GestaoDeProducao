@@ -1,4 +1,4 @@
-package gestao.gui;
+package br.com.fabrica.gui;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;

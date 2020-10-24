@@ -1,4 +1,4 @@
-package br.com.fabrica.arquivo.aleatorio;
+package br.com.fabrica.arquivos;
 
 import java.io.IOException;
 

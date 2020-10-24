@@ -1,4 +1,4 @@
-package br.com.fabrica.arquivo.aleatorio;
+package br.com.fabrica.arquivos;
 
 import java.io.*;
 
@@ -71,6 +71,7 @@ public abstract class BinaryFile {
 	  * @return uma <code>String</code> com o conteúdo especificado por <i>str</i> e tamanho definido por <i>size</i>.
 	  **/
 	 public String setStringLength(String str, int size) {
+		 
 		 StringBuffer buffer = null;
 
 		 // Cria uma nova string com os caracteres do argumento str.
@@ -79,10 +80,10 @@ public abstract class BinaryFile {
 
 		 // Configura o tamanho da nova string para o número de caracteres desejado.
 		 buffer.setLength(size);
+		 
 		 }
 		 else // Cria uma nova string sem caracteres e com a quantidade especificada no argumento size. 
 			buffer = new StringBuffer(size);
-
 		 return buffer.toString();
 	 } 
 

@@ -1,9 +1,12 @@
-package br.com.fabrica.arquivo.aleatorio;
+package br.com.fabrica.arquivos;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.UnidadeMedida;
+
+import static br.com.fabrica.strings.Constantes.*;
 
 /**
  *  Esta classe fornece uma implementação para as operações que permitem manipular um arquivo de acesso 
@@ -25,7 +28,6 @@ public class ArquivoProduto extends BinaryFile{
 	 */
 	@Override
 	public int recordSize() {
-		// TODO Auto-generated method stub
 		return 120;
 	}
 
@@ -41,19 +43,20 @@ public class ArquivoProduto extends BinaryFile{
 	 */
 	@Override
 	public void writeObject(Object objeto) throws IOException {
-		Produto produto = new Produto();
-
-		if(objeto instanceof Produto) 
+		Produto produto;
+		if(objeto instanceof Produto) {
 			produto = (Produto) objeto;
+		}
 		else
 			throw new ClassCastException();
-
-		randomAccessFile.writeChars(setStringLength(produto.getNome(), 50));
+		//openFile("..\\GestaoDeProducao\\arquivos\\produto.dat");
+		randomAccessFile.writeChars("");
 		randomAccessFile.writeInt(produto.codigo);
 		randomAccessFile.writeChars(setStringLength(produto.getUnidadeMedida().getUnidade(), 2));
 		randomAccessFile.writeFloat(produto.getMargemLucro());
 		randomAccessFile.writeFloat(produto.getPrecoVenda());
 		randomAccessFile.writeInt(produto.getQuantidadeProduto());
+		
 
 	}
 
@@ -97,5 +100,37 @@ public class ArquivoProduto extends BinaryFile{
 				return dado;
 		}
 		return null;
+	}
+	
+	public boolean escreveProdutoNoArquivo(Produto produto) {
+		try {
+			openFile(ARQ_PRODUTO);
+			setFilePointer(recordQuantity());
+			writeObject(produto);
+			closeFile();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false; 
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public Produto leProdutoNoArquivo() {
+		try {
+			openFile(ARQ_PRODUTO);
+			setFilePointer(0);
+			Produto produto = (Produto) readObject();
+			closeFile();
+			return produto;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

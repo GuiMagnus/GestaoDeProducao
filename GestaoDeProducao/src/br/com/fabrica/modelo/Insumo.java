@@ -18,7 +18,7 @@ public class Insumo {
 	private int codigoProduto;
 	private int auxiliarCodigo;
 	private String nome;
-	private int quantidade;
+	private float quantidade;
 	private float precoUnitario;
 	private List<HistoricoPreco> historico;
 	/***
@@ -38,8 +38,8 @@ public class Insumo {
 	 * @param precoUnitario preço inicial do insumo
 	 * @param historico atualização de preços do insumo
 	 */
-	public Insumo(int codigoProduto, String nome, int quantidade, float precoUnitario, List<HistoricoPreco> historico) {
-		super();
+	public Insumo(int codigoProduto, String nome, float quantidade, float precoUnitario, 
+			List<HistoricoPreco> historico) {
 		this.codigoProduto = codigoProduto;
 		this.nome = nome;
 		this.quantidade = quantidade;
@@ -68,7 +68,7 @@ public class Insumo {
 	 * Obtém a quantidade de um insumo
 	 * @return retorna a quantidade disponível do objeto insumo.
 	 */
-	public int getQuantidade() {
+	public float getQuantidade() {
 		return quantidade;
 	}
 
@@ -76,7 +76,7 @@ public class Insumo {
 	 * Atribui um valor ao atributo quantidade da classe Insumo.
 	 * @param quantidade variável com o valor a ser atribuído ao objeto quantidade da classe insumo.
 	 */
-	public void setQuantidade(int quantidade) {
+	public void setQuantidade(float quantidade) {
 		this.quantidade = quantidade;
 	}
 
@@ -147,7 +147,7 @@ public class Insumo {
 	 */
 	@Override
 	public String toString() {
-		return String.format("Código: %d, nome: %s, quantidade: %d, precoUnitario: %.2f,"
+		return String.format("Código: %d, nome: %s, quantidade: %.3f, precoUnitario: %.2f,"
 				+ " historico: %s", codigo, nome, quantidade, precoUnitario, historico);
 	}
 	

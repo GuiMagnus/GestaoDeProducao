@@ -1,4 +1,4 @@
-package gestao.gui;
+package br.com.fabrica.gui;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -11,8 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
+import br.com.fabrica.gerencia.CadastroDeInformacoes;
 import br.com.fabrica.modelo.UnidadeMedida;
-import br.com.fabrica.validacoes.CadastroDeInformacoes;
 
 @SuppressWarnings("serial")
 public class IgProdutos extends JFrame {
@@ -118,7 +118,7 @@ public class IgProdutos extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				CadastroDeInformacoes.cadastrarProdutos(tfNome, comboBox, spinner);
+				CadastroDeInformacoes.cadastrarProdutos(tfNome, comboBox, spinner, jf);
 				tfNome.setText("");
 				comboBox.setSelectedIndex(0);
 				spinner.setValue(Integer.valueOf(0));
