@@ -5,7 +5,7 @@ import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
-import br.com.fabrica.arquivo.aleatorio.ArquivoProduto;
+import br.com.fabrica.arquivos.ArquivoProduto;
 import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.UnidadeMedida;

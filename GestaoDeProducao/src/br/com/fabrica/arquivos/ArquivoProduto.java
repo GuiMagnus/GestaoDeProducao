@@ -118,10 +118,10 @@ public class ArquivoProduto extends BinaryFile{
 		}
 	}
 	
-	public Produto leProdutoNoArquivo() {
+	public Produto leProdutoNoArquivo(int indice) {
 		try {
 			openFile(ARQ_PRODUTO);
-			setFilePointer(0);
+			setFilePointer(indice);
 			Produto produto = (Produto) readObject();
 			closeFile();
 			return produto;
