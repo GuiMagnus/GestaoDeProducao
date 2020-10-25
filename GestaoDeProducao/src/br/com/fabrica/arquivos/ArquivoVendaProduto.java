@@ -28,6 +28,7 @@ public class ArquivoVendaProduto extends BinaryFile {
 	 */
 	@Override
 	public int recordSize() {
+		// TODO Auto-generated method stub
 		return 116;
 	}
 
@@ -48,12 +49,14 @@ public class ArquivoVendaProduto extends BinaryFile {
 		else
 			throw new ClassCastException();
 		
-		randomAccessFile.writeInt(venda.codigo);
+		randomAccessFile.writeInt(venda.getCodigo());
 		for(Produto produto : venda.getProdutos()) {
 			randomAccessFile.writeChars(setStringLength(produto.getNome(), 50));
 			randomAccessFile.writeInt(produto.getQuantidadeProduto());
 			randomAccessFile.writeFloat(produto.getPrecoFabricacao());
 		}
+		
+		
 	}
 
 	// Versão sobrecarregada (overload) de writeObject.
@@ -65,7 +68,7 @@ public class ArquivoVendaProduto extends BinaryFile {
 	@Override
 	public Object readObject() throws IOException {
 		Venda venda = new Venda();
-		venda.setAuxiliarCodigo(randomAccessFile.readInt());
+		venda.setCodigo(randomAccessFile.readInt());
 		
 		List<Produto> produtos = new ArrayList<Produto>();
 		for(Produto produto : produtos) {

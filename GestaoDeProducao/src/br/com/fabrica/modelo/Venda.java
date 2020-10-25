@@ -3,9 +3,8 @@ package br.com.fabrica.modelo;
 import java.util.List;
 
 public class Venda {
-	public final int codigo = ++geraCodigo;
-	private static int geraCodigo;
-	private int auxiliarCodigo;
+	
+	private int codigo;
 	private String data;
 	private String hora;
 	private List<Produto> produtos;
@@ -51,15 +50,15 @@ public class Venda {
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
-
-	public int getAuxiliarCodigo() {
-		return auxiliarCodigo;
-	}
-
-	public void setAuxiliarCodigo(int auxiliarCodigo) {
-		this.auxiliarCodigo = auxiliarCodigo;
-	}
 	
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
 	public float valorTotalVendaPorProduto() {
 		float valor = 0;
 		for(Produto produto : produtos)

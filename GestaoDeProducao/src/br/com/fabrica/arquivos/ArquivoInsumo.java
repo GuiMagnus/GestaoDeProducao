@@ -4,6 +4,7 @@ import static br.com.fabrica.strings.Constantes.ARQ_INSUMO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import br.com.fabrica.modelo.Insumo;
 
@@ -53,7 +54,7 @@ public class ArquivoInsumo extends BinaryFile{
 		else
 			throw new ClassCastException();
 
-		randomAccessFile.writeInt(insumo.codigo);
+		randomAccessFile.writeInt(insumo.getCodigo());
 		randomAccessFile.writeInt(insumo.getCodigoProduto());
 		randomAccessFile.writeChars(setStringLength(insumo.getNome(), 50));
 		randomAccessFile.writeFloat(insumo.getQuantidade());
@@ -78,7 +79,7 @@ public class ArquivoInsumo extends BinaryFile{
 	public Object readObject() throws IOException {
 		Insumo insumo = new Insumo();
 
-		insumo.setAuxiliarCodigo(randomAccessFile.readInt());
+		insumo.setCodigo(randomAccessFile.readInt());
 		insumo.setCodigoProduto(randomAccessFile.readInt());
 		insumo.setNome(readString(50));
 		insumo.setQuantidade(randomAccessFile.readInt());
@@ -92,6 +93,23 @@ public class ArquivoInsumo extends BinaryFile{
 			openFile(ARQ_INSUMO);
 			setFilePointer(recordQuantity());
 			writeObject(insumo);
+			closeFile();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false; 
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean escreveInsumosNoArquivo(List<Insumo> insumos) {
+		try {
+			openFile(ARQ_INSUMO);
+			setFilePointer(recordQuantity());
+			for(Insumo insumo : insumos)
+				writeObject(insumo);
 			closeFile();
 			return true;
 		} catch (FileNotFoundException e) {

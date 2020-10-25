@@ -2,6 +2,8 @@ package br.com.fabrica.arquivos;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.UnidadeMedida;
@@ -49,9 +51,9 @@ public class ArquivoProduto extends BinaryFile{
 		}
 		else
 			throw new ClassCastException();
-		//openFile("..\\GestaoDeProducao\\arquivos\\produto.dat");
-		randomAccessFile.writeChars("");
-		randomAccessFile.writeInt(produto.codigo);
+		randomAccessFile.writeInt(obtemCodigoProduto());
+		randomAccessFile.writeChars(setStringLength(produto.getNome(), 50));
+		
 		randomAccessFile.writeChars(setStringLength(produto.getUnidadeMedida().getUnidade(), 2));
 		randomAccessFile.writeFloat(produto.getMargemLucro());
 		randomAccessFile.writeFloat(produto.getPrecoVenda());
@@ -78,13 +80,14 @@ public class ArquivoProduto extends BinaryFile{
 	public Object readObject() throws IOException {
 		Produto produto = new Produto();
 
+		produto.setCodigo(randomAccessFile.readInt());
 		produto.setNome(readString(50));
-		produto.setAuxiliarCodigo(randomAccessFile.readInt());
 		String tipoProduto = readString(2);		
 		produto.setUnidadeMedida(verificaMedida(tipoProduto));
 		produto.setMargemLucro(randomAccessFile.readFloat());
 		produto.setPrecoVenda(randomAccessFile.readFloat());
 		produto.setQuantidadeProduto(randomAccessFile.readInt());
+		
 		return produto;
 	}
 	/**
@@ -106,7 +109,9 @@ public class ArquivoProduto extends BinaryFile{
 		try {
 			openFile(ARQ_PRODUTO);
 			setFilePointer(recordQuantity());
+			
 			writeObject(produto);
+			
 			closeFile();
 			return true;
 		} catch (FileNotFoundException e) {
@@ -131,6 +136,42 @@ public class ArquivoProduto extends BinaryFile{
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	public List<Produto> leProdutosNoArquivo() {
+		List<Produto> listaProdutos = new ArrayList<>();
+		try {
+			openFile(ARQ_PRODUTO);
+			for(int i = 0; i < recordQuantity(); i++) {
+				setFilePointer(i);
+				Produto produto = (Produto) readObject();
+				listaProdutos.add(produto);
+			}
+			
+			closeFile();
+			return listaProdutos;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public int obtemCodigoProduto() {
+		try {
+			if(recordQuantity() == 0)
+				return 1;
+			else {
+				return (int) (recordQuantity() + 1);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return 0;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return 0;
 		}
 	}
 }

@@ -52,7 +52,7 @@ public class ArquivoProducao extends BinaryFile{
 		else
 			throw new ClassCastException();
 		
-		randomAccessFile.writeInt(producao.codigo);
+		randomAccessFile.writeInt(producao.getCodigo());
 		randomAccessFile.writeChars(setStringLength(producao.getProduto().getNome(),50));
 		randomAccessFile.writeInt(producao.getProduto().getQuantidadeProduto());
 		randomAccessFile.writeChars(setStringLength(producao.getData(), 10));
@@ -86,7 +86,7 @@ public class ArquivoProducao extends BinaryFile{
 	public Object readObject() throws IOException {
 		Producao producao = new Producao();
 		
-		producao.setAuxiliarCodigo(randomAccessFile.readInt());
+		producao.setCodigo(randomAccessFile.readInt());
 		
 		Produto produto = new Produto();
 		produto.setNome(readString(50));

@@ -13,10 +13,8 @@ import java.util.List;
  * -Maquinário, matéria-prima(farinha de trigo, leite, açúcar, ovos, etc).
  */
 public class Insumo {
-	public final int codigo = ++geraCodigo;
-	private static int geraCodigo;
 	private int codigoProduto;
-	private int auxiliarCodigo;
+	private int codigo;
 	private String nome;
 	private float quantidade;
 	private float precoUnitario;
@@ -134,12 +132,12 @@ public class Insumo {
 	 *
 	 * @return
 	 */
-	public int getAuxiliarCodigo() {
-		return auxiliarCodigo;
+	public int getCodigo() {
+		return codigo;
 	}
 
-	public void setAuxiliarCodigo(int auxiliarCodigo) {
-		this.auxiliarCodigo = auxiliarCodigo;
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
 	public float obtemPrecoRecente() {
@@ -151,7 +149,7 @@ public class Insumo {
 	@Override
 	public String toString() {
 		return String.format("Código: %d, nome: %s, quantidade: %.3f, precoUnitario: %.2f,"
-				+ " historico: %s", codigo, nome, quantidade, precoUnitario, historico);
+				+ " historico: %s", getCodigo(), nome, quantidade, precoUnitario, historico);
 	}
 	
 	

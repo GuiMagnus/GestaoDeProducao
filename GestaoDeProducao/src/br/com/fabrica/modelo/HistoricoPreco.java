@@ -5,9 +5,7 @@ package br.com.fabrica.modelo;
  * Classe responsável por armazenar o preço atribuído a determinado item
  */
 public class HistoricoPreco {
-	public final int codigo = ++geraCodigo;
-	private static int geraCodigo;
-	private int auxiliarCodigo;
+	private int codigo;
 	private int codigoReferenciaDeDado;
 	private float preco;
 	private String data;
@@ -77,19 +75,19 @@ public class HistoricoPreco {
 	}
 
 	
-	public int getAuxiliarCodigo() {
-		return auxiliarCodigo;
+	public int getCodigo() {
+		return codigo;
 	}
 
-	public void setAuxiliarCodigo(int auxiliarCodigo) {
-		this.auxiliarCodigo = auxiliarCodigo;
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
 	@Override
 	public String toString() {
 		return String.format(
 				"codigo:%s, codigoReferência:%s, preco:%s, data:%s",
-				getAuxiliarCodigo(), codigoReferenciaDeDado, preco, data);
+				getCodigo(), codigoReferenciaDeDado, preco, data);
 	}
 
 	

@@ -4,10 +4,13 @@ import static br.com.fabrica.gui.EntradaESaida.msgErro;
 import static br.com.fabrica.gui.EntradaESaida.msgInfo;
 import static br.com.fabrica.strings.Constantes.*;
 
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JSpinner;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import br.com.fabrica.arquivos.ArquivoInsumo;
@@ -23,12 +26,57 @@ public class CadastroDeInformacoes {
 	private static ArquivoInsumo arquivoInsumo = new ArquivoInsumo();
 	private static ArquivoProduto arquivoProduto = new ArquivoProduto();
 	private static ArquivoProducao arquivoProducao = new ArquivoProducao();
+	public static ArquivoProduto arqProduto = new ArquivoProduto();
 	
 	public static void cadastraInsumo(JTextField tfNome, JTextField tfTamanhoUnidade, JFrame jf) {
 		Insumo insumo = new Insumo();
 		insumo.setNome(tfNome.getText());
 		insumo.setQuantidade(Validacoes.transformaEmFloat(tfTamanhoUnidade.getText()));
 		boolean cadastrado = arquivoInsumo.escreveInsumoNoArquivo(insumo);
+		
+		
+	public static void cadastraInsumo(JComboBox<String> comboBox, JTextField tfUnidade, JFrame jf, JTable table) {
+		Produto produto = new Produto();
+		produto.setCodigo(Validacoes.obtemCodigo(comboBox.getSelectedItem().toString()));
+		produto.setNome(Validacoes.obtemNome(comboBox.getSelectedItem().toString()));
+		
+		
+		List<Insumo> insumos = new ArrayList<>();
+		for (int i = 0; i < table.getRowCount(); i++) {
+			if(table.getValueAt(i, 0) != null) {
+				Insumo insumo = new Insumo();
+				String validaNome = Validacoes.verificaNome(table.getValueAt(i, 0).toString());
+				if(validaNome == null) {
+					msgErro(jf, ERR_NOME_INSUMO, INSUMO);
+					break;
+				}	
+				else
+					insumo.setNome(validaNome);
+				
+				float validaQuantidade = Validacoes.verificaQuantidade(table.getValueAt(i, 1).toString());
+				if(validaQuantidade == 0) {
+					msgErro(jf, ERR_QTD_INSUMO, INSUMO);
+					break;
+				}	
+				else
+					insumo.setQuantidade(validaQuantidade);
+				
+				
+				float validaPreco = Validacoes.verificaPreco(table.getValueAt(i, 2).toString());
+				if(validaPreco == 0) {
+					msgErro(jf, ERR_QTD_INSUMO, INSUMO);
+					break;
+				}	
+				else
+					insumo.setQuantidade(validaQuantidade);
+				insumo.setCodigoProduto(produto.getCodigo());
+				insumos.add(insumo);
+			}else
+				break;
+			
+		}//for
+		produto.setInsumos(insumos);
+		boolean cadastrado = arquivoInsumo.escreveInsumosNoArquivo(insumos);
 		if(cadastrado)
 			msgInfo(jf, CAD_INSUMO, INSUMO);
 		else
@@ -44,6 +92,7 @@ public class CadastroDeInformacoes {
 		produto.setUnidadeMedida(obtemUnidade(comboBox));
 		produto.setMargemLucro(Float.parseFloat(spinner.getValue().toString()));
 		boolean cadastrado = arquivoProduto.escreveProdutoNoArquivo(produto);
+		
 		if(cadastrado)
 			msgInfo(jf, CAD_PRODUTO, PRODUTO);
 		else
@@ -83,4 +132,5 @@ public class CadastroDeInformacoes {
 		
 		return unidade;
 	}
+
 }

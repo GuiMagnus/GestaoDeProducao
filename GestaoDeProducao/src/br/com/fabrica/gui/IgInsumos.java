@@ -3,7 +3,8 @@ package br.com.fabrica.gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,6 +18,13 @@ import java.awt.Rectangle;
 import java.awt.ComponentOrientation;
 import java.awt.Cursor;
 import javax.swing.table.DefaultTableModel;
+
+import br.com.fabrica.arquivos.ArquivoProduto;
+import br.com.fabrica.gerencia.CadastroDeInformacoes;
+import br.com.fabrica.gerencia.GerenciaInsumo;
+import br.com.fabrica.modelo.Insumo;
+import br.com.fabrica.modelo.Produto;
+
 import javax.swing.JComboBox;
 
 @SuppressWarnings("serial")
@@ -32,7 +40,8 @@ public class IgInsumos extends JFrame {
 	private JScrollPane scrollPane;
 	private JTable table;
 	private JComboBox<String> comboBox;
-
+	private List<Produto> listaProdutos;
+	public static ArquivoProduto arqProduto = new ArquivoProduto();
 	/**
 	 * Create the panel.
 	 */
@@ -41,51 +50,51 @@ public class IgInsumos extends JFrame {
 		jf = new JFrame();
 		jf.setAutoRequestFocus(false);
 		jf.getContentPane().setLayout(null);
-		
+
 		// Define que o programa deve ser finalizado quando o usuário clicar no botão Fechar da janela.
 		jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		// Define a janela como não redimensionável.
 		//jf.setResizable(false);
-		
+
 		jf.setSize(501, 595);
-		
+
 		btnGravar = new JButton("Gravar");
 		jf.getContentPane().add(btnGravar);
 		btnGravar.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnGravar.setBounds(270, 452, 96, 25);
-		
+
 		btnCancelar = new JButton("Cancelar");
 		jf.getContentPane().add(btnCancelar);
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnCancelar.setBounds(379, 452, 83, 25);
-		
+
 		lblNome = new JLabel("Nome do Produto:");
 		jf.getContentPane().add(lblNome);
 		lblNome.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNome.setBounds(38, 67, 122, 16);
-		
+
 		lblNewLabel_1 = new JLabel("Tamanho da unidade:");
 		jf.getContentPane().add(lblNewLabel_1);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_1.setBounds(38, 108, 122, 16);
-		
-		
+
+
 		lblNewLabel = new JLabel("Insumo");
 		jf.getContentPane().add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(202, 11, 83, 19);
-		
+
 		tfTamanho = new JTextField();
 		tfTamanho.setColumns(10);
 		tfTamanho.setBounds(177, 102, 141, 30);
 		jf.getContentPane().add(tfTamanho);
-		
+
 		panel = new JPanel();
 		panel.setBounds(38, 205, 424, 236);
 		jf.getContentPane().add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
-		
+
 		scrollPane = new JScrollPane();
 		scrollPane.setFocusTraversalKeysEnabled(false);
 		scrollPane.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -93,63 +102,80 @@ public class IgInsumos extends JFrame {
 		scrollPane.setAutoscrolls(true);
 		scrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
 		panel.add(scrollPane);
-		
+
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"Nome", "Quantidade", "Pre\u00E7o Unit\u00E1rio"
-			}
-		));
+				new Object[][] {
+					{null, null, null},
+					{null, null, null},
+					{null, null, null},
+					{null, null, null},
+					{null, null, null},
+					{null, null, null},
+					{null, null, null},
+					{null, null, null},
+					{null, null, null},
+					{null, null, null},
+					{null, null, null},
+					{null, null, null},
+					{null, null, null},
+				},
+				new String[] {
+						"Nome", "Quantidade", "Pre\u00E7o Unit\u00E1rio"
+				}
+				));
 		table.setBounds(new Rectangle(22, 0, 300, 300));
 		scrollPane.setViewportView(table);
-		
+		//DefaultTableModel dtm = (DefaultTableModel)table.getModel();
 		comboBox = new JComboBox<String>();
 		comboBox.setBounds(177, 61, 284, 30);
 		jf.getContentPane().add(comboBox);
-		
+
+		listaProdutos = new ArquivoProduto().leProdutosNoArquivo();
+
+		for (Produto prod : listaProdutos)
+			comboBox.addItem(String.format("%d - %s", prod.getCodigo(),prod.getNome()));
+
+
+
 		JLabel lblListaDeInsumos = new JLabel("Lista de Insumos");
 		lblListaDeInsumos.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblListaDeInsumos.setBounds(187, 143, 141, 19);
 		jf.getContentPane().add(lblListaDeInsumos);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("A quantidade de insumo  \u00E9 por tamanho de cada unidade do produto.");
 		lblNewLabel_2.setBounds(48, 181, 414, 14);
 		jf.getContentPane().add(lblNewLabel_2);
-		
+
 		jf.setVisible(true);
-		
+		//table.getValueAt(i, 0).toString().trim().equalsIgnoreCase("")
 		btnGravar.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//tfNome.setText("");
+				CadastroDeInformacoes.cadastraInsumo(comboBox, tfTamanho, jf, table);
+				for (int i = 0; i < table.getColumnCount(); i++) {
+					table.setValueAt("", i, 0);
+				}
+
+				comboBox.setSelectedIndex(0);
 				tfTamanho.setText("");
+<<<<<<< HEAD
+=======
+				tfTamanho.setText("");
+
+>>>>>>> refs/remotes/origin/main
 			}
 		});
-		
+
 		btnCancelar.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		
+
 	}
 
 	public JFrame getJf() {
@@ -159,6 +185,5 @@ public class IgInsumos extends JFrame {
 	public void setJf(JFrame jf) {
 		this.jf = jf;
 	}
-	
-	
+
 }
