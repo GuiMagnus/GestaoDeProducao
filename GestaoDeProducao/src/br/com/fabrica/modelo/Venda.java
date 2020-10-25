@@ -1,9 +1,8 @@
 package br.com.fabrica.modelo;
 
 public class Venda {
-	public final int codigo = ++geraCodigo;
-	private static int geraCodigo;
-	private int auxiliarCodigo;
+	
+	private int codigo;
 	private String data;
 	private String hora;
 	private Produto produto;
@@ -49,15 +48,15 @@ public class Venda {
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
-
-	public int getAuxiliarCodigo() {
-		return auxiliarCodigo;
-	}
-
-	public void setAuxiliarCodigo(int auxiliarCodigo) {
-		this.auxiliarCodigo = auxiliarCodigo;
-	}
 	
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
+	}
+
 	public float valorTotalVendaPorProduto() {
 		
 		return produto.getPrecoFabricacao() * produto.getQuantidadeProduto();
@@ -66,7 +65,7 @@ public class Venda {
 	@Override
 	public String toString() {
 		return String.format("Codigo: %d, data: %s, hora: %s, produto: %s, quantidade: %d",
-				codigo, data, hora, produto, quantidade);
+				getCodigo(), data, hora, produto, quantidade);
 	}
 	
 }

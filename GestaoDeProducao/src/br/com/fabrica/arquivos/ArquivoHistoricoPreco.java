@@ -45,7 +45,7 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 		else
 			throw new ClassCastException();
 		
-		randomAccessFile.writeInt(historicoPreco.codigo);
+		randomAccessFile.writeInt(historicoPreco.getCodigo());
 		randomAccessFile.writeInt(historicoPreco.getCodigoReferenciaDeDado());
 		randomAccessFile.writeFloat(historicoPreco.getPreco());
 		randomAccessFile.writeChars(setStringLength(historicoPreco.getData(), 10));
@@ -62,7 +62,7 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 	public Object readObject() throws IOException {
 		HistoricoPreco historicoPreco = new HistoricoPreco();
 		
-		historicoPreco.setAuxiliarCodigo(randomAccessFile.readInt());
+		historicoPreco.setCodigo(randomAccessFile.readInt());
 		historicoPreco.setCodigoReferenciaDeDado(randomAccessFile.readInt());
 		historicoPreco.setPreco(randomAccessFile.readFloat());
 		historicoPreco.setData(readString(10));

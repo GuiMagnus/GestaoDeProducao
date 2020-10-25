@@ -12,10 +12,10 @@ import br.com.fabrica.modelo.UnidadeMedida;
 
 public class CadastroDeInformacoes {
 	
-	public static void cadastraInsumo(JTextField tfNome, JComboBox<String> comboBox) {
-		Insumo insumo = new Insumo();
+	//public static void cadastraInsumo(JTextField tfNome, JComboBox<String> comboBox) {
+		//Insumo insumo = new Insumo();
 		
-	}
+	//}
 	
 	public static void cadastrarProdutos(JTextField tfNome, JComboBox<String> comboBox, JSpinner spinner) {
 		Produto produto = new Produto();

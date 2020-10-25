@@ -1,8 +1,7 @@
 package br.com.fabrica.modelo;
 
 public class Orcamento {
-	public final int codigo = ++geraCodigo;
-	private static int geraCodigo;
+	private int codigo;
 	private String mes;
 	private float despesaTotal;
 	private int quantidadeVendas;
@@ -51,6 +50,15 @@ public class Orcamento {
 	
 	public float calculaSaldo() {
 		return valorVendas - despesaTotal;
+	}
+
+	
+	public int getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
 	@Override

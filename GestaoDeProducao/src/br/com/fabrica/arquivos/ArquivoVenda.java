@@ -49,7 +49,7 @@ public class ArquivoVenda extends BinaryFile {
 		else
 			throw new ClassCastException();
 		
-		randomAccessFile.writeInt(venda.codigo);
+		randomAccessFile.writeInt(venda.getCodigo());
 		randomAccessFile.writeChars(setStringLength(venda.getData(), 10));
 		randomAccessFile.writeChars(setStringLength(venda.getHora(), 9));
 		randomAccessFile.writeChars(setStringLength(venda.getProduto().getNome(), 50));
@@ -67,7 +67,7 @@ public class ArquivoVenda extends BinaryFile {
 	@Override
 	public Object readObject() throws IOException {
 		Venda venda = new Venda();
-		venda.setAuxiliarCodigo(randomAccessFile.readInt());
+		venda.setCodigo(randomAccessFile.readInt());
 		venda.setData(readString(10));
 		venda.setHora(readString(9));
 		

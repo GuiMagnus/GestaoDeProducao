@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Produto {
-	public final int codigo = ++geraCodigo;
-	private static int geraCodigo;
-	private int auxiliarCodigo;
+	
+	private int codigo;
 	private String nome;
 	private UnidadeMedida unidadeMedida;
 	private float margemLucro;
@@ -93,21 +92,23 @@ public class Produto {
 	}
 
 	
-	public int getAuxiliarCodigo() {
-		return auxiliarCodigo;
+	public int getCodigo() {
+		return codigo;
 	}
 
-	public void setAuxiliarCodigo(int auxiliarCodigo) {
-		this.auxiliarCodigo = auxiliarCodigo;
+	public void setCodigo(int auxiliarCodigo) {
+		this.codigo = auxiliarCodigo;
 	}
 	
 
+	
+	
 	@Override
 	public String toString() {
 		return String.format(
 				"Código: %d, nome: %s, unidadeMedida: %s, margemLucro: %.2f, precoFabricacao: %.2f,"
 				+ " precoVenda: %.2f, quantidadeProduto: %d",
-				getAuxiliarCodigo(), nome, unidadeMedida.getUnidade(), margemLucro, precoFabricacao, precoVenda,
+				getCodigo(), nome, unidadeMedida.getUnidade(), margemLucro, precoFabricacao, precoVenda,
 				quantidadeProduto);//, historicoPrecos, insumos);
 	}
 	
