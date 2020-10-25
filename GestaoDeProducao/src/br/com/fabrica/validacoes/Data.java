@@ -150,9 +150,15 @@ public class Data implements Comparable<Data>{
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 
-		return new Data(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
+		return new Data(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH)
+				+ 1, calendar.get(Calendar.YEAR));
 	}
 	
+	/**
+	 * Obtem a data atual.
+	 * 
+	 * @return - <code>String</code> : data atual
+	 */
 	public static String obtemDataAtual() {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		LocalDate localDate = LocalDate.now();
@@ -164,7 +170,7 @@ public class Data implements Comparable<Data>{
 	 * Converte o objeto {@link Calendar} recebido em uma String.
 	 * 
 	 * @param calendar - {@link Calendar} : data a ser convertida
-	 * @return string resultante da conversão
+	 * @return - <code>String</code>:  string resultante da conversão
 	 */
 	public static String transformaCalendarEmString(Calendar calendar){
 		SimpleDateFormat df = new SimpleDateFormat( "dd/MM/yyyy" );
@@ -178,8 +184,8 @@ public class Data implements Comparable<Data>{
 	 * 
 	 * @param data : objeto a ser comparado com <code>this</code>
 	 * 
-	 * @return <code>int</code> : 1 quando a data armazenada no objeto for maior que a recebida como parâmetro, -1 quando for menor e 0 quando as datas
-	 * forem iguais.
+	 * @return <code>int</code> : 1 quando a data armazenada no objeto for maior que a
+	 *  recebida como parâmetro, -1 quando for menor e 0 quando as datas forem iguais.
 	 * 
 	 */
 	@Override

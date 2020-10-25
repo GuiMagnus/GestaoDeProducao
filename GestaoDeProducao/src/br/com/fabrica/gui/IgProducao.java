@@ -13,6 +13,12 @@ import br.com.fabrica.gerencia.CadastroDeInformacoes;
 
 import javax.swing.JComboBox;
 
+/**
+ * Classe responsavel por criar a tela de cadastro de Produção.
+ * @author Rafaela
+ *
+ */
+
 @SuppressWarnings("serial")
 public class IgProducao extends JFrame {
 	private JLabel lblNewLabel;

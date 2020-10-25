@@ -1,32 +1,34 @@
 package br.com.fabrica.gui;
 
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import java.awt.Component;
 import java.awt.BorderLayout;
-import javax.swing.JTable;
-import java.awt.Rectangle;
+import java.awt.Component;
 import java.awt.ComponentOrientation;
 import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.fabrica.arquivos.ArquivoProduto;
 import br.com.fabrica.gerencia.CadastroDeInformacoes;
-import br.com.fabrica.gerencia.GerenciaInsumo;
-import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.modelo.Produto;
 
-import javax.swing.JComboBox;
-
+/**
+ * Classe responsavel por criar a tela de cadastro de Insumos.
+ * @author Rafaela
+ *
+ */
 @SuppressWarnings("serial")
 public class IgInsumos extends JFrame {
 	private JLabel lblNewLabel;
@@ -148,7 +150,6 @@ public class IgInsumos extends JFrame {
 		jf.getContentPane().add(lblNewLabel_2);
 
 		jf.setVisible(true);
-		//table.getValueAt(i, 0).toString().trim().equalsIgnoreCase("")
 		btnGravar.addActionListener(new ActionListener() {
 
 			@Override
@@ -157,31 +158,36 @@ public class IgInsumos extends JFrame {
 				for (int i = 0; i < table.getColumnCount(); i++) {
 					table.setValueAt("", i, 0);
 				}
-
 				comboBox.setSelectedIndex(0);
 				tfTamanho.setText("");
-<<<<<<< HEAD
-=======
 				tfTamanho.setText("");
 
->>>>>>> refs/remotes/origin/main
 			}
 		});
 
 		btnCancelar.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				jf.setVisible(false);
+				IgProdutos igProdutos = new IgProdutos();
+				igProdutos.getJf().setVisible(true);
 			}
 		});
 
 	}
-
+	
+	/**
+	 * Obtém a janela
+	 * @return janela contendo 
+	 */
 	public JFrame getJf() {
 		return jf;
 	}
 
+	/**
+	 * Fornece a janela
+	 * @param jf Janela
+	 */
 	public void setJf(JFrame jf) {
 		this.jf = jf;
 	}

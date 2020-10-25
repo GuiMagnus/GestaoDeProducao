@@ -1,24 +1,40 @@
 package br.com.fabrica.gerencia;
 
 import br.com.fabrica.modelo.Insumo;
-import br.com.fabrica.modelo.Producao;
 import br.com.fabrica.modelo.Produto;
 
+/**
+ * Classe responsável por gerenciar a produção de produtos
+ * @author Rafaela
+ *
+ */
 public class GerenciaProducao {
 	
-	public float calculaCustoTotalProducao(Produto produto, Producao producao) {
+	/**
+	 * Obtém o custo total da produção de um determinado produto.
+	 * @param Produto - <code>Produto</code> : produto que irá calcular o custo de produção
+	 * @param quantidade - <code>int</code> : Quantidade de prudutos que serão produzidos 
+	 * @return - <code>float</code> : valor total dos custos referentes a produção
+	 */
+	public float calculaCustoTotalProducao(Produto produto, int quantidade) {
 		float custo = 0;
 		for(Insumo insumo : produto.getInsumos())
 			custo += insumo.getPrecoUnitario();
 		
-		custo *= producao.getQuantidade();
+		custo *= quantidade;
 		return custo;
 	}
 	
-	public float calculaPrecoTotalVenda(Produto produto, Producao producao) {
+	/**
+	 * Obtém o valor total de venda que é possível obter com essa produção.
+	 * @param Produto - <code>Produto</code> : produto que irá calcular o custo de produção
+	 * @param quantidade - <code>int</code> : Quantidade de prudutos que serão produzidos 
+	 * @return - <code>float</code> : valor total dos custos referentes a produção
+	 */
+	public float calculaValorTotalVenda(Produto produto, int quantidade) {
 		float custo = 0;
 		GerenciaProduto gp = new GerenciaProduto();
-		custo += gp.calculaPrecoVenda(produto) * producao.getQuantidade();
+		custo += gp.calculaPrecoVenda(produto) * quantidade;
 		
 		return custo;
 	}
