@@ -1,6 +1,6 @@
 package br.com.fabrica.arquivos;
 
-import static br.com.fabrica.strings.Constantes.*;
+import static br.com.fabrica.constantes.Constantes.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

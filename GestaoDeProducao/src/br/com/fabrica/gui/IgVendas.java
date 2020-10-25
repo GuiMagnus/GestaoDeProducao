@@ -20,6 +20,11 @@ import javax.swing.table.DefaultTableModel;
 import br.com.fabrica.validacoes.Data;
 import br.com.fabrica.validacoes.Validacoes;
 
+/**
+ * Classe responsavel por criar a tela de cadastro de Venda.
+ * @author Rafaela
+ *
+ */
 @SuppressWarnings("serial")
 public class IgVendas extends JFrame {
 	private JLabel lblNewLabel;
@@ -110,7 +115,10 @@ public class IgVendas extends JFrame {
 		tfData.setEditable(false);
 		tfData.setColumns(10);
 		tfData.setBounds(248, 59, 75, 20);
+		tfData.setText(Data.obtemDataAtual());
 		jf.getContentPane().add(tfData);
+		
+		
 		
 		JLabel lblHora = new JLabel("Hora:");
 		lblHora.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -121,6 +129,7 @@ public class IgVendas extends JFrame {
 		tfHora.setEditable(false);
 		tfHora.setColumns(10);
 		tfHora.setBounds(388, 59, 75, 20);
+		tfHora.setText(Validacoes.obtemHoraAtual());
 		jf.getContentPane().add(tfHora);
 		
 		lblNewLabel_1_2 = new JLabel("Produto");
@@ -150,9 +159,6 @@ public class IgVendas extends JFrame {
 		comboProduto = new JComboBox<String>();
 		comboProduto.setBounds(106, 149, 356, 22);
 		jf.getContentPane().add(comboProduto);
-		
-		tfData.setText(Data.obtemDataAtual());
-		tfHora.setText(Validacoes.obtemHoraAtual());
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(39, 279, 432, 201);

@@ -14,6 +14,11 @@ import javax.swing.JTextField;
 import br.com.fabrica.gerencia.CadastroDeInformacoes;
 import br.com.fabrica.modelo.UnidadeMedida;
 
+/**
+ * Classe responsavel por criar a tela de cadastro de Produtos.
+ * @author Rafaela
+ *
+ */
 @SuppressWarnings("serial")
 public class IgProdutos extends JFrame {
 	private JLabel lblNewLabel;

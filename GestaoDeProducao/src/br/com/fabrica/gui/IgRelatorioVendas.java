@@ -11,6 +11,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+/**
+ * Classe responsavel por criar a tela de relatório de Vendas.
+ * @author Rafaela
+ *
+ */
 @SuppressWarnings("serial")
 public class IgRelatorioVendas extends JFrame {
 	private JLabel lblNewLabel;

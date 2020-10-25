@@ -1,5 +1,7 @@
 package br.com.fabrica.arquivos;
 
+import static br.com.fabrica.constantes.Constantes.*;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,8 +9,6 @@ import java.util.List;
 
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.UnidadeMedida;
-
-import static br.com.fabrica.strings.Constantes.*;
 
 /**
  *  Esta classe fornece uma implementação para as operações que permitem manipular um arquivo de acesso 

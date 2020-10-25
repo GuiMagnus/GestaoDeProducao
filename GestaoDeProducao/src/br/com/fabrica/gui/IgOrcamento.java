@@ -10,6 +10,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+/**
+ * Classe responsavel por criar a tela de Orçamento.
+ * @author Rafaela
+ *
+ */
 @SuppressWarnings("serial")
 public class IgOrcamento extends JFrame {
 	private JLabel lblNewLabel;
