@@ -104,7 +104,12 @@ public class ArquivoProduto extends BinaryFile{
 		}
 		return null;
 	}
-	
+	/**
+	 * Grava as informações dos produtos referente a classe {@link Produto}
+	 * no arquivo de acesso aleatório dos produtos.
+	 * @param produto Contém as informações de determinado produto que serão gravadas no arquivo.
+	 * @return Retorna true ou false indicando se foi possível escrever no arquivo.
+	 */
 	public boolean escreveProdutoNoArquivo(Produto produto) {
 		try {
 			openFile(ARQ_PRODUTO);
@@ -123,6 +128,13 @@ public class ArquivoProduto extends BinaryFile{
 		}
 	}
 	
+	/**
+	 * Percorre o arquivo de produtos e lê um dado gravado no arquivo 
+	 * indicado pela variável indice. Caso encontre retorna um objeto da classe {@link Produto}
+	 * com os dados obtidos ou em falha retorna null.
+	 * @param indice Variável que indica o registro a ser obtido do arquivo.
+	 * @return Retorna um objeto contendo os dados obtidos ou null caso o registro seja inválido
+	 */
 	public Produto leProdutoNoArquivo(int indice) {
 		try {
 			openFile(ARQ_PRODUTO);
@@ -138,7 +150,13 @@ public class ArquivoProduto extends BinaryFile{
 			return null;
 		}
 	}
-	
+	/**
+	 * Percorre todo o arquivo de produtos adicionando cada registro a uma lista do tipo 
+	 * da classe {@link Produto} e a retorna.
+	 * 
+	 * @return Retorna uma lista com todos os registros do arquivo de Produtos ou null caso
+	 * o arquivo esteja vazio.
+	 */
 	public List<Produto> leProdutosNoArquivo() {
 		List<Produto> listaProdutos = new ArrayList<>();
 		try {
@@ -159,6 +177,12 @@ public class ArquivoProduto extends BinaryFile{
 			return null;
 		}
 	}
+	
+	/***
+	 * Obtém o código sequencial dos produtos a partir do número de registro no arquivo de produtos
+	 * caso esteja vazio este será o primeiro produto a ser gravado no arquivo.
+	 * @return retorna o código sequencial para o próximo dado do registro de produtos.
+	 */
 	public int obtemCodigoProduto() {
 		try {
 			if(recordQuantity() == 0)

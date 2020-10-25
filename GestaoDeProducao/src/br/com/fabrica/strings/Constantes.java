@@ -11,14 +11,14 @@ public class Constantes {
 	public static String CAD_INSUMO = "Insumo cadastrado com sucesso";
 	public static String INSUMO = "Cadastro de Insumos";
 	public static String ERR_CAD_INSUMO = "Falha ao cadastrar insumo";
-<<<<<<< HEAD
+
 	public static String CAD_PRODUCAO = "Produção cadastrada com sucesso";
 	public static String PRODUCAO = "Cadastro de Produção";
 	public static String ERR_CAD_PRODUCAO = "Falha ao cadastrar produção";
-=======
+
 	public static String ERR_NOME_INSUMO = "O nome do insumo precisa ser informado";
 	public static String ERR_QTD_INSUMO = "A quantidade do insumo precisa ser informado";
->>>>>>> refs/remotes/origin/main
+
 	
 	
 

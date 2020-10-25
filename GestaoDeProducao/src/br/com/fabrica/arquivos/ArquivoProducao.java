@@ -5,6 +5,7 @@ import static br.com.fabrica.strings.Constantes.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.modelo.Producao;
 import br.com.fabrica.modelo.Produto;
 
@@ -52,7 +53,7 @@ public class ArquivoProducao extends BinaryFile{
 		else
 			throw new ClassCastException();
 		
-		randomAccessFile.writeInt(producao.getCodigo());
+		randomAccessFile.writeInt(obtemCodigoProducao());
 		randomAccessFile.writeChars(setStringLength(producao.getProduto().getNome(),50));
 		randomAccessFile.writeInt(producao.getProduto().getQuantidadeProduto());
 		randomAccessFile.writeChars(setStringLength(producao.getData(), 10));
@@ -98,6 +99,12 @@ public class ArquivoProducao extends BinaryFile{
 		return producao;
 	}
 	
+	/**
+	 * Recebe um Objeto com dados de uma produção referente a classe {@link Producao} a serem gravados
+	 * no arquivo de producao.
+	 * @param producao Um objeto producao a ser gravado no arquivo.
+	 * @return Retorna True ou False indicando se a gravação obteve sucesso ou falha.
+	 */
 	public boolean escreveProducaoNoArquivo(Producao producao) {
 		try {
 			openFile(ARQ_PRODUCAO);
@@ -127,6 +134,22 @@ public class ArquivoProducao extends BinaryFile{
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	public int obtemCodigoProducao() {
+		try {
+			if(recordQuantity() == 0)
+				return 1;
+			else {
+				return (int) (recordQuantity() + 1);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return 0;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return 0;
 		}
 	}
 	

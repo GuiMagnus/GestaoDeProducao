@@ -31,10 +31,10 @@ public class Insumo {
 	/***
 	 * Construtor sobrecarregado da classe insumo onde não são atribuídos valores default mas
 	 * sim valores passados como parâmetro.
-	 * @param nome nomeação dada a um insumo
-	 * @param quantidade valor inicial do insumo
-	 * @param precoUnitario preço inicial do insumo
-	 * @param historico atualização de preços do insumo
+	 * @param nome - <code>String</code>: nomeação dada a um insumo
+	 * @param quantidade - <code>int</code>: valor inicial do insumo
+	 * @param precoUnitario - <code>float</code>: preço inicial do insumo
+	 * @param historico - <code>List</code>: atualização de preços do insumo
 	 */
 	public Insumo(int codigoProduto, String nome, float quantidade, float precoUnitario, 
 			List<HistoricoPreco> historico) {
@@ -47,7 +47,7 @@ public class Insumo {
 
 	/***
 	 * Obtém o nome de um insumo
-	 * @return o nome do insumo definido através de nome.
+	 * @return <code>String</code>: o nome do insumo definido através de nome.
 	 */
 	public String getNome() {
 		return nome;
@@ -56,7 +56,7 @@ public class Insumo {
 	
 	/***
 	 * Atribui um nome ao objeto da classe Insumo.
-	 * @param nome nomeação do insumo a ser atribuída na classe.
+	 * @param nome - <code>String</code>: nomeação do insumo a ser atribuída na classe.
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -64,7 +64,7 @@ public class Insumo {
 
 	/***
 	 * Obtém a quantidade de um insumo
-	 * @return retorna a quantidade disponível do objeto insumo.
+	 * @return <code>float</code> : retorna a quantidade disponível do objeto insumo.
 	 */
 	public float getQuantidade() {
 		return quantidade;
@@ -72,7 +72,7 @@ public class Insumo {
 
 	/***
 	 * Atribui um valor ao atributo quantidade da classe Insumo.
-	 * @param quantidade variável com o valor a ser atribuído ao objeto quantidade da classe insumo.
+	 * @param quantidade - <code>float</code>: variável com o valor a ser atribuído ao objeto quantidade da classe insumo.
 	 */
 	public void setQuantidade(float quantidade) {
 		this.quantidade = quantidade;
@@ -80,7 +80,7 @@ public class Insumo {
 
 	/***
 	 * Obtém o preço unitário do insumo.
-	 * @return o valor da unitário do objeto insumo
+	 * @return <code>float</code>: o valor da unitário do objeto insumo
 	 */
 	public float getPrecoUnitario() {
 		return precoUnitario;
@@ -88,7 +88,7 @@ public class Insumo {
 
 	/***
 	 * Atribui um preço ao atributo precoUnitario da classe Insumo.
-	 * @param precoUnitario Valor a ser atribuído ao precoUnitario da classe Insumo
+	 * @param precoUnitario - <code>float</code> : Valor a ser atribuído ao precoUnitario da classe Insumo
 	 */
 	public void setPrecoUnitario(float precoUnitario) {
 		this.precoUnitario = precoUnitario;
@@ -96,7 +96,7 @@ public class Insumo {
 
 	/***
 	 * Obtém o histórico de preços do objeto insumo
-	 * @return Retorna uma lista com todos preços já cadastrados para aquele objeto da classe Insumo
+	 * @return <code>List</code>: Retorna uma lista com todos preços já cadastrados para aquele objeto da classe Insumo
 	 */
 	public List<HistoricoPreco> getHistorico() {
 		return historico;
@@ -104,7 +104,7 @@ public class Insumo {
 
 	/***
 	 * Atribui uma lista com todos os preços já cadastrados para aquele objeto da classe Insumo
-	 * @param historico Lista contendo o histórico de preços a ser atribuída ao objeto da classe Insumo
+	 * @param historico <code>List</code>: Lista contendo o histórico de preços a ser atribuída ao objeto da classe Insumo
 	 */
 	public void setHistorico(List<HistoricoPreco> historico) {
 		this.historico = historico;
@@ -113,7 +113,7 @@ public class Insumo {
 	
 	/**
 	 * Retorna o código na qual aquele insumo pertence.
-	 * @return  valor que referencia a que produto este insumo pertence.
+	 * @return <code>int</code>: valor que referencia a que produto este insumo pertence.
 	 */
 	public int getCodigoProduto() {
 		return codigoProduto;
@@ -121,7 +121,7 @@ public class Insumo {
 
 	/**
 	 * Atribui ao insumo o código na qual aquele produto ele pertence.
-	 * @param codigoProduto contém a referência indicativa de um produto.
+	 * @param codigoProduto <code>int</code>: contém a referência indicativa de um produto.
 	 */
 	public void setCodigoProduto(int codigoProduto) {
 		this.codigoProduto = codigoProduto;
@@ -129,20 +129,21 @@ public class Insumo {
 	
 	
 	/**
-	 *
-	 * @return
+	 *Obtém o código de um insumo.
+	 * @return <code>int</code>: o valor de um código do insumo.
 	 */
 	public int getCodigo() {
 		return codigo;
 	}
 
+	/**
+	 * Atribui um código de identificação para determinado insumo.
+	 * @param codigo - <code>int</code>: valor a ser atribuído para identificação de um insumo. 
+	 */
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
 
-	public float obtemPrecoRecente() {
-		return historico.get(historico.size()).getPreco();
-	}
 	/**
 	 * Representação dos dados do objeto da classe Insumo em forma de Texto.
 	 */

@@ -129,19 +129,19 @@ public class IgProdutos extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				jf.setVisible(false);
-				IgInsumos igInsumos = new IgInsumos();
-				igInsumos.getJf().setVisible(true);
-			}
+				System.exit(0);			}
 		});
 		
 		btnInsumo.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				jf.setVisible(false);
+				IgInsumos igInsumos = new IgInsumos();
+				igInsumos.getJf().setVisible(true);
 			}
 		});
+
 	}
 
 	public JFrame getJf() {

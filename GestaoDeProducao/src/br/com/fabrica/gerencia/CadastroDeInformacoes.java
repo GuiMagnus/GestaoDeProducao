@@ -28,13 +28,7 @@ public class CadastroDeInformacoes {
 	private static ArquivoProducao arquivoProducao = new ArquivoProducao();
 	public static ArquivoProduto arqProduto = new ArquivoProduto();
 	
-	public static void cadastraInsumo(JTextField tfNome, JTextField tfTamanhoUnidade, JFrame jf) {
-		Insumo insumo = new Insumo();
-		insumo.setNome(tfNome.getText());
-		insumo.setQuantidade(Validacoes.transformaEmFloat(tfTamanhoUnidade.getText()));
-		boolean cadastrado = arquivoInsumo.escreveInsumoNoArquivo(insumo);
-		
-		
+	
 	public static void cadastraInsumo(JComboBox<String> comboBox, JTextField tfUnidade, JFrame jf, JTable table) {
 		Produto produto = new Produto();
 		produto.setCodigo(Validacoes.obtemCodigo(comboBox.getSelectedItem().toString()));
@@ -100,11 +94,6 @@ public class CadastroDeInformacoes {
 		
 	}
 	
-	public static void cadastraProducao(JTextField tfNome, JTextField tfData, 
-			JTextField tfQtdProduzida) {
-		
-		
-	}
 	
 	public static void cadastrarProducao(JComboBox<String> comboBox, JTextField tfData,
 			JTextField tfQtdProduziada, JFrame jf) {

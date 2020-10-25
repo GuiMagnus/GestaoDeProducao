@@ -160,11 +160,8 @@ public class IgInsumos extends JFrame {
 
 				comboBox.setSelectedIndex(0);
 				tfTamanho.setText("");
-<<<<<<< HEAD
-=======
 				tfTamanho.setText("");
 
->>>>>>> refs/remotes/origin/main
 			}
 		});
 
@@ -172,7 +169,9 @@ public class IgInsumos extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				jf.setVisible(false);
+				IgProdutos igProdutos = new IgProdutos();
+				igProdutos.getJf().setVisible(true);
 			}
 		});
 

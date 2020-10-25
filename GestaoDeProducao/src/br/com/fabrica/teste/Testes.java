@@ -6,12 +6,12 @@ import br.com.fabrica.gui.IgVendas;
 public class Testes {
 	public static void main(String[] args) {
 		//new IgInsumos();
-		//new IgProdutos();
+		new IgProdutos();
 		//new IgOrcamento(); 
 		//new IgRelatorioProducao();
 		//new IgRelatorioVendas();
 		//new IgInformacoes();
-		new IgVendas();
+		//new IgVendas();
 		
 	}
 }

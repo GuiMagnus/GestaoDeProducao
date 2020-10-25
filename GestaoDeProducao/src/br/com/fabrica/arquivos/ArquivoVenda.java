@@ -1,5 +1,6 @@
 package br.com.fabrica.arquivos;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import br.com.fabrica.modelo.Produto;
@@ -49,7 +50,7 @@ public class ArquivoVenda extends BinaryFile {
 		else
 			throw new ClassCastException();
 		
-		randomAccessFile.writeInt(venda.getCodigo());
+		randomAccessFile.writeInt(obtemCodigoVenda());
 		randomAccessFile.writeChars(setStringLength(venda.getData(), 10));
 		randomAccessFile.writeChars(setStringLength(venda.getHora(), 9));
 		randomAccessFile.writeFloat(venda.valorTotalVendaPorProduto());
@@ -57,12 +58,21 @@ public class ArquivoVenda extends BinaryFile {
 		
 	}
 
-	// Versão sobrecarregada (overload) de writeObject.
+		/**
+		 * Versão sobrecarregada (overload) de writeObject.
+		 * @param venda
+		 * @throws IOException
+		 */
 		public void writeObject(Venda venda) throws IOException {
 			Object object = venda;
 			writeObject(object);
 		}
 	
+	/**
+	 * Lê um registro do arquivo de Vendas realizadas referente a classe {@link Venda}
+	 * e o retorna 
+	 *@return Object Um objeto com os dados referente a uma venda de um produto.
+	 */
 	@Override
 	public Object readObject() throws IOException {
 		Venda venda = new Venda();
@@ -75,6 +85,26 @@ public class ArquivoVenda extends BinaryFile {
 		produto.setQuantidadeProduto(randomAccessFile.readInt());
 
 		return venda;
+	}
+	
+	/***
+	 * Obtém o código sequencial das vendas gravado no arquivo de vendas
+	 * @return retorna o código sequencial para o próximo dado de registros das vendas.
+	 */
+	public int obtemCodigoVenda() {
+		try {
+			if(recordQuantity() == 0)
+				return 1;
+			else {
+				return (int) (recordQuantity() + 1);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return 0;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 }

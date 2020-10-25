@@ -54,7 +54,7 @@ public class ArquivoInsumo extends BinaryFile{
 		else
 			throw new ClassCastException();
 
-		randomAccessFile.writeInt(insumo.getCodigo());
+		randomAccessFile.writeInt(obtemCodigoInsumo());
 		randomAccessFile.writeInt(insumo.getCodigoProduto());
 		randomAccessFile.writeChars(setStringLength(insumo.getNome(), 50));
 		randomAccessFile.writeFloat(insumo.getQuantidade());
@@ -88,6 +88,12 @@ public class ArquivoInsumo extends BinaryFile{
 		return insumo;
 	}
 	
+	/**
+	 * Recebe um Objeto com dados de um insumo referente a classe {@link Insumo} a serem gravados
+	 * no arquivo de Insumos.
+	 * @param insumo Um objeto insumo a ser gravado no arquivo.
+	 * @return Retorna True ou False indicando se a gravação obteve sucesso ou falha.
+	 */
 	public boolean escreveInsumoNoArquivo(Insumo insumo) {
 		try {
 			openFile(ARQ_INSUMO);
@@ -104,6 +110,13 @@ public class ArquivoInsumo extends BinaryFile{
 		}
 	}
 	
+	/**
+	 * Recebe uma lista de insumos de determinado produto e escreve os registros
+	 * no arquivo de insumos. 
+	 * @param insumos Uma lista com dados referente a classe {@link Insumo} para serem gravados 
+	 * no arquivo de insumos.
+	 * @return Retorna True ou False indicando se a gravação teve sucesso ou falha.
+	 */
 	public boolean escreveInsumosNoArquivo(List<Insumo> insumos) {
 		try {
 			openFile(ARQ_INSUMO);
@@ -121,19 +134,26 @@ public class ArquivoInsumo extends BinaryFile{
 		}
 	}
 	
-	public Insumo leInsumoNoArquivo() {
+	
+	
+	/***
+	 * Obtém o código sequencial dos insumos a partir do número de registro no arquivo de insumos
+	 * caso esteja vazio este será o primeiro produto a ser gravado no arquivo.
+	 * @return retorna o código sequencial para o próximo dado do registro de produtos.
+	 */
+	public int obtemCodigoInsumo() {
 		try {
-			openFile(ARQ_INSUMO);
-			setFilePointer(0);
-			Insumo insummo = (Insumo) readObject();
-			closeFile();
-			return insummo;
+			if(recordQuantity() == 0)
+				return 1;
+			else {
+				return (int) (recordQuantity() + 1);
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			return null;
+			return 0;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return null;
+			return 0;
 		}
 	}
 
