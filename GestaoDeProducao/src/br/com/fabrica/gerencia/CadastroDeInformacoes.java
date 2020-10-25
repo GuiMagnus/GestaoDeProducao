@@ -4,27 +4,30 @@ import static br.com.fabrica.gui.EntradaESaida.msgErro;
 import static br.com.fabrica.gui.EntradaESaida.msgInfo;
 import static br.com.fabrica.strings.Constantes.*;
 
+
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import br.com.fabrica.arquivos.ArquivoInsumo;
+import br.com.fabrica.arquivos.ArquivoProducao;
 import br.com.fabrica.arquivos.ArquivoProduto;
 import br.com.fabrica.modelo.Insumo;
+import br.com.fabrica.modelo.Producao;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.UnidadeMedida;
 import br.com.fabrica.validacoes.Validacoes;
 
 public class CadastroDeInformacoes {
+	private static ArquivoInsumo arquivoInsumo = new ArquivoInsumo();
+	private static ArquivoProduto arquivoProduto = new ArquivoProduto();
+	private static ArquivoProducao arquivoProducao = new ArquivoProducao();
 	
 	public static void cadastraInsumo(JTextField tfNome, JTextField tfTamanhoUnidade, JFrame jf) {
 		Insumo insumo = new Insumo();
 		insumo.setNome(tfNome.getText());
-		ArquivoInsumo arquivoInsumo = new ArquivoInsumo();
-		insumo.setQuantidade(Validacoes.validaFloat(tfTamanhoUnidade.getText()));
+		insumo.setQuantidade(Validacoes.transformaEmFloat(tfTamanhoUnidade.getText()));
 		boolean cadastrado = arquivoInsumo.escreveInsumoNoArquivo(insumo);
 		if(cadastrado)
 			msgInfo(jf, CAD_INSUMO, INSUMO);
@@ -40,7 +43,6 @@ public class CadastroDeInformacoes {
 		produto.setNome(tfNome.getText());
 		produto.setUnidadeMedida(obtemUnidade(comboBox));
 		produto.setMargemLucro(Float.parseFloat(spinner.getValue().toString()));
-		ArquivoProduto arquivoProduto = new ArquivoProduto();
 		boolean cadastrado = arquivoProduto.escreveProdutoNoArquivo(produto);
 		if(cadastrado)
 			msgInfo(jf, CAD_PRODUTO, PRODUTO);
@@ -55,13 +57,21 @@ public class CadastroDeInformacoes {
 		
 	}
 	
-	public static void povoaTabela(JTable table, JScrollPane js) {
-		String colunas[] = {"Nome", "Quantidade", "Porcentagem"};
-		Object linhas[][] = new Object[10][colunas.length];
-		linhas[0][0] = "asdasdas";
+	public static void cadastrarProducao(JComboBox<String> comboBox, JTextField tfData,
+			JTextField tfQtdProduziada, JFrame jf) {
+		Producao producao = new Producao();
+		Produto produto = new Produto();
+		produto.setNome(comboBox.getSelectedItem().toString());
+		producao.setData(tfData.getText());
+		producao.setQuantidade(Integer.parseInt(tfQtdProduziada.getText()));
 		
-		table = new JTable(linhas, colunas);
-		js.add(table);
+		
+		boolean cadastrado = arquivoProducao.escreveProducaoNoArquivo(producao);
+		if(cadastrado)
+			msgInfo(jf, CAD_PRODUCAO, PRODUCAO);
+		else
+			msgErro(jf, ERR_CAD_PRODUCAO, PRODUCAO);
+		
 	}
 	
 	public static UnidadeMedida obtemUnidade(JComboBox<String> comboBox) {

@@ -1,20 +1,22 @@
 package br.com.fabrica.modelo;
 
+import java.util.List;
+
 public class Venda {
 	public final int codigo = ++geraCodigo;
 	private static int geraCodigo;
 	private int auxiliarCodigo;
 	private String data;
 	private String hora;
-	private Produto produto;
+	private List<Produto> produtos;
 	private int quantidade;// verificar pois o objeto produto já possui o atributo quantidade
 	
 	public Venda() {	}
 
-	public Venda(String data, String hora, Produto produto, int quantidade) {
+	public Venda(String data, String hora, List<Produto> produtos, int quantidade) {
 		this.data = data;
 		this.hora = hora;
-		this.produto = produto;
+		this.produtos = produtos;
 		this.quantidade = quantidade;
 	}
 
@@ -34,12 +36,12 @@ public class Venda {
 		this.hora = hora;
 	}
 
-	public Produto getProduto() {
-		return produto;
+	public List<Produto> getProdutos() {
+		return produtos;
 	}
 
-	public void setProduto(Produto produto) {
-		this.produto = produto;
+	public void setProdutos(List<Produto> produtos) {
+		this.produtos = produtos;
 	}
 
 	public int getQuantidade() {
@@ -59,14 +61,16 @@ public class Venda {
 	}
 	
 	public float valorTotalVendaPorProduto() {
-		
-		return produto.getPrecoFabricacao() * produto.getQuantidadeProduto();
+		float valor = 0;
+		for(Produto produto : produtos)
+			valor += produto.getPrecoFabricacao() * produto.getQuantidadeProduto();
+		return valor;
 	}
 	
 	@Override
 	public String toString() {
 		return String.format("Codigo: %d, data: %s, hora: %s, produto: %s, quantidade: %d",
-				codigo, data, hora, produto, quantidade);
+				codigo, data, hora, produtos, quantidade);
 	}
 	
 }

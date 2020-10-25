@@ -139,7 +139,6 @@ public class IgInsumos extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//tfNome.setText("");
 				tfTamanho.setText("");
-				//tfQtdProduzida.setText("");
 			}
 		});
 		

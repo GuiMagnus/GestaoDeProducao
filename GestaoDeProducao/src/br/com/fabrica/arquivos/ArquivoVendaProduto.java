@@ -1,6 +1,8 @@
 package br.com.fabrica.arquivos;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.Venda;
@@ -12,14 +14,12 @@ import br.com.fabrica.modelo.Venda;
  * @author Guilherme Magnus
  *
  */
-public class ArquivoVenda extends BinaryFile {
+public class ArquivoVendaProduto extends BinaryFile {
 	
 	
 	/**
 	 * Obtém o tamanho do registro que é de bytes, pois são:
 	 * 4 bytes do código da venda.
-	 *20 bytes da data da venda do produto Produto com 10 caracteres (2 bytes de cada carácter UNICODE).
-	 *18 bytes da hora da venda do produto Produto com 9 caracteres (2 bytes de cada carácter UNICODE).
 	 *100 bytes para o nome do produto vendido.
 	 *4 bytes para a quantidade desse produto vendido.
 	 *4 bytes para o preço unitário do produto.
@@ -28,8 +28,7 @@ public class ArquivoVenda extends BinaryFile {
 	 */
 	@Override
 	public int recordSize() {
-		// TODO Auto-generated method stub
-		return 154;
+		return 116;
 	}
 
 	/**
@@ -50,11 +49,11 @@ public class ArquivoVenda extends BinaryFile {
 			throw new ClassCastException();
 		
 		randomAccessFile.writeInt(venda.codigo);
-		randomAccessFile.writeChars(setStringLength(venda.getData(), 10));
-		randomAccessFile.writeChars(setStringLength(venda.getHora(), 9));
-		randomAccessFile.writeFloat(venda.valorTotalVendaPorProduto());
-		
-		
+		for(Produto produto : venda.getProdutos()) {
+			randomAccessFile.writeChars(setStringLength(produto.getNome(), 50));
+			randomAccessFile.writeInt(produto.getQuantidadeProduto());
+			randomAccessFile.writeFloat(produto.getPrecoFabricacao());
+		}
 	}
 
 	// Versão sobrecarregada (overload) de writeObject.
@@ -67,12 +66,17 @@ public class ArquivoVenda extends BinaryFile {
 	public Object readObject() throws IOException {
 		Venda venda = new Venda();
 		venda.setAuxiliarCodigo(randomAccessFile.readInt());
-		venda.setData(readString(10));
-		venda.setHora(readString(9));
 		
-		Produto produto = new Produto();
-		produto.setNome(readString(50));
-		produto.setQuantidadeProduto(randomAccessFile.readInt());
+		List<Produto> produtos = new ArrayList<Produto>();
+		for(Produto produto : produtos) {
+			produto.setNome(readString(50));
+			produto.setQuantidadeProduto(randomAccessFile.readInt());
+			produto.setPrecoVenda(randomAccessFile.readFloat());
+			
+			produtos.add(produto);
+		}
+		
+		venda.setProdutos(produtos);
 
 		return venda;
 	}

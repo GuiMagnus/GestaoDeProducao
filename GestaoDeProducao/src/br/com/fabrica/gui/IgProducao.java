@@ -9,12 +9,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import br.com.fabrica.gerencia.CadastroDeInformacoes;
+
+import javax.swing.JComboBox;
+
 @SuppressWarnings("serial")
 public class IgProducao extends JFrame {
 	private JLabel lblNewLabel;
-	private JTextField tfNome;
 	private JLabel lblMargemDeLucro;
-	private JLabel lblPreoUnitrio;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNome;
 	private JButton btnGravar;
@@ -22,8 +24,7 @@ public class IgProducao extends JFrame {
 	private JFrame jf;
 	private JTextField tfData;
 	private JTextField tfQtdProduzida;
-	private JTextField tfCusto;
-	private JTextField tfValorVenda;
+	private JComboBox<String> comboBox;
 
 	/**
 	 * Create the panel.
@@ -40,17 +41,17 @@ public class IgProducao extends JFrame {
 		// Define a janela como não redimensionável.
 		//jf.setResizable(false);
 		
-		jf.setSize(501, 377);
+		jf.setSize(468, 309);
 		
 		btnGravar = new JButton("Gravar");
 		jf.getContentPane().add(btnGravar);
 		btnGravar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnGravar.setBounds(270, 288, 96, 25);
+		btnGravar.setBounds(221, 209, 96, 25);
 		
 		btnCancelar = new JButton("Cancelar");
 		jf.getContentPane().add(btnCancelar);
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnCancelar.setBounds(379, 288, 83, 25);
+		btnCancelar.setBounds(327, 209, 90, 25);
 		
 		lblNome = new JLabel("Nome do Produto:");
 		jf.getContentPane().add(lblNome);
@@ -62,27 +63,16 @@ public class IgProducao extends JFrame {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_1.setBounds(38, 108, 122, 16);
 		
-		tfNome = new JTextField();
-		jf.getContentPane().add(tfNome);
-		tfNome.setBounds(177, 61, 285, 30);
-		tfNome.setColumns(10);
-		
 		
 		lblNewLabel = new JLabel("Produ\u00E7\u00E3o");
 		jf.getContentPane().add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel.setBounds(234, 25, 83, 19);
+		lblNewLabel.setBounds(184, 22, 83, 19);
 		
 		lblMargemDeLucro = new JLabel("Quantidade produzida:");
 		jf.getContentPane().add(lblMargemDeLucro);
 		lblMargemDeLucro.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblMargemDeLucro.setBounds(13, 149, 147, 16);
-		
-		
-		lblPreoUnitrio = new JLabel("Custo da Produ\u00E7\u00E3o:");
-		jf.getContentPane().add(lblPreoUnitrio);
-		lblPreoUnitrio.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblPreoUnitrio.setBounds(26, 190, 134, 16);
 		
 		tfData = new JTextField();
 		tfData.setColumns(10);
@@ -94,22 +84,9 @@ public class IgProducao extends JFrame {
 		tfQtdProduzida.setBounds(177, 143, 140, 30);
 		jf.getContentPane().add(tfQtdProduzida);
 		
-		tfCusto = new JTextField();
-		tfCusto.setEditable(false);
-		tfCusto.setColumns(10);
-		tfCusto.setBounds(177, 184, 140, 30);
-		jf.getContentPane().add(tfCusto);
-		
-		tfValorVenda = new JTextField();
-		tfValorVenda.setEditable(false);
-		tfValorVenda.setColumns(10);
-		tfValorVenda.setBounds(177, 225, 140, 30);
-		jf.getContentPane().add(tfValorVenda);
-		
-		JLabel lblValorTotalDa = new JLabel("Valor total da venda:");
-		lblValorTotalDa.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblValorTotalDa.setBounds(26, 232, 141, 16);
-		jf.getContentPane().add(lblValorTotalDa);
+		comboBox = new JComboBox<String>();
+		comboBox.setBounds(177, 65, 240, 30);
+		jf.getContentPane().add(comboBox);
 		
 		jf.setVisible(true);
 		
@@ -117,7 +94,8 @@ public class IgProducao extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				tfNome.setText("");
+				CadastroDeInformacoes.cadastrarProducao(comboBox, tfData, tfQtdProduzida, jf);
+				comboBox.setSelectedIndex(0);
 				tfData.setText("");
 				tfQtdProduzida.setText("");
 			}

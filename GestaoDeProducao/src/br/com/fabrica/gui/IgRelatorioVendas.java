@@ -35,6 +35,7 @@ public class IgRelatorioVendas extends JFrame {
 	 * Create the panel.
 	 */
 	public IgRelatorioVendas() {
+		getContentPane().setLayout(null);
 		jf = new JFrame();
 		jf.setAutoRequestFocus(false);
 		jf.getContentPane().setLayout(null);
@@ -136,6 +137,7 @@ public class IgRelatorioVendas extends JFrame {
 		jf.getContentPane().add(btnNewButton_4);
 		
 		jf.setVisible(true);
+
 		
 		btnCancelar.addActionListener(new ActionListener() {
 			

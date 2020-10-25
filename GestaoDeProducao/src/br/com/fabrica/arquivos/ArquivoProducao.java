@@ -1,5 +1,8 @@
 package br.com.fabrica.arquivos;
 
+import static br.com.fabrica.strings.Constantes.*;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import br.com.fabrica.modelo.Producao;
@@ -93,6 +96,38 @@ public class ArquivoProducao extends BinaryFile{
 		producao.setData(readString(10));
 		
 		return producao;
+	}
+	
+	public boolean escreveProducaoNoArquivo(Producao producao) {
+		try {
+			openFile(ARQ_PRODUCAO);
+			setFilePointer(recordQuantity());
+			writeObject(producao);
+			closeFile();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false; 
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public Producao leProdutoNoArquivo(int indice) {
+		try {
+			openFile(ARQ_PRODUCAO);
+			setFilePointer(indice);
+			Producao producao = (Producao) readObject();
+			closeFile();
+			return producao;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 }
