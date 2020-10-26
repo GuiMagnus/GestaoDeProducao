@@ -1,4 +1,4 @@
-package br.com.fabrica.gerencia;
+package br.com.fabrica.gerencia.modelo;
 
 import static br.com.fabrica.validacoes.Data.transformaCalendarEmString;
 

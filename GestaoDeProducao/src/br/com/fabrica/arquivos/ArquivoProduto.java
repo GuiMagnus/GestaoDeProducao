@@ -1,6 +1,6 @@
 package br.com.fabrica.arquivos;
 
-import static br.com.fabrica.constantes.Constantes.*;
+import static br.com.fabrica.constantes.Constantes.ARQ_PRODUTO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -148,7 +148,6 @@ public class ArquivoProduto extends BinaryFile{
 				Produto produto = (Produto) readObject();
 				listaProdutos.add(produto);
 			}
-			
 			closeFile();
 			return listaProdutos;
 		} catch (FileNotFoundException e) {
@@ -172,6 +171,73 @@ public class ArquivoProduto extends BinaryFile{
 		} catch (IOException e) {
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	
+	public boolean escreveProdutoNoArquivoPorPosicao(Produto produto, int posicao) {
+		try {
+			openFile(ARQ_PRODUTO);
+			setFilePointer(posicao);
+			writeObject(produto);
+			closeFile();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false; 
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public Produto alteraPrecoProduto(Produto prod) {
+		Produto produto = null;
+		try {
+			openFile(ARQ_PRODUTO);
+			for(int i = 0; i < recordQuantity(); i++) {
+				setFilePointer(i);
+				produto = (Produto) readObject();
+				if(produto.getCodigo() == prod.getCodigo()) {
+					escreveProdutoNoArquivoPorPosicao(produto, i);
+					break;
+				}
+			}
+			closeFile();
+			return produto;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return produto;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return produto;
+		}
+	}
+	
+	public Produto obtemProduto(int codigoProduto) {
+		Produto produto = null;
+		try {
+			openFile(ARQ_PRODUTO);
+			
+			for(int i = 0; i < recordQuantity(); i++) {
+				
+				setFilePointer(i);
+				
+				produto = (Produto) readObject();
+				
+				System.out.println(produto);
+				System.out.println("Aquiiiiii");
+				if(produto.getCodigo() == codigoProduto) {
+					break;
+				}
+			}
+			closeFile();
+			return produto;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return produto;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return produto;
 		}
 	}
 }

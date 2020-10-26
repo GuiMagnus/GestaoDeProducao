@@ -21,8 +21,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.fabrica.arquivos.ArquivoProduto;
-import br.com.fabrica.gerencia.CadastroDeInformacoes;
+import br.com.fabrica.gerencia.ig.GerenciaIgInsumo;
 import br.com.fabrica.modelo.Produto;
+import br.com.fabrica.validacoes.Validacoes;
 
 /**
  * Classe responsavel por criar a tela de cadastro de Insumos.
@@ -44,6 +45,7 @@ public class IgInsumos extends JFrame {
 	private JComboBox<String> comboBox;
 	private List<Produto> listaProdutos;
 	public static ArquivoProduto arqProduto = new ArquivoProduto();
+	private JButton btnPesquisar;
 	/**
 	 * Create the panel.
 	 */
@@ -64,12 +66,12 @@ public class IgInsumos extends JFrame {
 		btnGravar = new JButton("Gravar");
 		jf.getContentPane().add(btnGravar);
 		btnGravar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnGravar.setBounds(270, 452, 96, 25);
+		btnGravar.setBounds(267, 495, 96, 25);
 
 		btnCancelar = new JButton("Cancelar");
 		jf.getContentPane().add(btnCancelar);
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnCancelar.setBounds(379, 452, 83, 25);
+		btnCancelar.setBounds(379, 495, 83, 25);
 
 		lblNome = new JLabel("Nome do Produto:");
 		jf.getContentPane().add(lblNome);
@@ -93,7 +95,7 @@ public class IgInsumos extends JFrame {
 		jf.getContentPane().add(tfTamanho);
 
 		panel = new JPanel();
-		panel.setBounds(38, 205, 424, 236);
+		panel.setBounds(38, 236, 424, 236);
 		jf.getContentPane().add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
@@ -142,21 +144,38 @@ public class IgInsumos extends JFrame {
 
 		JLabel lblListaDeInsumos = new JLabel("Lista de Insumos");
 		lblListaDeInsumos.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblListaDeInsumos.setBounds(187, 143, 141, 19);
+		lblListaDeInsumos.setBounds(191, 181, 141, 19);
 		jf.getContentPane().add(lblListaDeInsumos);
 
 		JLabel lblNewLabel_2 = new JLabel("A quantidade de insumo  \u00E9 por tamanho de cada unidade do produto.");
-		lblNewLabel_2.setBounds(48, 181, 414, 14);
+		lblNewLabel_2.setBounds(48, 211, 414, 14);
 		jf.getContentPane().add(lblNewLabel_2);
+		
+		btnPesquisar = new JButton("Pesquisar Produto");
+		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnPesquisar.setBounds(327, 146, 135, 30);
+		jf.getContentPane().add(btnPesquisar);
 
 		jf.setVisible(true);
+		
+		btnPesquisar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GerenciaIgInsumo.obtemInsumosProduto(Validacoes.obtemCodigo(
+						comboBox.getSelectedItem().toString()), table, jf);
+			}
+		});
+		
 		btnGravar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				CadastroDeInformacoes.cadastraInsumo(comboBox, tfTamanho, jf, table);
+				GerenciaIgInsumo.cadastraInsumo(comboBox, tfTamanho, jf, table);
 				for (int i = 0; i < table.getColumnCount(); i++) {
 					table.setValueAt("", i, 0);
+					table.setValueAt("", i, 1);
+					table.setValueAt("", i, 2);
 				}
 				comboBox.setSelectedIndex(0);
 				tfTamanho.setText("");
@@ -191,5 +210,4 @@ public class IgInsumos extends JFrame {
 	public void setJf(JFrame jf) {
 		this.jf = jf;
 	}
-
 }

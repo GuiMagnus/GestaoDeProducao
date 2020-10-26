@@ -4,6 +4,7 @@ import static br.com.fabrica.constantes.Constantes.ARQ_INSUMO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fabrica.modelo.Insumo;
@@ -121,13 +122,33 @@ public class ArquivoInsumo extends BinaryFile{
 		}
 	}
 	
-	public Insumo leInsumoNoArquivo() {
+	public boolean escreveInsumosNoArquivoPorPosicao(Insumo insumo, int posicao) {
 		try {
 			openFile(ARQ_INSUMO);
-			setFilePointer(0);
-			Insumo insummo = (Insumo) readObject();
+			setFilePointer(posicao);
+			writeObject(insumo);
 			closeFile();
-			return insummo;
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false; 
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public List<Insumo> leInsumosNoArquivo() {
+		List<Insumo> listaInsumos = new ArrayList<>();
+		try {
+			openFile(ARQ_INSUMO);
+			for(int i = 0; i < recordQuantity(); i++) {
+				setFilePointer(i);
+				Insumo insumo = (Insumo) readObject();
+				listaInsumos.add(insumo);
+			}
+			closeFile();
+			return listaInsumos;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return null;
@@ -136,5 +157,29 @@ public class ArquivoInsumo extends BinaryFile{
 			return null;
 		}
 	}
+	
+	public boolean alteraInsumosNoArquivo(int codigoProduto, int codigoInsumo, float novoPreco) {
+		try {
+			openFile(ARQ_INSUMO);
+			for(int i = 0; i < recordQuantity(); i++) {
+				setFilePointer(i);
+				Insumo insumo = (Insumo) readObject();
+				if(insumo.getCodigoProduto() == codigoProduto && insumo.getCodigo() == codigoInsumo) {
+					insumo.setPrecoUnitario(novoPreco);
+					escreveInsumosNoArquivoPorPosicao(insumo, i);
+					break;
+				}
+			}
+			closeFile();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 
 }

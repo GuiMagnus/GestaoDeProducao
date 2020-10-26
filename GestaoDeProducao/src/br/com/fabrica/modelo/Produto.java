@@ -58,6 +58,10 @@ public class Produto {
 	public float getPrecoFabricacao() {
 		return precoFabricacao;
 	}
+	
+	public void setPrecoFabricacao(float precoFabricacao) {
+		this.precoFabricacao = precoFabricacao;
+	}
 
 	public float getPrecoVenda() {
 		return precoVenda;
@@ -106,10 +110,10 @@ public class Produto {
 	@Override
 	public String toString() {
 		return String.format(
-				"Código: %d, nome: %s, unidadeMedida: %s, margemLucro: %.2f, precoFabricacao: %.2f,"
-				+ " precoVenda: %.2f, quantidadeProduto: %d",
-				getCodigo(), nome, unidadeMedida.getUnidade(), margemLucro, precoFabricacao, precoVenda,
-				quantidadeProduto);//, historicoPrecos, insumos);
+				"Código: %d, nome: %s, unidadeMedida: %s, margemLucro: %.2f, "
+				+ "precoFabricacao: %.2f, precoVenda: %.2f, quantidadeProduto: %d",
+				codigo, nome, unidadeMedida.getUnidade(), margemLucro, precoFabricacao,
+				precoVenda, quantidadeProduto); 
 	}
 	
 }

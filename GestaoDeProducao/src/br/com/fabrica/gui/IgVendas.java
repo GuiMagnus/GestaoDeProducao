@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -17,8 +18,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import br.com.fabrica.arquivos.ArquivoProduto;
+import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.validacoes.Data;
 import br.com.fabrica.validacoes.Validacoes;
+
 
 /**
  * Classe responsavel por criar a tela de cadastro de Venda.
@@ -35,7 +39,7 @@ public class IgVendas extends JFrame {
 	private JLabel lblNome;
 	private JLabel lblData;
 	private JLabel lblNewLabel_1_2;
-	private JComboBox<?> comboProduto;
+	private JComboBox<String> comboProduto;
 	private JSpinner spinner;
 	private JLabel lblQuantidade;
 	private JButton btnAddItens;
@@ -45,7 +49,8 @@ public class IgVendas extends JFrame {
 	private JButton btnCancelar;
 	private JFrame jf;
 	private JTable table;
-
+	private DefaultTableModel defaultTableModel;
+	private List<Produto> listaProdutos;
 	/**
 	 * Create the panel.
 	 */
@@ -150,28 +155,89 @@ public class IgVendas extends JFrame {
 		spinner = new JSpinner();
 		spinner.setBounds(391, 184, 72, 20);
 		jf.getContentPane().add(spinner);
-		
 		btnAddItens = new JButton("Adicionar Itens da Venda");
+		
+		
+		btnAddItens.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Produto prod = new Produto();
+				prod.setNome(Validacoes.obtemNome(String.format("%s",comboProduto.getSelectedItem())));
+				prod = verificaProdutosArquivo(prod,listaProdutos);
+				System.out.println("p->"+prod.getPrecoFabricacao());
+				if(table.getRowCount() > 0) {
+					int i = verificaTabela(table,prod);
+					if(i != -1) {
+						defaultTableModel.setValueAt((int)defaultTableModel.getValueAt(i, 1)+(int)spinner.getValue(), i, 1);
+						
+					}
+					else
+						defaultTableModel.insertRow(defaultTableModel.getRowCount(), new Object[] {prod.getNome(), prod.getQuantidadeProduto()+(int)spinner.getValue(),prod.getPrecoFabricacao()});
+				}
+				else
+					defaultTableModel.insertRow(defaultTableModel.getRowCount(), new Object[] {prod.getNome(), prod.getQuantidadeProduto(),prod.getPrecoFabricacao()});
+				
+				
+				spinner.setValue(0);
+			}
+
+			public Produto verificaProdutosArquivo(Produto produtoPesquisa, List<Produto> listaProdutos) {
+				for (Produto produtoArquivo : listaProdutos) {
+					if(produtoArquivo.getNome().equalsIgnoreCase(produtoPesquisa.getNome())) {
+						return produtoArquivo;
+					}
+				}
+				return null;
+			}
+
+			public int verificaTabela(JTable table, Produto prod) {
+				System.out.println("a");
+				for (int i = 0; i < table.getRowCount(); i++) 
+					if(prod.getNome().equalsIgnoreCase((String) table.getValueAt(i, 0))) {
+						System.out.println("Igual");
+						return i;
+					}
+				return -1;
+			}
+		});
 		btnAddItens.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnAddItens.setBounds(281, 215, 182, 23);
 		jf.getContentPane().add(btnAddItens);
 		
 		comboProduto = new JComboBox<String>();
 		comboProduto.setBounds(106, 149, 356, 22);
+		listaProdutos =  new ArquivoProduto().leProdutosNoArquivo();
+
+		for (Produto produtos : listaProdutos)
+			comboProduto.addItem(String.format("%d - %s", produtos.getCodigo(),produtos.getNome()));
+
 		jf.getContentPane().add(comboProduto);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(39, 279, 432, 201);
+		panel.setBounds(40, 273, 431, 220);
 		jf.getContentPane().add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
-		scrollPane.setAutoscrolls(true);
+		// Adiciona a tabela na área de visualização do painel rolável para que uma barra de rolagem vertical seja exibida automaticamente quando o número de linhas ultrapassar a área visível da tabela.  
+		scrollPane.setViewportView(table);
 		panel.add(scrollPane);
 		
+		String[] colunas = new String[] {"Nome", "Quantidade","Preço Unitário","Valor Total"};
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		//table.setBorder(new TitledBorder(null, "Vendas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.add(table, BorderLayout.SOUTH);
+		defaultTableModel = new DefaultTableModel(colunas, 0);
+		table.setModel(defaultTableModel);
+		
+		table.getColumnModel().getColumn(0).setPreferredWidth(100);
+		table.getColumnModel().getColumn(1).setResizable(false);
+		table.getColumnModel().getColumn(1).setPreferredWidth(117);
+
+		// Define a posição, o tamanho e exibe a janela.
+		setBounds(100, 100, 428, 314);
+		setVisible(true);
+		/*table.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null},
 				{null, null, null},
@@ -188,7 +254,7 @@ public class IgVendas extends JFrame {
 			new String[] {
 				"Quantidade", "Pre\u00E7o Unit\u00E1rio", "Valor total"
 			}
-		));
+		));*/
 		table.getColumnModel().getColumn(1).setPreferredWidth(95);
 		scrollPane.setViewportView(table);
 		

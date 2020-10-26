@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
-import br.com.fabrica.gerencia.CadastroDeInformacoes;
+import br.com.fabrica.gerencia.ig.GerenciaIgProduto;
 import br.com.fabrica.modelo.UnidadeMedida;
 
 /**
@@ -123,7 +123,7 @@ public class IgProdutos extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				CadastroDeInformacoes.cadastrarProdutos(tfNome, comboBox, spinner, jf);
+				GerenciaIgProduto.cadastrarProdutos(tfNome, comboBox, spinner, jf);
 				tfNome.setText("");
 				comboBox.setSelectedIndex(0);
 				spinner.setValue(Integer.valueOf(0));

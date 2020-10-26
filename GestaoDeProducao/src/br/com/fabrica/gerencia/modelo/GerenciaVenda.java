@@ -1,4 +1,4 @@
-package br.com.fabrica.gerencia;
+package br.com.fabrica.gerencia.modelo;
 
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.Venda;

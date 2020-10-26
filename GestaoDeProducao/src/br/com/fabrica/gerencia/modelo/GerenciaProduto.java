@@ -1,4 +1,4 @@
-package br.com.fabrica.gerencia;
+package br.com.fabrica.gerencia.modelo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class GerenciaProduto {
 		float valorAumento = produto.getPrecoVenda() - produto.getPrecoFabricacao();
 		
 		float margem = (valorAumento / produto.getPrecoFabricacao()) / 100;
-		
+
 		return margem;
 	}
 	

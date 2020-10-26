@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import br.com.fabrica.gerencia.CadastroDeInformacoes;
+import br.com.fabrica.gerencia.ig.GerenciaIgProducao;
 
 import javax.swing.JComboBox;
 
@@ -100,7 +100,7 @@ public class IgProducao extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				CadastroDeInformacoes.cadastrarProducao(comboBox, tfData, tfQtdProduzida, jf);
+				GerenciaIgProducao.cadastrarProducao(comboBox, tfData, tfQtdProduzida, jf);
 				comboBox.setSelectedIndex(0);
 				tfData.setText("");
 				tfQtdProduzida.setText("");

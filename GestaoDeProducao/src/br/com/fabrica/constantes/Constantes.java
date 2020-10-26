@@ -81,6 +81,25 @@ public class Constantes {
 	 */
 	public static String ERR_PRECO_INSUMO = "O preço do insumo precisa ser informado";
 	
+	/**
+	 * <code>String</code> : Mensagem informando que nenhum insumo não foi cadastrado.
+	 */
+	public static String ERR_NAO_CAD_INSUMO = "Nenhum insumo cadastrado";
+	
+	/**
+	 * <code>String</code> : Mensagem informando a alteração do preco.
+	 */
+	public static String ALTERA_PRECO = "Preço alterado com sucesso";
+	
+	/**
+	 * <code>String</code> : Titulo para tela de alteração do preco.
+	 */
+	public static String ALTERACAO = "Alterar preço";
+	
+	/**
+	 * <code>String</code> : Mensagem informando erro na alteração do preco.
+	 */
+	public static String ERR_ALTERA_PRECO = "Erro ao alterar o preço";
 	
 
 }
