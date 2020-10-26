@@ -89,6 +89,12 @@ public class ArquivoInsumo extends BinaryFile{
 		return insumo;
 	}
 	
+	/**
+	 * Recebe um Objeto com dados de um insumo referente a classe {@link Insumo} a serem gravados
+	 * no arquivo de Insumos.
+	 * @param insumo Um objeto insumo a ser gravado no arquivo.
+	 * @return Retorna True ou False indicando se a gravação obteve sucesso ou falha.
+	 */
 	public boolean escreveInsumoNoArquivo(Insumo insumo) {
 		try {
 			openFile(ARQ_INSUMO);
@@ -105,6 +111,13 @@ public class ArquivoInsumo extends BinaryFile{
 		}
 	}
 	
+	/**
+	 * Recebe uma lista de insumos de determinado produto e escreve os registros
+	 * no arquivo de insumos. 
+	 * @param insumos Uma lista com dados referente a classe {@link Insumo} para serem gravados 
+	 * no arquivo de insumos.
+	 * @return Retorna True ou False indicando se a gravação teve sucesso ou falha.
+	 */
 	public boolean escreveInsumosNoArquivo(List<Insumo> insumos) {
 		try {
 			openFile(ARQ_INSUMO);
@@ -122,7 +135,12 @@ public class ArquivoInsumo extends BinaryFile{
 		}
 	}
 	
-	public boolean escreveInsumosNoArquivoPorPosicao(Insumo insumo, int posicao) {
+	/***
+	 * Obtém o código sequencial dos insumos a partir do número de registro no arquivo de insumos
+	 * caso esteja vazio este será o primeiro produto a ser gravado no arquivo.
+	 * @return retorna o código sequencial para o próximo dado do registro de produtos.
+	 */
+	public boolean obtemCodigoInsumo(Insumo insumo, int posicao) {
 		try {
 			openFile(ARQ_INSUMO);
 			setFilePointer(posicao);
@@ -175,6 +193,21 @@ public class ArquivoInsumo extends BinaryFile{
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	public boolean escreveInsumosNoArquivoPorPosicao(Insumo insumo, int posicao) {
+		try {
+			openFile(ARQ_INSUMO);
+			setFilePointer(recordQuantity());
+			writeObject(insumo);
+			closeFile();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false; 
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;

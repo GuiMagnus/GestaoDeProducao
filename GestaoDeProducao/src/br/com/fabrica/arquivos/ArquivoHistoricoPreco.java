@@ -1,5 +1,6 @@
 package br.com.fabrica.arquivos;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import br.com.fabrica.modelo.HistoricoPreco;
@@ -45,7 +46,7 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 		else
 			throw new ClassCastException();
 		
-		randomAccessFile.writeInt(historicoPreco.getCodigo());
+		randomAccessFile.writeInt(obtemCodigoHistorico());
 		randomAccessFile.writeInt(historicoPreco.getCodigoReferenciaDeDado());
 		randomAccessFile.writeFloat(historicoPreco.getPreco());
 		randomAccessFile.writeChars(setStringLength(historicoPreco.getData(), 10));
@@ -58,6 +59,12 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 			writeObject(object);
 		}
 	
+	/**
+	 * Lê um registro do arquivo historico de preços de um produto ou insumo
+	 * e adiciona no objeto HistoricoPreco para ser retornado.
+	 * @return Retorna um objeto referente a classe {@link HistoricoPreco} com dados do preço
+	 * de determinado produto ou insumo.
+	 */
 	@Override
 	public Object readObject() throws IOException {
 		HistoricoPreco historicoPreco = new HistoricoPreco();
@@ -66,7 +73,28 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 		historicoPreco.setCodigoReferenciaDeDado(randomAccessFile.readInt());
 		historicoPreco.setPreco(randomAccessFile.readFloat());
 		historicoPreco.setData(readString(10));
+		
 		return historicoPreco;
+	}
+	
+	/***
+	 * Obtém o código sequencial do histórico de produtos
+	 * @return retorna o código sequencial para o próximo dado de histórico
+	 */
+	public int obtemCodigoHistorico() {
+		try {
+			if(recordQuantity() == 0)
+				return 1;
+			else {
+				return (int) (recordQuantity() + 1);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return 0;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 }

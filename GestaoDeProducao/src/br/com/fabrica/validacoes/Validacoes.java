@@ -49,6 +49,7 @@ public class Validacoes {
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 		Date date = new Date();
 		return dateFormat.format(date);
+
 	}
 	
 	/**
@@ -104,4 +105,5 @@ public class Validacoes {
 		else
 			return transformaEmFloat(dado);
 	}
+
 }

@@ -19,8 +19,8 @@ public class HistoricoPreco {
 	/**
 	 * Construtor sobrecarregado da Classe HistoricoPreco atribuindo os valores passados como 
 	 * parâmetro. 
-	 * @param preco valor em dinheiro atual ou não referente ao item.
-	 * @param data referente ao período inicial em que determinado preço foi atribuído a um item.
+	 * @param preco <code>float</code>: valor em dinheiro atual ou não referente ao item.
+	 * @param data <code>String</code>: referente ao período inicial em que determinado preço foi atribuído a um item.
 	 */
 	public HistoricoPreco(float preco, String data) {
 		this.preco = preco;
@@ -29,7 +29,7 @@ public class HistoricoPreco {
 
 	/**
 	 * Obtém o valor em dinheiro atribuído a um item.
-	 * @return o preço referente a variável que define o valor de um item.
+	 * @return <code>float</float>: preço referente a variável que define o valor de um item.
 	 */
 	public float getPreco() {
 		return preco;
@@ -38,7 +38,7 @@ public class HistoricoPreco {
 
 	/**
 	 * Atribui a variável preço um valor referente a um item.
-	 * @param preco valor a ser atribuído a um objeto da classe item.
+	 * @param preco <code>float</code>: valor a ser atribuído a um objeto da classe item.
 	 */
 	public void setPreco(float preco) {
 		this.preco = preco;
@@ -46,12 +46,19 @@ public class HistoricoPreco {
 
 	/**
 	 * Obtém a data em que foi determinado o preço referente a um item
-	 * @return data referente a variável que define a data que o preço foi alterado.
+	 * @return data - <code>String</code>: valor referente a variável que define
+	 *  a data que o preço foi alterado.
 	 */
 	public String getData() {
 		return data;
 	}
 
+	/**
+	 * Atribui uma data no formato de string de uma definição ou substituição 
+	 * do preço de um produto ou insumo
+	 * @param data - <code>String</code> : valor referente a uma data em que um preço
+	 * de um produto/insumo foi atualizado ou definido. 
+	 */
 	public void setData(String data) {
 		this.data = data;
 	}
@@ -59,7 +66,7 @@ public class HistoricoPreco {
 	
 	/**
 	 * Obtém o código de referência ao Produto ou insumo que teve seu preço atual ou antigo ajustado.
-	 * @return Obtém o código de referência ao Produto ou insumo que teve seu preço atual ou antigo ajustado e o retorna.
+	 * @return - <code>int</code>: Obtém o código de referência ao Produto ou insumo que teve seu preço atual ou antigo ajustado e o retorna.
 	 */
 	public int getCodigoReferenciaDeDado() {
 		return codigoReferenciaDeDado;
@@ -67,22 +74,36 @@ public class HistoricoPreco {
 
 	
 	/**
-	 * Atribui o código de referencia do Produto ou insumo que teve seu preço atual ou antigo ajustado.
-	 * @param codigoReferenciaDeDado referência do produto ou insumo aquele preço pertence.
+	 * Atribui o código de referencia do Produto ou insumo que teve seu preço atual 
+	 * ou antigo ajustado.
+	 * @param codigoReferenciaDeDado  <code>int</code>: referência do produto ou 
+	 * insumo aquele preço pertence.
 	 */
 	public void setCodigoReferenciaDeDado(int codigoReferenciaDeDado) {
 		this.codigoReferenciaDeDado = codigoReferenciaDeDado;
 	}
 
-	
+	/**
+	 * Obtém o código de determinada atualização do preço do produto/insumo.
+	 * @return <code>int</code> código da atualização de preço de um produto ou insumo.
+	 */
 	public int getCodigo() {
 		return codigo;
 	}
 
+	/**
+	 * Atribui um código para a atualização do preço do produto/insumo.
+	 * @param codigo <code>int</code> valor de código para identificação da atualização do preço
+	 * de um produto ou insumo.
+	 */
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
 
+	/**
+	 * Representação em forma de string com os atributos da classe HistoricoPreco.
+	 * @return <code>String</code> : Uma string com os dados de um objeto da classe HistoricoPreco.
+	 */
 	@Override
 	public String toString() {
 		return String.format(

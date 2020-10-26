@@ -146,6 +146,7 @@ public class IgProdutos extends JFrame {
 				igInsumos.getJf().setVisible(true);
 			}
 		});
+
 	}
 
 	public JFrame getJf() {

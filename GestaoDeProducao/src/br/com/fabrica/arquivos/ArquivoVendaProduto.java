@@ -65,6 +65,12 @@ public class ArquivoVendaProduto extends BinaryFile {
 			writeObject(object);
 		}
 	
+	/**
+	 * Lê o código de uma venda a partir do arquivo de vendas
+	 * e adiciona em uma lista referente a classe {@link Venda} todos os produtos que foram vendidos
+	 * a partir daquele código de venda. 
+	 * @return Object Retorna um objeto contendo os atributos de venda incluindo seus produtos vendidos. 
+	 */
 	@Override
 	public Object readObject() throws IOException {
 		Venda venda = new Venda();
