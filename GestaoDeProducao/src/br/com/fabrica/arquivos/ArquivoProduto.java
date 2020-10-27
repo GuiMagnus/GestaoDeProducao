@@ -51,9 +51,8 @@ public class ArquivoProduto extends BinaryFile{
 		}
 		else
 			throw new ClassCastException();
-		randomAccessFile.writeInt(obtemCodigoProduto());
+		randomAccessFile.writeInt(produto.getCodigo());
 		randomAccessFile.writeChars(setStringLength(produto.getNome(), 50));
-		
 		randomAccessFile.writeChars(setStringLength(produto.getUnidadeMedida().getUnidade(), 2));
 		randomAccessFile.writeFloat(produto.getMargemLucro());
 		randomAccessFile.writeFloat(produto.getPrecoVenda());
@@ -186,13 +185,13 @@ public class ArquivoProduto extends BinaryFile{
 	public int obtemCodigoProduto() {
 		int codigo = 0;
 		try {
-		//	openFile(ARQ_PRODUTO);
+			openFile(ARQ_PRODUTO);
 			if(recordQuantity() == 0)
 				codigo = 1;
 			else {
 				codigo = (int) (recordQuantity() + 1);
 			}
-			//closeFile();
+			closeFile();
 			return codigo;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
