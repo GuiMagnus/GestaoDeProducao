@@ -41,16 +41,18 @@ public class GerenciaProduto {
 		return precoVenda;
 	}
 	
+	//TODO voltar
 	/**
 	 * Calcula o valor do aumento percentual de um produto.
 	 * @param produto - <code>Produto</code> : Produto que terá seu percentual alterado.
 	 * @return - <code>float</code> : novo percentual de lucro do produto.
 	 */
 	public float calculaAumentoPercentual(Produto produto) {
+		System.out.println(produto.getPrecoFabricacao());
 		float valorAumento = produto.getPrecoVenda() - produto.getPrecoFabricacao();
 		
 		float margem = (valorAumento / produto.getPrecoFabricacao()) / 100;
-
+		System.out.println(margem);
 		return margem;
 	}
 	

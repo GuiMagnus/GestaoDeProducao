@@ -101,5 +101,15 @@ public class Constantes {
 	 */
 	public static String ERR_ALTERA_PRECO = "Erro ao alterar o preço";
 	
+	/**
+	 * <code>String</code> : Expressão regular para validar data
+	 */
+	public static String EXP_DATA = "\\d{2}/\\d{2}/\\d{4}";
+	
+	/**
+	 * <code>String</code> : Expressão regular para validar data
+	 */
+	public static String EXP_HORA = "[0-2][0-3]:[0-5][0-9]:[0-5][0-9]";
+	
 
 }

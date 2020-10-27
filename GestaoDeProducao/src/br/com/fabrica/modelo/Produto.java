@@ -1,9 +1,10 @@
 package br.com.fabrica.modelo;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public class Produto {
+public class Produto implements Comparable<Produto>, Comparator<Produto>{
 	
 	private int codigo;
 	private String nome;
@@ -200,6 +201,23 @@ public class Produto {
 				+ "precoFabricacao: %.2f, precoVenda: %.2f, quantidadeProduto: %d",
 				codigo, nome, unidadeMedida.getUnidade(), margemLucro, precoFabricacao,
 				precoVenda, quantidadeProduto); 
+	}
+
+
+	/**
+	 * Compara os objetos do tipo Produto usando o nome do produto. A comparação é case insensitive.
+	*/
+	@Override
+	public int compareTo(Produto produto) {
+		return nome.compareToIgnoreCase(produto.nome);
+	}
+
+	/**
+	 * Compara os objetos do tipo Produto usando o preço do produto.  
+	 */
+	@Override
+	public int compare(Produto produto1, Produto produto2) {
+		return Integer.compare(produto1.codigo, produto2.codigo);
 	}
 	
 }

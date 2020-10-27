@@ -51,9 +51,8 @@ public class ArquivoProduto extends BinaryFile{
 		}
 		else
 			throw new ClassCastException();
-		randomAccessFile.writeInt(obtemCodigoProduto());
+		randomAccessFile.writeInt(produto.getCodigo());
 		randomAccessFile.writeChars(setStringLength(produto.getNome(), 50));
-		
 		randomAccessFile.writeChars(setStringLength(produto.getUnidadeMedida().getUnidade(), 2));
 		randomAccessFile.writeFloat(produto.getMargemLucro());
 		randomAccessFile.writeFloat(produto.getPrecoVenda());
@@ -253,8 +252,6 @@ public class ArquivoProduto extends BinaryFile{
 				
 				produto = (Produto) readObject();
 				
-				System.out.println(produto);
-				System.out.println("Aquiiiiii");
 				if(produto.getCodigo() == codigoProduto) {
 					break;
 				}

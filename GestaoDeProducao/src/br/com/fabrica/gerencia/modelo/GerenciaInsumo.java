@@ -5,7 +5,6 @@ import java.util.List;
 
 import br.com.fabrica.arquivos.ArquivoInsumo;
 import br.com.fabrica.modelo.Insumo;
-import br.com.fabrica.modelo.Produto;
 
 /**
  * Classe responsável por gerenciar os insumos
@@ -21,12 +20,14 @@ public class GerenciaInsumo {
 	 */
 	public List<Insumo> obtemInsumosProduto(int codigo){
 		ArquivoInsumo arquivoInsumo = new ArquivoInsumo();
+		System.out.println("oooee");
 		List<Insumo> lista = arquivoInsumo.leInsumosNoArquivo();
 		List<Insumo> listaInsumoProduto = new ArrayList<Insumo>();
-		for(Insumo insumo : lista) {
-			if(insumo.getCodigoProduto() == codigo)
-				listaInsumoProduto.add(insumo);
-		}
+		if(lista != null)
+			for(Insumo insumo : lista) {
+				if(insumo.getCodigoProduto() == codigo)
+					listaInsumoProduto.add(insumo);
+			}
 		return listaInsumoProduto;
 	}
 	

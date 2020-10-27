@@ -24,7 +24,6 @@ import br.com.fabrica.arquivos.ArquivoInsumo;
 import br.com.fabrica.gerencia.modelo.GerenciaInsumo;
 import br.com.fabrica.gui.IgInsumos;
 import br.com.fabrica.modelo.Insumo;
-import br.com.fabrica.modelo.Produto;
 
 public class GerenciaIgInsumo {
 	private static ArquivoInsumo arquivoInsumo = new ArquivoInsumo();
@@ -42,12 +41,10 @@ public class GerenciaIgInsumo {
 	 */
 	public static void cadastraInsumo(JComboBox<String> comboBox, JTextField tfUnidade, 
 			JFrame jf, JTable table) {
-		Produto produto = new Produto();
-		produto.setCodigo(obtemCodigo(comboBox.getSelectedItem().toString()));
-		
-		List<Insumo> insumos = cadastraInsumosProduto(produto.getCodigo(), table, jf);
-		
-		boolean cadastrado = arquivoInsumo.escreveInsumosNoArquivo(insumos);
+		int codigo = obtemCodigo(comboBox.getSelectedItem().toString());
+		List<Insumo> ins = cadastraInsumosProduto(codigo, table, jf);
+			
+		boolean cadastrado = arquivoInsumo.escreveInsumosNoArquivo(ins);
 		if(cadastrado)
 			msgInfo(jf, CAD_INSUMO, INSUMO);
 		else
@@ -56,63 +53,61 @@ public class GerenciaIgInsumo {
 	
 	public static void obtemInsumosProduto(int codigo, JTable table, JFrame jf){
 		GerenciaInsumo gi = new GerenciaInsumo();
+		
 		List<Insumo> insumos = gi.obtemInsumosProduto(codigo); 
+		System.out.println(insumos.size());
 		if(insumos.size() > 0) {
 			for(int i = 0; i < insumos.size(); i++) {
 				table.setValueAt(insumos.get(i).getNome(), i, 0);
 				table.setValueAt(insumos.get(i).getQuantidade(), i, 1);
 				table.setValueAt(insumos.get(i).getPrecoUnitario(), i, 2);
+				System.out.println(insumos.get(i));
 			}
+			System.out.println(insumos.size());
 		}else
 			msgInfo(jf, ERR_NAO_CAD_INSUMO, INSUMO);
 	}
 
-	//TODO
-	//descobrir como criar linhas dinamicamente
 	public static List<Insumo> cadastraInsumosProduto(int codigo, JTable table, JFrame jf){
-			GerenciaInsumo gi = new GerenciaInsumo();
-		List<Insumo> insumos = gi.obtemInsumosProduto(codigo); 
+		
+		GerenciaInsumo gi = new GerenciaInsumo();
+		List<Insumo> insumos = gi.obtemInsumosProduto(codigo);
+		
 		if(table.getValueAt(0, 0).toString() == null) {
 			msgErro(jf, ERR_NOME_INSUMO, INSUMO);
 		}else {
 			for (int i = 0; i < table.getRowCount(); i++) {
-				//while(table.getValueAt(i, 0).toString() != null) {
-					if(gi.verificaInsumoCadastrado(verificaNome(table.getValueAt(i, 0).toString()), insumos)) {
-						//msgErro(jf, String.format("O insumo %s já está cadastrado", validaNome), INSUMO);
-						continue;
-					}
-					if(table.getValueAt(i, 0) != null) {
-						Insumo insumo = new Insumo();
-						insumo.setCodigo(codigo);
-						String validaNome = verificaNome(table.getValueAt(i, 0).toString());
-						if(validaNome == null) {
-							msgErro(jf, ERR_NOME_INSUMO, INSUMO);
-							break;
-						}
-						else
-							insumo.setNome(validaNome);
-						
-						float validaQuantidade = verificaQuantidade(table.getValueAt(i, 1).toString());
-						if(validaQuantidade == 0) {
-							msgErro(jf, ERR_QTD_INSUMO, INSUMO);
-						}	
-						else
-							insumo.setQuantidade(validaQuantidade);
-						float validaPreco = verificaPreco(table.getValueAt(i, 2).toString());
-						if(validaPreco == 0) {
-							msgErro(jf, ERR_QTD_INSUMO, INSUMO);
-							break;
-						}	
-						else
-							insumo.setQuantidade(validaQuantidade);
-						insumo.setCodigoProduto(codigo);
-						insumos.add(insumo);
-					}//if
-					else {
-						msgErro(jf, ERR_NAO_CAD_INSUMO, INSUMO);
+				String nome = (String) table.getValueAt(i, 0);
+				if(nome == null){
+					msgErro(jf, ERR_NAO_CAD_INSUMO, INSUMO);
+					break;
+				}
+				else {
+					Insumo insumo = new Insumo();
+					insumo.setCodigo(codigo);
+					String validaNome = verificaNome(table.getValueAt(i, 0).toString());
+					if(validaNome == null) {
+						msgErro(jf, ERR_NOME_INSUMO, INSUMO);
 						break;
 					}
-				}//for
+					else
+						insumo.setNome(validaNome);
+					float validaQuantidade = verificaQuantidade(table.getValueAt(i, 2).toString());
+					System.out.println(validaQuantidade);
+						insumo.setQuantidade(validaQuantidade);
+					float validaPreco = verificaPreco((String)table.getValueAt(i, 2));
+					if(validaPreco == 0) {
+						msgErro(jf, ERR_QTD_INSUMO, INSUMO);
+						break;
+					}	
+					else
+						insumo.setPrecoUnitario(validaPreco);
+					
+					insumo.setCodigoProduto(codigo);
+					insumos.add(insumo);
+				}
+			}//for
+			
 				
 		}
 		

@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import br.com.fabrica.arquivos.ArquivoProducao;
-import br.com.fabrica.arquivos.ArquivoProduto;
+import br.com.fabrica.gerencia.modelo.GerenciaProducao;
 import br.com.fabrica.gui.IgProducao;
 import br.com.fabrica.modelo.Producao;
 import br.com.fabrica.modelo.Produto;
@@ -52,6 +52,12 @@ public class GerenciaIgProducao {
 			msgInfo(jf, CAD_PRODUCAO, PRODUCAO);
 		else
 			msgErro(jf, ERR_CAD_PRODUCAO, PRODUCAO);
+		
+		GerenciaProducao gp = new GerenciaProducao();
+		msgInfo(jf, String.format("O custo total da produção é: %.2f\n"
+				+ "O valor de venda que será obtido: %.2f", gp.calculaCustoTotalProducao(produto,
+						producao.getQuantidade()), gp.calculaValorTotalVenda(produto,
+								producao.getQuantidade())), PRODUCAO);
 		
 	}
 	

@@ -88,7 +88,7 @@ public class ArquivoInsumo extends BinaryFile{
 
 		return insumo;
 	}
-	
+
 	/**
 	 * Recebe um Objeto com dados de um insumo referente a classe {@link Insumo} a serem gravados
 	 * no arquivo de Insumos.
@@ -110,7 +110,7 @@ public class ArquivoInsumo extends BinaryFile{
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Recebe uma lista de insumos de determinado produto e escreve os registros
 	 * no arquivo de insumos. 
@@ -122,6 +122,7 @@ public class ArquivoInsumo extends BinaryFile{
 		try {
 			openFile(ARQ_INSUMO);
 			setFilePointer(recordQuantity());
+			System.out.println("Aquiiii");
 			for(Insumo insumo : insumos)
 				writeObject(insumo);
 			closeFile();
@@ -134,17 +135,22 @@ public class ArquivoInsumo extends BinaryFile{
 			return false;
 		}
 	}
-	
-	/***
-	 * Obtém o código sequencial dos insumos a partir do número de registro no arquivo de insumos
-	 * caso esteja vazio este será o primeiro produto a ser gravado no arquivo.
-	 * @return retorna o código sequencial para o próximo dado do registro de produtos.
+
+
+	/**
+	 * Recebe uma lista de insumos de determinado produto e escreve os registros
+	 * no arquivo de insumos. 
+	 * @param insumos Uma lista com dados referente a classe {@link Insumo} para serem gravados 
+	 * no arquivo de insumos.
+	 * @return Retorna True ou False indicando se a gravação teve sucesso ou falha.
 	 */
-	public boolean obtemCodigoInsumo(Insumo insumo, int posicao) {
+	public boolean escreveInsumosNoArquivo11(List<Insumo> insumos) {
 		try {
 			openFile(ARQ_INSUMO);
-			setFilePointer(posicao);
-			writeObject(insumo);
+			setFilePointer(recordQuantity());
+
+			for(Insumo insumo : insumos)
+				writeObject(insumo);
 			closeFile();
 			return true;
 		} catch (FileNotFoundException e) {
@@ -155,14 +161,39 @@ public class ArquivoInsumo extends BinaryFile{
 			return false;
 		}
 	}
-	
+
+
+	/***
+	 * Obtém o código sequencial dos insumos a partir do número de registro no arquivo de insumos
+	 * caso esteja vazio este será o primeiro produto a ser gravado no arquivo.
+	 * @return retorna o código sequencial para o próximo dado do registro de produtos.
+	 */
+	public boolean obtemCodigoInsumo(Insumo insumo, int posicao) {
+		try {
+			openFile(ARQ_INSUMO);
+			setFilePointer(posicao);
+			writeObject(insumo);
+			System.out.println(insumo);
+			closeFile();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false; 
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
 	public List<Insumo> leInsumosNoArquivo() {
 		List<Insumo> listaInsumos = new ArrayList<>();
+		System.out.println("dkasdmaksndnasdn");
 		try {
 			openFile(ARQ_INSUMO);
 			for(int i = 0; i < recordQuantity(); i++) {
 				setFilePointer(i);
 				Insumo insumo = (Insumo) readObject();
+				System.out.println(insumo);
 				listaInsumos.add(insumo);
 			}
 			closeFile();
@@ -176,7 +207,7 @@ public class ArquivoInsumo extends BinaryFile{
 		}
 	}
 	
-	public boolean alteraInsumosNoArquivo(int codigoProduto, int codigoInsumo, float novoPreco) {
+	public boolean alteraInsumo(int codigoProduto, int codigoInsumo, float novoPreco) {
 		try {
 			openFile(ARQ_INSUMO);
 			for(int i = 0; i < recordQuantity(); i++) {
@@ -198,6 +229,30 @@ public class ArquivoInsumo extends BinaryFile{
 			return false;
 		}
 	}
+
+	public boolean alteraInsumoNoArquivo(int codigoProduto, int codigoInsumo, float novoPreco) {
+		try {
+			openFile(ARQ_INSUMO);
+			for(int i = 0; i < recordQuantity(); i++) {
+				setFilePointer(i);
+				Insumo insumo = (Insumo) readObject();
+				if(insumo.getCodigoProduto() == codigoProduto && insumo.getCodigo() == codigoInsumo) {
+					insumo.setPrecoUnitario(novoPreco);
+					escreveInsumosNoArquivoPorPosicao(insumo, i);
+					break;
+				}
+			}
+			closeFile();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
 	public boolean escreveInsumosNoArquivoPorPosicao(Insumo insumo, int posicao) {
 		try {
 			openFile(ARQ_INSUMO);
@@ -213,6 +268,6 @@ public class ArquivoInsumo extends BinaryFile{
 			return false;
 		}
 	}
-	
+
 
 }
