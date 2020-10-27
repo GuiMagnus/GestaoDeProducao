@@ -2,10 +2,9 @@ package br.com.fabrica.arquivos;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
+import static br.com.fabrica.constantes.Constantes.*;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.Venda;
-
 
 /**
  *  Esta classe fornece uma implementação para as operações que permitem manipular um arquivo de acesso 
@@ -29,7 +28,6 @@ public class ArquivoVenda extends BinaryFile {
 	 */
 	@Override
 	public int recordSize() {
-		// TODO Auto-generated method stub
 		return 154;
 	}
 
@@ -54,8 +52,6 @@ public class ArquivoVenda extends BinaryFile {
 		randomAccessFile.writeChars(setStringLength(venda.getData(), 10));
 		randomAccessFile.writeChars(setStringLength(venda.getHora(), 9));
 		randomAccessFile.writeFloat(venda.valorTotalVendaPorProduto());
-		
-		
 	}
 
 		/**
@@ -93,6 +89,7 @@ public class ArquivoVenda extends BinaryFile {
 	 */
 	public int obtemCodigoVenda() {
 		try {
+			openFile(ARQ_VENDA);
 			if(recordQuantity() == 0)
 				return 1;
 			else {

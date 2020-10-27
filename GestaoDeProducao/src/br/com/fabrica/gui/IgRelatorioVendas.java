@@ -1,6 +1,7 @@
 package br.com.fabrica.gui;
 
 import java.awt.Font;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,6 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import br.com.fabrica.modelo.Venda;
 
 /**
  * Classe responsavel por criar a tela de relatório de Vendas.
@@ -35,6 +39,7 @@ public class IgRelatorioVendas extends JFrame {
 	private JButton btnOk;
 	private JButton btnCancelar;
 	private JFrame jf;
+	private DefaultTableModel defaultTableModel;
 
 	/**
 	 * Create the panel.
@@ -108,8 +113,24 @@ public class IgRelatorioVendas extends JFrame {
 		
 		btnObtemDados = new JButton("Obter dados das vendas");
 		btnObtemDados.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		table.setBounds(new Rectangle(22, 0, 300, 300));
+		scrollPane.setViewportView(table);
+		
+		String[] colunas = new String[] {"Código da Venda", "Nome do produto","Quantidade","Preço Unitário","Valor Total"};
+		defaultTableModel = new DefaultTableModel(colunas, 0);
+		table.setModel(defaultTableModel);
+
+		table.getColumnModel().getColumn(0).setPreferredWidth(100);
+		table.getColumnModel().getColumn(1).setResizable(false);
+		table.getColumnModel().getColumn(1).setPreferredWidth(117);
+		table.getColumnModel().getColumn(1).setPreferredWidth(95);
+
 		btnObtemDados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Venda venda = new Venda("02/01/1997", "02:01", null,3); 
+				defaultTableModel.insertRow(defaultTableModel.getRowCount(),
+					new Object[] {venda.getCodigo(), "a",
+								2.5f,37.5f,105.6f});
 			}
 		});
 		btnObtemDados.setBounds(505, 57, 180, 23);

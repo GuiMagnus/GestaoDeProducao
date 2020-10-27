@@ -24,6 +24,8 @@ import br.com.fabrica.arquivos.ArquivoProduto;
 import br.com.fabrica.gerencia.ig.GerenciaIgInsumo;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.validacoes.Validacoes;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * Classe responsavel por criar a tela de cadastro de Insumos.
@@ -45,6 +47,7 @@ public class IgInsumos extends JFrame {
 	private JComboBox<String> comboBox;
 	private List<Produto> listaProdutos;
 	public static ArquivoProduto arqProduto = new ArquivoProduto();
+	private DefaultTableModel defaultTableModel;
 	private JButton btnPesquisar;
 	/**
 	 * Create the panel.
@@ -108,29 +111,34 @@ public class IgInsumos extends JFrame {
 		panel.add(scrollPane);
 
 		table = new JTable();
-		table.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-					{null, null, null},
-				},
-				new String[] {
-						"Nome", "Quantidade", "Pre\u00E7o Unit\u00E1rio"
+		String[] colunas = new String[] {"Nome", "Quantidade","Preço Unitário"};
+		table.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					//TODO Fazer o cursor ficar na primeira coluna de todas as novas linhas.
+					defaultTableModel.addRow(new String[2]);
 				}
-				));
+			}
+		});
+
 		table.setBounds(new Rectangle(22, 0, 300, 300));
 		scrollPane.setViewportView(table);
+		//String[] colunas = new String[] {"Nome", "Quantidade","Preço Unitário"};
+		defaultTableModel = new DefaultTableModel(colunas, 1);
+		table.setModel(defaultTableModel);
+
+		table.getColumnModel().getColumn(0).setPreferredWidth(100);
+		table.getColumnModel().getColumn(1).setResizable(false);
+		table.getColumnModel().getColumn(1).setPreferredWidth(117);
+		table.getColumnModel().getColumn(1).setPreferredWidth(95);
+
+		//defaultTableModel.insertRow(defaultTableModel.getRowCount(), new Object[] {prod.getNome(), prod.getQuantidadeProduto()+(int)spinner.getValue(),prod.getPrecoFabricacao()});
+		// Define a posição, o tamanho e exibe a janela.
+		//setBounds(100, 100, 428, 314);
+		//setVisible(true);
 		//DefaultTableModel dtm = (DefaultTableModel)table.getModel();
+		
 		comboBox = new JComboBox<String>();
 		comboBox.setBounds(177, 61, 284, 30);
 		jf.getContentPane().add(comboBox);
@@ -150,33 +158,34 @@ public class IgInsumos extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("A quantidade de insumo  \u00E9 por tamanho de cada unidade do produto.");
 		lblNewLabel_2.setBounds(48, 211, 414, 14);
 		jf.getContentPane().add(lblNewLabel_2);
-		
+
 		btnPesquisar = new JButton("Pesquisar Produto");
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnPesquisar.setBounds(327, 146, 135, 30);
 		jf.getContentPane().add(btnPesquisar);
 
 		jf.setVisible(true);
-		
+
 		btnPesquisar.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				GerenciaIgInsumo.obtemInsumosProduto(Validacoes.obtemCodigo(
 						comboBox.getSelectedItem().toString()), table, jf);
 			}
 		});
-		
+
 		btnGravar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				GerenciaIgInsumo.cadastraInsumo(comboBox, tfTamanho, jf, table);
-				for (int i = 0; i < table.getColumnCount(); i++) {
-					table.setValueAt("", i, 0);
-					table.setValueAt("", i, 1);
-					table.setValueAt("", i, 2);
-				}
+				//table = (DefaultTableModel)jTable1.getModel(); tabela.setNumRows(0);
+				defaultTableModel.setNumRows(1);
+				defaultTableModel.setValueAt("", 0, 0);
+				defaultTableModel.setValueAt("", 0, 1);
+				defaultTableModel.setValueAt("", 0, 2);
+				
 				comboBox.setSelectedIndex(0);
 				tfTamanho.setText("");
 				tfTamanho.setText("");
@@ -194,7 +203,7 @@ public class IgInsumos extends JFrame {
 		});
 
 	}
-	
+
 	/**
 	 * Obtém a janela
 	 * @return janela contendo 

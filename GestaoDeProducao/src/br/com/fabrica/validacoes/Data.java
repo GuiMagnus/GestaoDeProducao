@@ -22,7 +22,8 @@ public class Data implements Comparable<Data>{
 	 * 
 	 */
 	public Data() {
-		this(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
+		this(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1,
+				calendar.get(Calendar.YEAR));
 	}
 
 	/**
@@ -126,7 +127,8 @@ public class Data implements Comparable<Data>{
 	}
 
 	/**
-	 * Verifica se o objeto {@link Data} <code>this</code> está dentro do período especificado pelos parâmetros.
+	 * Verifica se o objeto {@link Data} <code>this</code> está dentro do período
+	 * especificado pelos parâmetros.
 	 * 
 	 * @param dataInicial - {@link Data} : data inicial do período
 	 * @param dataFinal - {@link Data} : data final do período
@@ -202,4 +204,5 @@ public class Data implements Comparable<Data>{
 		else
 			return 0;
 	}
+	
 }

@@ -19,9 +19,13 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.fabrica.arquivos.ArquivoProduto;
+import br.com.fabrica.arquivos.ArquivoVenda;
+import br.com.fabrica.gerencia.modelo.GerenciaVenda;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.validacoes.Data;
 import br.com.fabrica.validacoes.Validacoes;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 
 /**
@@ -84,7 +88,7 @@ public class IgVendas extends JFrame {
 		tfCodigo.setBounds(133, 59, 54, 20);
 		jf.getContentPane().add(tfCodigo);
 		tfCodigo.setColumns(10);
-		
+		tfCodigo.setText(String.format("%d",new ArquivoVenda().obtemCodigoVenda()));
 		lblNewLabel_1 = new JLabel("Itens da Venda");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel_1.setBounds(199, 249, 124, 25);
@@ -153,7 +157,16 @@ public class IgVendas extends JFrame {
 		jf.getContentPane().add(lblQuantidade);
 		
 		spinner = new JSpinner();
+		/**
+		 * Evento para estabelecer um valor teto para o spinner referente a quantidade do produto. 
+		 */
+		spinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				
+			}
+		});
 		spinner.setBounds(391, 184, 72, 20);
+		
 		jf.getContentPane().add(spinner);
 		btnAddItens = new JButton("Adicionar Itens da Venda");
 		
@@ -163,7 +176,6 @@ public class IgVendas extends JFrame {
 				Produto prod = new Produto();
 				prod.setNome(Validacoes.obtemNome(String.format("%s",comboProduto.getSelectedItem())));
 				prod = verificaProdutosArquivo(prod,listaProdutos);
-				System.out.println("p->"+prod.getPrecoFabricacao());
 				if(table.getRowCount() > 0) {
 					int i = verificaTabela(table,prod);
 					if(i != -1) {
@@ -190,7 +202,6 @@ public class IgVendas extends JFrame {
 			}
 
 			public int verificaTabela(JTable table, Produto prod) {
-				System.out.println("a");
 				for (int i = 0; i < table.getRowCount(); i++) 
 					if(prod.getNome().equalsIgnoreCase((String) table.getValueAt(i, 0))) {
 						System.out.println("Igual");
@@ -226,7 +237,7 @@ public class IgVendas extends JFrame {
 		String[] colunas = new String[] {"Nome", "Quantidade","Preço Unitário","Valor Total"};
 		table = new JTable();
 		//table.setBorder(new TitledBorder(null, "Vendas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.add(table, BorderLayout.SOUTH);
+		//panel.add(table, BorderLayout.SOUTH);
 		defaultTableModel = new DefaultTableModel(colunas, 0);
 		table.setModel(defaultTableModel);
 		

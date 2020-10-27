@@ -3,6 +3,8 @@ package br.com.fabrica.validacoes;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JComboBox;
 
@@ -38,6 +40,7 @@ public class Validacoes {
 	 * @return - <code>float</code> valor transformado.
 	 */
 	public static float transformaEmFloat(String valor) {
+		//System.out.println(valor.replaceFirst(",", "."));
 		return Float.parseFloat(valor.replaceFirst(",", "."));
 	}
 	
@@ -105,5 +108,20 @@ public class Validacoes {
 		else
 			return transformaEmFloat(dado);
 	}
+	
+	public static String obtemExpressoes(String palavra, String expressaoRegular) {
+		String palavras = "";
+		
+		Pattern pattern = Pattern.compile(expressaoRegular);
+		
+		Matcher matcher = pattern.matcher(palavra);
+		
+		while (matcher.find())
+			palavras += String.format("%s\n", matcher.group());
+
+		return palavras;
+	}
+	
+
 
 }

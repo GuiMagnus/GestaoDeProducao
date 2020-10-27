@@ -22,6 +22,10 @@ public class Constantes {
 	public static String ARQ_PRODUCAO = "..\\GestaoDeProducao\\arquivos\\producao.dat";
 	
 	/**
+	 * <code>String</code> : Determina o arquivo relacionado a venda.
+	 */
+	public static String ARQ_VENDA = "..\\GestaoDeProducao\\arquivos\\venda.dat";
+	/**
 	 * <code>String</code> : Mensagem informando que o produto foi cadastrado com sucesso
 	 */
 	public static String CAD_PRODUTO = "Produto cadastrado com sucesso";
@@ -100,6 +104,16 @@ public class Constantes {
 	 * <code>String</code> : Mensagem informando erro na alteração do preco.
 	 */
 	public static String ERR_ALTERA_PRECO = "Erro ao alterar o preço";
+	
+	/**
+	 * <code>String</code> : Expressão regular para validar data
+	 */
+	public static String EXP_DATA = "\\d{2}/\\d{2}/\\d{4}";
+	
+	/**
+	 * <code>String</code> : Expressão regular para validar data
+	 */
+	public static String EXP_HORA = "[0-2][0-3]:[0-5][0-9]:[0-5][0-9]";
 	
 
 }

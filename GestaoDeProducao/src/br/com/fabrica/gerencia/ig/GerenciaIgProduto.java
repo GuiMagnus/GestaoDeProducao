@@ -32,6 +32,7 @@ public class GerenciaIgProduto {
 	public static void cadastrarProdutos(JTextField tfNome, JComboBox<String> comboBox, 
 			JSpinner spinner, JFrame jf) {
 		Produto produto = new Produto();
+		produto.setCodigo(arquivoProduto.obtemCodigoProduto());
 		produto.setNome(tfNome.getText());
 		produto.setUnidadeMedida(obtemUnidade(comboBox));
 		produto.setMargemLucro(Float.parseFloat(spinner.getValue().toString()));

@@ -186,13 +186,13 @@ public class ArquivoProduto extends BinaryFile{
 	public int obtemCodigoProduto() {
 		int codigo = 0;
 		try {
-			openFile(ARQ_PRODUTO);
+		//	openFile(ARQ_PRODUTO);
 			if(recordQuantity() == 0)
 				codigo = 1;
 			else {
 				codigo = (int) (recordQuantity() + 1);
 			}
-			closeFile();
+			//closeFile();
 			return codigo;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -252,9 +252,6 @@ public class ArquivoProduto extends BinaryFile{
 				setFilePointer(i);
 				
 				produto = (Produto) readObject();
-				
-				System.out.println(produto);
-				System.out.println("Aquiiiiii");
 				if(produto.getCodigo() == codigoProduto) {
 					break;
 				}

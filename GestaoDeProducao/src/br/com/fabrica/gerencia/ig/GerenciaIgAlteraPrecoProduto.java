@@ -11,6 +11,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
 import br.com.fabrica.arquivos.ArquivoProduto;
+import br.com.fabrica.gerencia.modelo.GerenciaHistoricoPreco;
 import br.com.fabrica.gerencia.modelo.GerenciaProduto;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.validacoes.Validacoes;
@@ -23,13 +24,14 @@ public class GerenciaIgAlteraPrecoProduto {
 		Produto produto = new Produto();
 		GerenciaProduto gp = new GerenciaProduto();
 		int codigo = Validacoes.obtemCodigo(comboProduto.getSelectedItem().toString());
-		float preco = Validacoes.transformaEmFloat(tfPreco.getText());
-		System.out.println(codigo);
 		produto = arquivoProduto.obtemProduto(codigo);
 		
 		if(!tfPreco.getText().equals("")) {
+			float preco = Validacoes.transformaEmFloat(tfPreco.getText());
 			produto.setPrecoVenda(preco);
 			produto.setMargemLucro(gp.calculaAumentoPercentual(produto));
+			GerenciaHistoricoPreco ghp = new GerenciaHistoricoPreco();
+			ghp.insereHistoricoPreco(preco, produto.getHistoricoPrecos());
 		}
 			
 		float margem = Validacoes.transformaEmFloat(spinner.getValue().toString());
