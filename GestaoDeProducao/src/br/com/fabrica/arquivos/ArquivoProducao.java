@@ -1,11 +1,10 @@
 package br.com.fabrica.arquivos;
 
-import static br.com.fabrica.constantes.Constantes.*;
+import static br.com.fabrica.constantes.Constantes.ARQ_PRODUCAO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.modelo.Producao;
 import br.com.fabrica.modelo.Produto;
 

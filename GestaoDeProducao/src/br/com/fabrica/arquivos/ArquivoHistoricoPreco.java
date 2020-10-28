@@ -2,6 +2,7 @@ package br.com.fabrica.arquivos;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import br.com.fabrica.modelo.HistoricoPreco;
 
@@ -94,6 +95,23 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 		} catch (IOException e) {
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	
+	public boolean escreveHistoricoNoArquivo(List<HistoricoPreco> hpList, String arquivo) {
+		try {
+			openFile(arquivo);
+			setFilePointer(recordQuantity());
+			for(HistoricoPreco hp : hpList)
+				writeObject(hp);
+			closeFile();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false; 
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 

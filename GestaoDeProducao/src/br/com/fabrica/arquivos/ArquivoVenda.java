@@ -2,6 +2,9 @@ package br.com.fabrica.arquivos;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import static br.com.fabrica.constantes.Constantes.*;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.Venda;
@@ -101,6 +104,26 @@ public class ArquivoVenda extends BinaryFile {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return 0;
+		}
+	}
+	
+	public List<Venda> leProdutosNoArquivo() {
+		List<Venda> listaVendas = new ArrayList<>();
+		try {
+			openFile(ARQ_VENDA);
+			for(int i = 0; i < recordQuantity(); i++) {
+				setFilePointer(i);
+				Venda venda = (Venda) readObject();
+				listaVendas.add(venda);
+			}
+			closeFile();
+			return listaVendas;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 

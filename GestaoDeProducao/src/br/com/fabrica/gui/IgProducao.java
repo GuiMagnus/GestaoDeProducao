@@ -3,13 +3,16 @@ package br.com.fabrica.gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import br.com.fabrica.arquivos.ArquivoProduto;
 import br.com.fabrica.gerencia.ig.GerenciaIgProducao;
+import br.com.fabrica.modelo.Produto;
 
 import javax.swing.JComboBox;
 
@@ -96,6 +99,12 @@ public class IgProducao extends JFrame {
 		
 		jf.setVisible(true);
 		
+		List<Produto> listaProdutos = new ArquivoProduto().leProdutosNoArquivo();
+
+		for (Produto prod : listaProdutos)
+			comboBox.addItem(String.format("%d - %s", prod.getCodigo(),prod.getNome()));
+
+		
 		btnGravar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -111,10 +120,22 @@ public class IgProducao extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				jf.setVisible(false);
+				IgMenu igMenu = new IgMenu();
+				igMenu.getJf().setVisible(true);
 			}
 		});
 		
 		
 	}
+
+	public JFrame getJf() {
+		return jf;
+	}
+
+	public void setJf(JFrame jf) {
+		this.jf = jf;
+	}
+	
+	
 }

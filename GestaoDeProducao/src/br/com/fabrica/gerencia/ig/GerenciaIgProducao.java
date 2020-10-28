@@ -1,6 +1,6 @@
 package br.com.fabrica.gerencia.ig;
 
-import static br.com.fabrica.constantes.Constantes.CAD_PRODUCAO;
+import static br.com.fabrica.constantes.Constantes.*;
 import static br.com.fabrica.constantes.Constantes.ERR_CAD_PRODUCAO;
 import static br.com.fabrica.constantes.Constantes.PRODUCAO;
 import static br.com.fabrica.gui.EntradaESaida.msgErro;
@@ -43,21 +43,33 @@ public class GerenciaIgProducao {
 		Producao producao = new Producao();
 		Produto produto = new Produto();
 		produto.setNome(comboBox.getSelectedItem().toString());
-		producao.setData(tfData.getText());
-		producao.setQuantidade(Integer.parseInt(tfQtdProduziada.getText()));
-		
-		
-		boolean cadastrado = arquivoProducao.escreveProducaoNoArquivo(producao);
-		if(cadastrado)
-			msgInfo(jf, CAD_PRODUCAO, PRODUCAO);
-		else
-			msgErro(jf, ERR_CAD_PRODUCAO, PRODUCAO);
 		
 		GerenciaProducao gp = new GerenciaProducao();
-		msgInfo(jf, String.format("O custo total da produção é: %.2f\n"
-				+ "O valor de venda que será obtido: %.2f", gp.calculaCustoTotalProducao(produto,
-						producao.getQuantidade()), gp.calculaValorTotalVenda(produto,
-								producao.getQuantidade())), PRODUCAO);
+		if(gp.verificaQuantidadeInsumo(produto, Integer.parseInt(tfQtdProduziada.getText())))
+			msgErro(jf, ERR_QTD_INSUMO_PROD, PRODUCAO);
+		else {
+			producao.setProduto(produto);
+			producao.setData(tfData.getText());
+			producao.setQuantidade(Integer.parseInt(tfQtdProduziada.getText()));
+			
+			
+			boolean cadastrado = arquivoProducao.escreveProducaoNoArquivo(producao);
+			if(cadastrado)
+				msgInfo(jf, CAD_PRODUCAO, PRODUCAO);
+			else
+				msgErro(jf, ERR_CAD_PRODUCAO, PRODUCAO);
+			
+			msgInfo(jf, String.format("O custo total da produção é: %.2f\n"
+					+ "O valor de venda que será obtido: %.2f", gp.calculaCustoTotalProducao(produto,
+							producao.getQuantidade()), gp.calculaValorTotalVenda(produto,
+									producao.getQuantidade())), PRODUCAO);
+		}
+		
+		
+		
+	}
+	
+	public void verificaEstoqueInsumo(Produto produto, int quantidade, JFrame jf) {
 		
 	}
 	

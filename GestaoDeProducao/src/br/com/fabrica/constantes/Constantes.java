@@ -25,6 +25,22 @@ public class Constantes {
 	 * <code>String</code> : Determina o arquivo relacionado a venda.
 	 */
 	public static String ARQ_VENDA = "..\\GestaoDeProducao\\arquivos\\venda.dat";
+	
+	/**
+	 * <code>String</code> : Determina o arquivo relacionado a produtos.
+	 */
+	public static String ARQ_PRECO_INSUMO = "..\\GestaoDeProducao\\arquivos\\historicoPrecoInsumo.dat";
+	
+	/**
+	 * <code>String</code> : Determina o arquivo relacionado a produtos.
+	 */
+	public static String ARQ_PRECO_PRODUTO = "..\\GestaoDeProducao\\arquivos\\historicoPrecoProduto.dat";
+	
+	/**
+	 * <code>String</code> : Determina o arquivo relacionado a produtos.
+	 */
+	public static String ARQ_INSUMO_PRODUTO = "..\\GestaoDeProducao\\arquivos\\insumosProduto.dat";
+	
 	/**
 	 * <code>String</code> : Mensagem informando que o produto foi cadastrado com sucesso
 	 */
@@ -114,6 +130,8 @@ public class Constantes {
 	 * <code>String</code> : Expressão regular para validar data
 	 */
 	public static String EXP_HORA = "[0-2][0-3]:[0-5][0-9]:[0-5][0-9]";
+	
+	public static String ERR_QTD_INSUMO_PROD = "Não existem insumos o suficiente para essa produção";
 	
 
 }

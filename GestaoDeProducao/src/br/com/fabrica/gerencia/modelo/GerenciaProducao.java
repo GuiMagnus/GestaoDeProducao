@@ -1,5 +1,8 @@
 package br.com.fabrica.gerencia.modelo;
 
+import java.util.List;
+
+import br.com.fabrica.arquivos.ArquivoInsumo;
 import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.modelo.Produto;
 
@@ -37,5 +40,28 @@ public class GerenciaProducao {
 		custo += gp.calculaPrecoVenda(produto) * quantidade;
 		
 		return custo;
+	}
+	
+	public boolean verificaQuantidadeInsumo(Produto produto, int quantidade) {
+		ArquivoInsumo ai = new ArquivoInsumo();
+		List<Insumo> insumos = ai.leInsumosNoArquivo();
+		List<Insumo> listaInsumosProduto = new GerenciaProduto().obtemListaInsumosProduto(produto);
+		if(insumos == null)
+			return false;
+		if(listaInsumosProduto == null) {
+			return false;
+		}
+		else if(listaInsumosProduto != null) {
+			for(Insumo insumoP : listaInsumosProduto) {
+				for(Insumo insumo : insumos) {
+					if(insumo.getNome().equalsIgnoreCase(insumoP.getNome())) {
+						if(insumo.getQuantidade() < (insumoP.getQuantidade() * quantidade))
+							return false;
+					}
+				}
+			}
+		}
+		
+		return true;
 	}
 }

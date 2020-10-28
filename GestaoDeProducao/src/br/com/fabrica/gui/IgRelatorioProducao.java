@@ -1,13 +1,14 @@
 package br.com.fabrica.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -16,16 +17,6 @@ import javax.swing.table.DefaultTableModel;
 import br.com.fabrica.modelo.Producao;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.UnidadeMedida;
-
-import javax.swing.JPanel;
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.ComponentOrientation;
-import java.awt.Cursor;
-
-import javax.swing.ScrollPaneConstants;
-import java.awt.Dimension;
 
 /**
  * Classe responsavel por criar a tela de Relatorio de produção
@@ -147,11 +138,14 @@ public class IgRelatorioProducao extends JFrame {
 		// Define a janela como não redimensionável.
 		//jf.setResizable(false);
 		jf.setSize(591, 568);
+		
 		btnCancelar.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				jf.setVisible(false);
+				IgMenu igMenu = new IgMenu();
+				igMenu.getJf().setVisible(true);
 			}
 		});
 		jf.setVisible(true);
@@ -166,4 +160,13 @@ public class IgRelatorioProducao extends JFrame {
 			}
 		});
 	}
+	
+	public JFrame getJf() {
+		return jf;
+	}
+	public void setJf(JFrame jf) {
+		this.jf = jf;
+	}
+	
+	
 }

@@ -169,8 +169,20 @@ public class IgRelatorioVendas extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				jf.setVisible(false);
+				IgMenu igMenu = new IgMenu();
+				igMenu.getJf().setVisible(true);
 			}
 		});
 	}
+
+	public JFrame getJf() {
+		return jf;
+	}
+
+	public void setJf(JFrame jf) {
+		this.jf = jf;
+	}
+	
+	
 }

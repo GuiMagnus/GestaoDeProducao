@@ -40,7 +40,6 @@ public class Validacoes {
 	 * @return - <code>float</code> valor transformado.
 	 */
 	public static float transformaEmFloat(String valor) {
-		//System.out.println(valor.replaceFirst(",", "."));
 		return Float.parseFloat(valor.replaceFirst(",", "."));
 	}
 	
@@ -79,7 +78,7 @@ public class Validacoes {
 	 * @return- <code>String</code> : string verificada ou nulo
 	 */
 	public static String verificaNome(String dado) {
-		if(dado.equalsIgnoreCase(""))
+		if(dado.equalsIgnoreCase(null))
 			return null;
 		else
 			return dado;
@@ -120,6 +119,21 @@ public class Validacoes {
 			palavras += String.format("%s\n", matcher.group());
 
 		return palavras;
+	}
+	
+	/**
+	 * Verifica se na <code>String</code> passada como parâmentro contém letra;
+	 * @param string <code>String</code> a ser verificada.
+	 * @return a <code>String</code> se nela conter apenas números.
+	 */
+	public static String verificaContemNumero(String string) {
+		if(string.contains("\\D+"))
+			return "";
+		return string;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(obtemExpressoes("121", "\\w+"));
 	}
 	
 

@@ -134,7 +134,10 @@ public class IgProdutos extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);			}
+				jf.setVisible(false);
+				IgMenu igMenu = new IgMenu();
+				igMenu.getJf().setVisible(true);
+			}
 		});
 		
 		btnInsumo.addActionListener(new ActionListener() {
@@ -142,7 +145,7 @@ public class IgProdutos extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				jf.setVisible(false);
-				IgInsumos igInsumos = new IgInsumos();
+				IgInsumosProduto igInsumos = new IgInsumosProduto();
 				igInsumos.getJf().setVisible(true);
 			}
 		});

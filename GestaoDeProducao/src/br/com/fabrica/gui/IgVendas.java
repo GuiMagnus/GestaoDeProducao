@@ -16,16 +16,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.fabrica.arquivos.ArquivoProduto;
 import br.com.fabrica.arquivos.ArquivoVenda;
-import br.com.fabrica.gerencia.modelo.GerenciaVenda;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.validacoes.Data;
 import br.com.fabrica.validacoes.Validacoes;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
 
 
 /**
@@ -273,10 +272,22 @@ public class IgVendas extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
+				jf.setVisible(false);
+				IgMenu igMenu = new IgMenu();
+				igMenu.getJf().setVisible(true);
 			}
 		});
 		
 		jf.setVisible(true);
 	}
+	
+	
+	public JFrame getJf() {
+		return jf;
+	}
+	public void setJf(JFrame jf) {
+		this.jf = jf;
+	}
+	
+	
 }

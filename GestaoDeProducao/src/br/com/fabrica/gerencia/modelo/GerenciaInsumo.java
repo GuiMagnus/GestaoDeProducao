@@ -20,7 +20,6 @@ public class GerenciaInsumo {
 	 */
 	public List<Insumo> obtemInsumosProduto(int codigo){
 		ArquivoInsumo arquivoInsumo = new ArquivoInsumo();
-		System.out.println("oooee");
 		List<Insumo> lista = arquivoInsumo.leInsumosNoArquivo();
 		List<Insumo> listaInsumoProduto = new ArrayList<Insumo>();
 		if(lista != null)

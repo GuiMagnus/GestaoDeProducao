@@ -20,10 +20,11 @@ public class GerenciaHistoricoPreco {
 	 * @param preco - <code>float</code> : novo preço a ser cadastrado.
 	 * @param historico - <code>List</code> : lista que irá receber o novo preço;
 	 */
-	public void insereHistoricoPreco(float preco, List<HistoricoPreco> historico) {
+	public void insereHistoricoPreco(float preco, List<HistoricoPreco> historico, int codigo) {
 		Calendar hoje = Calendar.getInstance();
 		String data = transformaCalendarEmString(hoje);
 		HistoricoPreco hp = new HistoricoPreco(preco, data);
+		hp.setCodigoReferenciaDeDado(codigo);
 		historico.add(hp);
 	}
 	

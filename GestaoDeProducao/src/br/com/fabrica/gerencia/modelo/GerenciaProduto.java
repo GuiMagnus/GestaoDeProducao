@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.fabrica.arquivos.ArquivoInsumoProduto;
 import br.com.fabrica.arquivos.ArquivoProduto;
 import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.modelo.Produto;
@@ -48,11 +49,9 @@ public class GerenciaProduto {
 	 * @return - <code>float</code> : novo percentual de lucro do produto.
 	 */
 	public float calculaAumentoPercentual(Produto produto) {
-		System.out.println(produto.getPrecoFabricacao());
 		float valorAumento = produto.getPrecoVenda() - produto.getPrecoFabricacao();
 		
 		float margem = (valorAumento / produto.getPrecoFabricacao()) / 100;
-		System.out.println(margem);
 		return margem;
 	}
 	
@@ -72,5 +71,11 @@ public class GerenciaProduto {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public List<Insumo> obtemListaInsumosProduto(Produto produto){
+		ArquivoInsumoProduto aip = new ArquivoInsumoProduto();
+		List<Insumo> lista = aip.obtemInsumosDeUmProduto(produto.getCodigo());
+		return lista;
 	}
 }
