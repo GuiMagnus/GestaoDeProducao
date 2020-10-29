@@ -12,6 +12,8 @@ import javax.swing.JTextField;
 
 import br.com.fabrica.gerencia.ig.GerenciaIgOrcamento;
 import br.com.fabrica.gerencia.modelo.MesesAno;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 /**
  * Classe responsavel por criar a tela de Orçamento.
@@ -36,7 +38,6 @@ public class IgOrcamento extends JFrame {
 	private JButton btnNewButton;
 	private JButton btnCancelar;
 	private JFrame jf;
-	private JButton btnCalcular;
 
 	/**
 	 * Create the panel.
@@ -99,6 +100,18 @@ public class IgOrcamento extends JFrame {
 		jf.getContentPane().add(tfNumero);
 		
 		comboBox = new JComboBox<String>();
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				GerenciaIgOrcamento.obtemOrcamento(comboBox, tfValor, tfNumero,
+						tfValorTotal, tfSaldo);
+				/*
+				 * Acho que não precisa mais disso aqui!
+				tfValor.setText(""); 
+				tfNumero.setText(""); 
+				tfValorTotal.setText(""); 
+				tfSaldo.setText("");*/
+			}
+		});
 		comboBox.setBounds(74, 59, 161, 22);
 		jf.getContentPane().add(comboBox);
 		for(MesesAno mesesAno : MesesAno.values()) {
@@ -131,10 +144,6 @@ public class IgOrcamento extends JFrame {
 		jf.setAutoRequestFocus(false);
 		jf.getContentPane().setLayout(null);
 		
-		btnCalcular = new JButton("Calcular");
-		btnCalcular.setBounds(250, 59, 112, 23);
-		jf.getContentPane().add(btnCalcular);
-		
 		// Define que o programa deve ser finalizado quando o usuário clicar no botão Fechar da janela.
 		jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -155,19 +164,7 @@ public class IgOrcamento extends JFrame {
 			}
 		});
 		
-		btnCalcular.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				GerenciaIgOrcamento.obtemOrcamento(comboBox, tfValor, tfNumero,
-						tfValorTotal, tfSaldo);
-				tfValor.setText(""); 
-				tfNumero.setText(""); 
-				tfValorTotal.setText(""); 
-				tfSaldo.setText("");
-				
-			}
-		});
+		
 	}
 
 	public JFrame getJf() {

@@ -29,7 +29,8 @@ public class GerenciaIgOrcamento {
 		float valorTotal = go.obtemValorTotalDeVendas((String) comboBox.getSelectedItem(), vendas);
 		tfValorTotal.setText(valorTotal + "");
 		float saldo = go.saldo(valorTotal, valor);
-		tfSaldo.setText(saldo + "");
+		
+		//tfSaldo.setText(saldo + "");
 		
 		
 	}

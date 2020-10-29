@@ -55,7 +55,7 @@ public class ArquivoInsumo extends BinaryFile{
 			insumo = (Insumo) objeto;
 		else
 			throw new ClassCastException();
-
+		System.out.println(insumo.getCodigoProduto());
 		randomAccessFile.writeInt(insumo.getCodigo());
 		randomAccessFile.writeInt(insumo.getCodigoProduto());
 		randomAccessFile.writeChars(setStringLength(insumo.getNome(), 50));
@@ -122,7 +122,7 @@ public class ArquivoInsumo extends BinaryFile{
 	 */
 	public boolean escreveInsumosNoArquivo(List<Insumo> insumos, String arquivo) {
 		try {
-			openFile(ARQ_INSUMO);
+			openFile(arquivo);
 			setFilePointer(recordQuantity());
 			for(Insumo insumo : insumos) {
 				writeObject(insumo);
@@ -194,6 +194,7 @@ public class ArquivoInsumo extends BinaryFile{
 				setFilePointer(i);
 				Insumo insumo = (Insumo) readObject();
 				listaInsumos.add(insumo);
+				//System.out.println(insumo.getCodigoProduto());
 			}
 			closeFile();
 			return listaInsumos;

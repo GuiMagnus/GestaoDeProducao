@@ -13,6 +13,7 @@ import static br.com.fabrica.validacoes.Validacoes.verificaNome;
 import static br.com.fabrica.validacoes.Validacoes.verificaPreco;
 import static br.com.fabrica.validacoes.Validacoes.verificaQuantidade;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -22,14 +23,16 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.fabrica.arquivos.ArquivoInsumo;
+import br.com.fabrica.arquivos.ArquivoInsumoProduto;
 import br.com.fabrica.gerencia.modelo.GerenciaHistoricoPreco;
 import br.com.fabrica.gerencia.modelo.GerenciaInsumo;
+import br.com.fabrica.gerencia.modelo.GerenciaInsumoProduto;
 import br.com.fabrica.gui.IgInsumos;
 import br.com.fabrica.modelo.Insumo;
 import static br.com.fabrica.constantes.Constantes.*;
 
 public class GerenciaIgInsumoProduto {
-	private static ArquivoInsumo arquivoInsumo = new ArquivoInsumo();
+	private static ArquivoInsumoProduto arquivoInsumo = new ArquivoInsumoProduto();
 
 	/**
 	 * Obtém os dados informados nos componentes presentes na tela {@link IgInsumos},
@@ -45,6 +48,7 @@ public class GerenciaIgInsumoProduto {
 	public static void cadastraInsumo(JComboBox<String> comboBox, JTextField tfUnidade, 
 			JFrame jf, JTable table) {
 		int codigo = obtemCodigo(comboBox.getSelectedItem().toString());
+		//System.out.println("CódigoProduto-->"+codigo);
 		List<Insumo> ins = cadastraInsumosProduto(codigo, table, jf);
 
 		boolean cadastrado = arquivoInsumo.escreveInsumosNoArquivo(ins, ARQ_INSUMO_PRODUTO);
@@ -56,27 +60,26 @@ public class GerenciaIgInsumoProduto {
 
 	//TODO
 	public static void obtemInsumosProduto(int codigo, DefaultTableModel defaultTableModel, JFrame jf){
-		GerenciaInsumo gi = new GerenciaInsumo();
-
+		GerenciaInsumoProduto gi = new GerenciaInsumoProduto();
+		
 		List<Insumo> insumos = gi.obtemInsumosProduto(codigo); 
 		if(insumos.size() > 0) {
 			defaultTableModel.setNumRows(0);
 			for(int i = 0; i < insumos.size(); i++) {
 				defaultTableModel.insertRow(defaultTableModel.getRowCount(),
 						new Object[] {insumos.get(i).getNome(),insumos.get(i).getQuantidade(),insumos.get(i).getPrecoUnitario()});
-				System.out.println(insumos.get(i));
+				//System.out.println(insumos.get(i));
 			}
 			defaultTableModel.insertRow(defaultTableModel.getRowCount(), new String[3]);
-			System.out.println(insumos.size());
+			//System.out.println(insumos.size());
 		}else
 			msgInfo(jf, ERR_NAO_CAD_INSUMO, INSUMO);
 	}
 
 
 	public static List<Insumo> cadastraInsumosProduto(int codigo, JTable table, JFrame jf){
-
-		GerenciaInsumo gi = new GerenciaInsumo();
-		List<Insumo> insumos = gi.obtemInsumosProduto(codigo);
+		//GerenciaInsumoProduto gi = new GerenciaInsumoProduto();
+		List<Insumo> insumos = new ArrayList<Insumo>(); //= gi.obtemInsumosProduto(codigo);
 
 		if(table.getValueAt(0, 0).toString() == null) {
 			msgErro(jf, ERR_NOME_INSUMO, INSUMO);
@@ -84,7 +87,6 @@ public class GerenciaIgInsumoProduto {
 			for (int i = 0; i < table.getRowCount(); i++) {
 				Insumo insumo = new Insumo();
 				insumo.setCodigo(codigo);
-				
 				String validaNome = verificaNome(String.format("%s",table.getValueAt(i, 0)));
 				
 				if(validaNome.equalsIgnoreCase("null")) {
@@ -97,6 +99,7 @@ public class GerenciaIgInsumoProduto {
 				}
 				else
 					insumo.setNome(validaNome);
+				System.out.println(String.format("%s",table.getValueAt(i, 1)));
 				float validaQuantidade = verificaQuantidade(String.format("%s",table.getValueAt(i, 1)));
 				insumo.setQuantidade(validaQuantidade);
 				float validaPreco = verificaPreco(String.format("%s",table.getValueAt(i, 2)));
@@ -116,5 +119,22 @@ public class GerenciaIgInsumoProduto {
 			}
 		}
 		return insumos;
+	}
+	/**
+	 * Obtem os insumos referentes a um produto.
+	 * @param codigo - <code>int</code> código do produto.
+	 * @return <code>List</code> lista de insumos de um produto
+	 */
+	public List<Insumo> obtemInsumosProduto(int codigo){
+		ArquivoInsumoProduto arquivoInsumoProduto = new ArquivoInsumoProduto();
+		List<Insumo> lista = arquivoInsumoProduto.leInsumosNoArquivo();
+		List<Insumo> listaInsumoProduto = new ArrayList<Insumo>();
+		if(lista != null)
+			for(Insumo insumo : lista) {
+				if(insumo.getCodigoProduto() == codigo)
+					listaInsumoProduto.add(insumo);
+				
+			}
+		return listaInsumoProduto;
 	}
 }

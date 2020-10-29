@@ -22,10 +22,18 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
+
 import br.com.fabrica.arquivos.ArquivoProduto;
 import br.com.fabrica.gerencia.ig.GerenciaIgInsumoProduto;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.validacoes.Validacoes;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
 
 /**
  * Classe responsavel por criar a tela de cadastro de Insumos.
@@ -111,6 +119,7 @@ public class IgInsumosProduto extends JFrame {
 		panel.add(scrollPane);
 
 		table = new JTable();
+		
 		String[] colunas = new String[] {"Nome", "Quantidade","Preço Unitário"};
 		table.addKeyListener(new KeyAdapter() {
 			@Override
@@ -134,6 +143,13 @@ public class IgInsumosProduto extends JFrame {
 		table.getColumnModel().getColumn(1).setPreferredWidth(95);
 		
 		comboBox = new JComboBox<String>();
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				GerenciaIgInsumoProduto.obtemInsumosProduto(Validacoes.obtemCodigo(
+						comboBox.getSelectedItem().toString()), defaultTableModel, jf);
+			}
+		});
+		
 		comboBox.setBounds(177, 61, 284, 30);
 		jf.getContentPane().add(comboBox);
 
@@ -157,6 +173,16 @@ public class IgInsumosProduto extends JFrame {
 		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnPesquisar.setBounds(327, 146, 135, 30);
 		jf.getContentPane().add(btnPesquisar);
+		
+		JButton btnNewButton = new JButton("Limpar Tabela");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				defaultTableModel.setNumRows(0);
+				defaultTableModel.addRow(new String[2]);
+			}
+		});
+		btnNewButton.setBounds(39, 151, 121, 25);
+		jf.getContentPane().add(btnNewButton);
 
 		jf.setVisible(true);
 
@@ -175,7 +201,6 @@ public class IgInsumosProduto extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				GerenciaIgInsumoProduto.cadastraInsumo(comboBox, tfTamanho, jf, table);
-				//table = (DefaultTableModel)jTable1.getModel(); tabela.setNumRows(0);
 				defaultTableModel.setNumRows(1);
 				defaultTableModel.setValueAt("", 0, 0);
 				defaultTableModel.setValueAt("", 0, 1);

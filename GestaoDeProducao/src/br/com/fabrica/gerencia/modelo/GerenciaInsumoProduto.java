@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fabrica.arquivos.ArquivoInsumo;
+import br.com.fabrica.arquivos.ArquivoInsumoProduto;
 import br.com.fabrica.modelo.Insumo;
 
 /**
@@ -11,7 +12,7 @@ import br.com.fabrica.modelo.Insumo;
  * @author Rafaela
  *
  */
-public class GerenciaInsumo {
+public class GerenciaInsumoProduto {
 	//metedos para alteração de preço e para adicionar as infos no histórico
 	/**
 	 * Obtem os insumos referentes a um produto.
@@ -19,7 +20,7 @@ public class GerenciaInsumo {
 	 * @return <code>List</code> lista de insumos de um produto
 	 */
 	public List<Insumo> obtemInsumosProduto(int codigo){
-		ArquivoInsumo arquivoInsumo = new ArquivoInsumo();
+		ArquivoInsumoProduto arquivoInsumo = new ArquivoInsumoProduto();
 		List<Insumo> lista = arquivoInsumo.leInsumosNoArquivo();
 		List<Insumo> listaInsumoProduto = new ArrayList<Insumo>();
 		if(lista != null)
