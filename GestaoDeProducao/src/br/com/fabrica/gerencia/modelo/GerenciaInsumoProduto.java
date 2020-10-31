@@ -3,7 +3,6 @@ package br.com.fabrica.gerencia.modelo;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.fabrica.arquivos.ArquivoInsumo;
 import br.com.fabrica.arquivos.ArquivoInsumoProduto;
 import br.com.fabrica.modelo.Insumo;
 
@@ -46,6 +45,7 @@ public class GerenciaInsumoProduto {
 		}
 		return false;
 	}
+	
 	//????
 	public boolean alteraPrecoInsumo(List<Insumo> insumos, float novoPreco, int codigoInsumo) {
 		for(Insumo insumo : insumos) {

@@ -59,6 +59,7 @@ public class ArquivoInsumo extends BinaryFile{
 		randomAccessFile.writeInt(insumo.getCodigo());
 		randomAccessFile.writeInt(insumo.getCodigoProduto());
 		randomAccessFile.writeChars(setStringLength(insumo.getNome(), 50));
+		System.out.println("GRAVAÇÂO"+insumo.getQuantidade());
 		randomAccessFile.writeFloat(insumo.getQuantidade());
 		randomAccessFile.writeFloat(insumo.getPrecoUnitario());
 	}
@@ -85,7 +86,7 @@ public class ArquivoInsumo extends BinaryFile{
 		insumo.setNome(readString(50));
 		insumo.setQuantidade(randomAccessFile.readInt());
 		insumo.setPrecoUnitario(randomAccessFile.readFloat());
-
+		System.out.println("GRAVAÇÂO"+insumo.getQuantidade());
 		return insumo;
 	}
 

@@ -1,7 +1,10 @@
 package br.com.fabrica.arquivos;
 
+import static br.com.fabrica.constantes.Constantes.ARQ_HISTORICO_INSUMO;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fabrica.modelo.HistoricoPreco;
@@ -14,7 +17,7 @@ import br.com.fabrica.modelo.HistoricoPreco;
  *
  */
 public class ArquivoHistoricoPreco extends BinaryFile{
-	
+
 	/**
 	 * Obtém o tamanho do registro que é de 32 bytes, pois são:
 	 *
@@ -29,15 +32,15 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 		return 32;
 	}
 
-	
+
 	/**
 	 * Escreve o objeto como um registro do arquivo.
-	  *
-	  * @param obj um <code>Object</code> que será armazenado no arquivo.
-	  * 
-	  * @throws IOException se ocorrer um erro de E/S;
-	  * @throws ClassCastException se o tipo do objeto a ser escrito no arquivo não for da classe 
-	  * <code>HistoricoPreco</code>.
+	 *
+	 * @param obj um <code>Object</code> que será armazenado no arquivo.
+	 * 
+	 * @throws IOException se ocorrer um erro de E/S;
+	 * @throws ClassCastException se o tipo do objeto a ser escrito no arquivo não for da classe 
+	 * <code>HistoricoPreco</code>.
 	 */
 	@Override
 	public void writeObject(Object objeto) throws IOException {
@@ -46,20 +49,20 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 			historicoPreco = (HistoricoPreco) objeto;
 		else
 			throw new ClassCastException();
-		
+
 		randomAccessFile.writeInt(obtemCodigoHistorico());
 		randomAccessFile.writeInt(historicoPreco.getCodigoReferenciaDeDado());
 		randomAccessFile.writeFloat(historicoPreco.getPreco());
 		randomAccessFile.writeChars(setStringLength(historicoPreco.getData(), 10));
-		
+
 	}
 
 	// Versão sobrecarregada (overload) de writeObject.
-		public void writeObject(HistoricoPreco historicoPreco) throws IOException {
-			Object object = historicoPreco;
-			writeObject(object);
-		}
-	
+	public void writeObject(HistoricoPreco historicoPreco) throws IOException {
+		Object object = historicoPreco;
+		writeObject(object);
+	}
+
 	/**
 	 * Lê um registro do arquivo historico de preços de um produto ou insumo
 	 * e adiciona no objeto HistoricoPreco para ser retornado.
@@ -69,26 +72,31 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 	@Override
 	public Object readObject() throws IOException {
 		HistoricoPreco historicoPreco = new HistoricoPreco();
+
 		
 		historicoPreco.setCodigo(randomAccessFile.readInt());
 		historicoPreco.setCodigoReferenciaDeDado(randomAccessFile.readInt());
 		historicoPreco.setPreco(randomAccessFile.readFloat());
 		historicoPreco.setData(readString(10));
-		
+
 		return historicoPreco;
 	}
-	
+
 	/***
-	 * Obtém o código sequencial do histórico de produtos
+	 * Obtém o código sequencial do histórico de insumos
 	 * @return retorna o código sequencial para o próximo dado de histórico
 	 */
 	public int obtemCodigoHistorico() {
+		int codigo = 0;
 		try {
+			//openFile(ARQ_HISTORICO_INSUMO);
 			if(recordQuantity() == 0)
-				return 1;
+				codigo = 1;
 			else {
-				return (int) (recordQuantity() + 1);
+				codigo = (int) (recordQuantity() + 1);
 			}
+			//closeFile();
+			return codigo;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return 0;
@@ -97,13 +105,16 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 			return 0;
 		}
 	}
-	
+
 	public boolean escreveHistoricoNoArquivo(List<HistoricoPreco> hpList, String arquivo) {
+		System.out.println("CHEGUEI");
 		try {
 			openFile(arquivo);
 			setFilePointer(recordQuantity());
-			for(HistoricoPreco hp : hpList)
+			for(HistoricoPreco hp : hpList) {
 				writeObject(hp);
+				System.out.println(hp);
+			}
 			closeFile();
 			return true;
 		} catch (FileNotFoundException e) {
@@ -115,4 +126,29 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 		}
 	}
 
+
+	public List<HistoricoPreco> obtemHistorico(int codigo) {
+		HistoricoPreco hp = new HistoricoPreco();
+		List<HistoricoPreco> hpList = new ArrayList<HistoricoPreco>();
+		try {
+			openFile(ARQ_HISTORICO_INSUMO);
+			for(int i = 0; i < recordQuantity(); i++) {
+				setFilePointer(i);
+				hp = (HistoricoPreco) readObject();
+				if(hp.getCodigoReferenciaDeDado() != codigo)
+					continue;
+				hpList.add(hp);
+			}
+			closeFile();
+			return hpList;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
+
+

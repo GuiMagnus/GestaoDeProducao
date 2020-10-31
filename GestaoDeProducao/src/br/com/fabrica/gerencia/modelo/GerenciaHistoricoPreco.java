@@ -5,6 +5,7 @@ import static br.com.fabrica.validacoes.Data.transformaCalendarEmString;
 import java.util.Calendar;
 import java.util.List;
 
+import br.com.fabrica.arquivos.ArquivoHistoricoPreco;
 import br.com.fabrica.modelo.HistoricoPreco;
 
 /**
@@ -37,6 +38,17 @@ public class GerenciaHistoricoPreco {
 		return historicoPrecos.get(historicoPrecos.size() - 1);
  	}
 	
+	/**
+	 * Obtém o preço e a data mais antiga.
+	 * @param historicoPrecoshistorico - <code>List</code> : lista que contém os preços
+	 * @return - <code>HistoricoPreco</code> : preço e data mais recente que foram cadastrados.
+	 */
+	public HistoricoPreco obtemPrecoAntigo(int codigo) {
+		ArquivoHistoricoPreco ahp = new ArquivoHistoricoPreco();
+		HistoricoPreco hp = ahp.obtemHistorico(codigo).get(0);
+		return hp;
+		
+ 	}
 	/**
 	 * Obtém o preço mais recente.
 	 * @param historicoPrecos - <code>List</code> : lista que contém os preços

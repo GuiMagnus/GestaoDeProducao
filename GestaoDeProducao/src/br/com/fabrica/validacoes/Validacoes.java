@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import javax.swing.JComboBox;
 
 import br.com.fabrica.modelo.UnidadeMedida;
-
+import static br.com.fabrica.constantes.Constantes.*;
 /**
  * Classe responsável por implementar validações.
  * @author Rafaela
@@ -60,6 +60,8 @@ public class Validacoes {
 	 * @return - <code>int</code> : código extraido
 	 */
 	public static int obtemCodigo(String string) {
+		if(string.equalsIgnoreCase(VALOR_DEFAULT_COMBOBOX))
+			return 0;
 		return Integer.parseInt(string.split(" - ")[0]);
 	}
 	
@@ -136,6 +138,19 @@ public class Validacoes {
 		System.out.println(obtemExpressoes("121", "\\w+"));
 	}
 	
-
+	/**
+	 * Verifica a medida que está armazenada na variável passada como parâmetro com os valores da enum UnidadeMedida e 
+	 * caso contenha, retorna esse valor. 
+	 * 
+	 * @param medida valor a ser comparado com o atributo da enum para verificação de que tipo de medida está sendo usado(kg,g,ml,l)
+	 * @return retorna o tipo da medida ou um valor nulo.
+	 */
+	public static UnidadeMedida verificaMedida(String medida) {
+		for ( UnidadeMedida dado : UnidadeMedida.values()) {
+			if(dado.getUnidade().equalsIgnoreCase(medida))
+				return dado;
+		}
+		return null;
+	}
 
 }

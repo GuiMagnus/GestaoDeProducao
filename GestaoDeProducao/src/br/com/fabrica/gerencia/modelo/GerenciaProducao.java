@@ -46,16 +46,24 @@ public class GerenciaProducao {
 		ArquivoInsumo ai = new ArquivoInsumo();
 		List<Insumo> insumos = ai.leInsumosNoArquivo();
 		List<Insumo> listaInsumosProduto = new GerenciaProduto().obtemListaInsumosProduto(produto);
-		if(insumos == null)
+		//System.out.println("CHEGUEI LISTA");
+		if(insumos == null) {
+			//System.out.println("INSUMOS");
 			return false;
+		}
 		if(listaInsumosProduto == null) {
+			//System.out.println("INSUMOS PRODUTO");
 			return false;
 		}
 		else if(listaInsumosProduto != null) {
 			for(Insumo insumoP : listaInsumosProduto) {
 				for(Insumo insumo : insumos) {
+				//	System.out.println("Insumo:"+insumo.getNome());
+					//System.out.println("Insumos Produto:"+insumoP.getNome());
 					if(insumo.getNome().equalsIgnoreCase(insumoP.getNome())) {
-						if(insumo.getQuantidade() < (insumoP.getQuantidade() * quantidade))
+						//System.out.println("Quantidade:"+insumo.getQuantidade());
+						//System.out.println("Resultado:"+((insumoP.getQuantidade() * quantidade)/produto.getTamanhoUnidade()));
+						if(insumo.getQuantidade() < ((insumoP.getQuantidade() * quantidade)/produto.getTamanhoUnidade()))
 							return false;
 					}
 				}

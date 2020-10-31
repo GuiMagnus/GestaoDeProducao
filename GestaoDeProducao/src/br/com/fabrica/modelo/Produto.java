@@ -9,6 +9,7 @@ public class Produto implements Comparable<Produto>, Comparator<Produto>{
 	private int codigo;
 	private String nome;
 	private UnidadeMedida unidadeMedida;
+	private float tamanhoUnidade;
 	private float margemLucro;
 	private float precoFabricacao;
 	private float precoVenda;
@@ -142,6 +143,15 @@ public class Produto implements Comparable<Produto>, Comparator<Produto>{
 	public void setQuantidadeProduto(int quantidadeProduto) {
 		this.quantidadeProduto = quantidadeProduto;
 	}
+
+	public float getTamanhoUnidade() {
+		return tamanhoUnidade;
+	}
+
+	public void setTamanhoUnidade(float tamanhoUnidade) {
+		this.tamanhoUnidade = tamanhoUnidade;
+	}
+
 
 	/**
 	 * Obtém a Lista contendo todos os preços já estabelecidos para o produto.

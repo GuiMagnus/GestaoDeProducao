@@ -6,6 +6,7 @@ import java.util.List;
 
 import br.com.fabrica.arquivos.ArquivoInsumoProduto;
 import br.com.fabrica.arquivos.ArquivoProduto;
+import br.com.fabrica.modelo.HistoricoPreco;
 import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.modelo.Produto;
 
@@ -78,4 +79,20 @@ public class GerenciaProduto {
 		List<Insumo> lista = aip.obtemInsumosDeUmProduto(produto.getCodigo());
 		return lista;
 	}
+	
+	public float calculaPrecoProduto(Produto produto,List<Insumo> listaInsumos) {
+		float preco = 0;
+		GerenciaHistoricoPreco ghp = new GerenciaHistoricoPreco();
+		for (int i = 0; i < listaInsumos.size(); i++) {
+			HistoricoPreco hp = ghp.obtemPrecoAntigo(listaInsumos.get(i).getCodigo());
+			for (Insumo insumoProduto : produto.getInsumos()) {
+				if(insumoProduto.getNome().equalsIgnoreCase(listaInsumos.get(i).getNome())) {
+					preco += hp.getPreco() * insumoProduto.getQuantidade();
+				}			
+			}
+		}
+		return preco;
+	}
+	
+	
 }

@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -22,19 +24,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 import br.com.fabrica.arquivos.ArquivoProduto;
 import br.com.fabrica.gerencia.ig.GerenciaIgInsumoProduto;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.validacoes.Validacoes;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
-
+import static br.com.fabrica.constantes.Constantes.*;
 /**
  * Classe responsavel por criar a tela de cadastro de Insumos.
  * @author Rafaela
@@ -56,7 +50,6 @@ public class IgInsumosProduto extends JFrame {
 	private List<Produto> listaProdutos;
 	public static ArquivoProduto arqProduto = new ArquivoProduto();
 	private DefaultTableModel defaultTableModel;
-	private JButton btnPesquisar;
 	/**
 	 * Create the panel.
 	 */
@@ -70,7 +63,7 @@ public class IgInsumosProduto extends JFrame {
 		jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		// Define a janela como não redimensionável.
-		//jf.setResizable(false);
+		jf.setResizable(false);
 
 		jf.setSize(501, 595);
 
@@ -120,7 +113,7 @@ public class IgInsumosProduto extends JFrame {
 
 		table = new JTable();
 		
-		String[] colunas = new String[] {"Nome", "Quantidade","Preço Unitário"};
+		String[] colunas = new String[] {"Nome", "Quantidade","Unidade"};
 		table.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -133,7 +126,6 @@ public class IgInsumosProduto extends JFrame {
 
 		table.setBounds(new Rectangle(22, 0, 300, 300));
 		scrollPane.setViewportView(table);
-		//String[] colunas = new String[] {"Nome", "Quantidade","Preço Unitário"};
 		defaultTableModel = new DefaultTableModel(colunas, 1);
 		table.setModel(defaultTableModel);
 
@@ -154,58 +146,37 @@ public class IgInsumosProduto extends JFrame {
 		jf.getContentPane().add(comboBox);
 
 		listaProdutos = new ArquivoProduto().leProdutosNoArquivo();
-
+		comboBox.addItem(VALOR_DEFAULT_COMBOBOX);
 		for (Produto prod : listaProdutos)
 			comboBox.addItem(String.format("%d - %s", prod.getCodigo(),prod.getNome()));
 
-
+		
 
 		JLabel lblListaDeInsumos = new JLabel("Lista de Insumos");
 		lblListaDeInsumos.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblListaDeInsumos.setBounds(191, 181, 141, 19);
+		lblListaDeInsumos.setBounds(190, 165, 141, 19);
 		jf.getContentPane().add(lblListaDeInsumos);
 
 		JLabel lblNewLabel_2 = new JLabel("A quantidade de insumo  \u00E9 por tamanho de cada unidade do produto.");
-		lblNewLabel_2.setBounds(48, 211, 414, 14);
+		lblNewLabel_2.setBounds(48, 190, 414, 14);
 		jf.getContentPane().add(lblNewLabel_2);
-
-		btnPesquisar = new JButton("Pesquisar Produto");
-		btnPesquisar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnPesquisar.setBounds(327, 146, 135, 30);
-		jf.getContentPane().add(btnPesquisar);
 		
-		JButton btnNewButton = new JButton("Limpar Tabela");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				defaultTableModel.setNumRows(0);
-				defaultTableModel.addRow(new String[2]);
-			}
-		});
-		btnNewButton.setBounds(39, 151, 121, 25);
-		jf.getContentPane().add(btnNewButton);
+		JLabel lblNewLabel_2_1 = new JLabel("A unidade de medida precisa ser (kg),(g),(l),(ml)");
+		lblNewLabel_2_1.setBounds(48, 211, 414, 14);
+		jf.getContentPane().add(lblNewLabel_2_1);
 
 		jf.setVisible(true);
 
-		btnPesquisar.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				GerenciaIgInsumoProduto.obtemInsumosProduto(Validacoes.obtemCodigo(
-						comboBox.getSelectedItem().toString()), defaultTableModel, jf);
-			}
-		});
-
-
+		
 		btnGravar.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				GerenciaIgInsumoProduto.cadastraInsumo(comboBox, tfTamanho, jf, table);
+				GerenciaIgInsumoProduto.cadastraInsumo(comboBox, tfTamanho, jf, defaultTableModel);
 				defaultTableModel.setNumRows(1);
 				defaultTableModel.setValueAt("", 0, 0);
 				defaultTableModel.setValueAt("", 0, 1);
 				defaultTableModel.setValueAt("", 0, 2);
-				
 				comboBox.setSelectedIndex(0);
 				tfTamanho.setText("");
 				tfTamanho.setText("");

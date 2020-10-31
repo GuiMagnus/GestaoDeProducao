@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fabrica.modelo.Produto;
-import br.com.fabrica.modelo.UnidadeMedida;
+import br.com.fabrica.validacoes.Validacoes;
 
 /**
  *  Esta classe fornece uma implementação para as operações que permitem manipular um arquivo de acesso 
@@ -26,11 +26,12 @@ public class ArquivoProduto extends BinaryFile{
 	 *4 bytes para a margem de Lucro
 	 *4 bytes para o preço da venda
 	 *4 bytes da quantidade do produto
+	 *4 bytes do tamanho da unidade
 	 * @return um <code>int</code> com o tamanho, em bytes, do registro.
 	 */
 	@Override
 	public int recordSize() {
-		return 120;
+		return 124;
 	}
 
 
@@ -57,7 +58,7 @@ public class ArquivoProduto extends BinaryFile{
 		randomAccessFile.writeFloat(produto.getMargemLucro());
 		randomAccessFile.writeFloat(produto.getPrecoVenda());
 		randomAccessFile.writeInt(produto.getQuantidadeProduto());
-		
+		randomAccessFile.writeFloat(produto.getTamanhoUnidade());
 
 	}
 
@@ -82,27 +83,14 @@ public class ArquivoProduto extends BinaryFile{
 		produto.setCodigo(randomAccessFile.readInt());
 		produto.setNome(readString(50));
 		String tipoProduto = readString(2);		
-		produto.setUnidadeMedida(verificaMedida(tipoProduto));
+		produto.setUnidadeMedida(Validacoes.verificaMedida(tipoProduto));
 		produto.setMargemLucro(randomAccessFile.readFloat());
 		produto.setPrecoVenda(randomAccessFile.readFloat());
 		produto.setQuantidadeProduto(randomAccessFile.readInt());
-		
+		produto.setTamanhoUnidade(randomAccessFile.readFloat());
 		return produto;
 	}
-	/**
-	 * Verifica a medida que está armazenada na variável passada como parâmetro com os valores da enum UnidadeMedida e 
-	 * caso contenha, retorna esse valor. 
-	 * 
-	 * @param medida valor a ser comparado com o atributo da enum para verificação de que tipo de medida está sendo usado(kg,g,ml,l)
-	 * @return retorna o tipo da medida ou um valor nulo.
-	 */
-	public UnidadeMedida verificaMedida(String medida) {
-		for ( UnidadeMedida dado : UnidadeMedida.values()) {
-			if(dado.getUnidade().equalsIgnoreCase(medida))
-				return dado;
-		}
-		return null;
-	}
+	
 	/**
 	 * Grava as informações dos produtos referente a classe {@link Produto}
 	 * no arquivo de acesso aleatório dos produtos.

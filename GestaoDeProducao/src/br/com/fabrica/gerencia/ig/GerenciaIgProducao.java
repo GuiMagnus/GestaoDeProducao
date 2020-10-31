@@ -35,22 +35,22 @@ public class GerenciaIgProducao {
 	 * @param comboBox- <code>JCombobox</code> : informa os produtos cadastrados.
 	 *  A partir do produto escolhido, é possível cadastrar a produção do produto.
 	 * @param tfData - <code>JTextField</code> : data em que o produto foi produzido
-	 * @param tfQtdProduziada - <code>JTextField</code> : quantidade do produto produzido.
+	 * @param tfQtdProduzida - <code>JTextField</code> : quantidade do produto produzido.
 	 * @param jf - <code>JTable</code> : janela responsável pela tela de cadastrar produção.
 	 */
 	public static void cadastrarProducao(JComboBox<String> comboBox, JTextField tfData,
-			JTextField tfQtdProduziada, JFrame jf) {
+			JTextField tfQtdProduzida, JFrame jf) {
 		Producao producao = new Producao();
 		Produto produto = new Produto();
 		produto.setNome(comboBox.getSelectedItem().toString());
 		
 		GerenciaProducao gp = new GerenciaProducao();
-		if(gp.verificaQuantidadeInsumo(produto, Integer.parseInt(tfQtdProduziada.getText())))
+		if(gp.verificaQuantidadeInsumo(produto, Integer.parseInt(tfQtdProduzida.getText())))
 			msgErro(jf, ERR_QTD_INSUMO_PROD, PRODUCAO);
 		else {
 			producao.setProduto(produto);
 			producao.setData(tfData.getText());
-			producao.setQuantidade(Integer.parseInt(tfQtdProduziada.getText()));
+			producao.setQuantidade(Integer.parseInt(tfQtdProduzida.getText()));
 			
 			
 			boolean cadastrado = arquivoProducao.escreveProducaoNoArquivo(producao);

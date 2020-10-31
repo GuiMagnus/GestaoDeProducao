@@ -12,6 +12,16 @@ public class Constantes {
 	public static String ARQ_PRODUTO = "..\\GestaoDeProducao\\arquivos\\produto.dat";
 	
 	/**
+	 * <code>String</code> : Determina o arquivo relacionado a Histórico de preços.
+	 */
+	public static String ARQ_HISTORICO_INSUMO = "..\\GestaoDeProducao\\arquivos\\historicoPrecoInsumo.dat";
+	/**
+	 * <code>String</code> : Determina o arquivo relacionado a Histórico de preços.
+	 */
+	public static String ARQ_HISTORICO_PRODUTO = "..\\GestaoDeProducao\\arquivos\\historicoPrecoProduto.dat";
+	
+	
+	/**
 	 * <code>String</code> : Determina o arquivo relacionado a insumos.
 	 */
 	public static String ARQ_INSUMO = "..\\GestaoDeProducao\\arquivos\\insumo.dat";
@@ -133,5 +143,10 @@ public class Constantes {
 	
 	public static String ERR_QTD_INSUMO_PROD = "Não existem insumos o suficiente para essa produção";
 	
-
+	/**
+	 * <code>String</code> : Expressão regular para validar data
+	 */
+	public static String VALOR_DEFAULT_COMBOBOX = "Selecione uma opção";
+	
+	public static String ERR_UNIDADE_MEDIDA = "Unidade de Medida inválida";
 }
