@@ -26,8 +26,8 @@ import br.com.fabrica.modelo.UnidadeMedida;
 @SuppressWarnings("serial")
 public class IgRelatorioProducao extends JFrame {
 	private JLabel lblNewLabel;
-	private JTextField textField;
-	private JTextField textField_3;
+	private JTextField tfInicial;
+	private JTextField tfFinal;
 	private JLabel lblNome;
 	private JLabel lblData;
 	private JButton btnObterDados;
@@ -42,7 +42,6 @@ public class IgRelatorioProducao extends JFrame {
 	 * Create the panel.
 	 */
 	public IgRelatorioProducao() {
-		System.out.println("-------------------->");
 		jf = new JFrame();
 		jf.getContentPane().setEnabled(false);
 		jf.setAutoRequestFocus(false);
@@ -66,10 +65,10 @@ public class IgRelatorioProducao extends JFrame {
 		lblNome.setBounds(39, 56, 83, 25);
 		jf.getContentPane().add(lblNome);
 		
-		textField = new JTextField();
-		textField.setBounds(121, 59, 75, 20);
-		jf.getContentPane().add(textField);
-		textField.setColumns(10);
+		tfInicial = new JTextField();
+		tfInicial.setBounds(121, 59, 75, 20);
+		jf.getContentPane().add(tfInicial);
+		tfInicial.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Dados da Produ\u00E7\u00E3o");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -98,10 +97,10 @@ public class IgRelatorioProducao extends JFrame {
 		lblData.setBounds(208, 56, 75, 25);
 		jf.getContentPane().add(lblData);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(281, 59, 83, 20);
-		jf.getContentPane().add(textField_3);
+		tfFinal = new JTextField();
+		tfFinal.setColumns(10);
+		tfFinal.setBounds(281, 59, 83, 20);
+		jf.getContentPane().add(tfFinal);
 		
 		btnObterDados = new JButton("Obter dados produ\u00E7\u00E3o");
 		btnObterDados.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -156,7 +155,6 @@ public class IgRelatorioProducao extends JFrame {
 				defaultTableModel.insertRow(defaultTableModel.getRowCount(),
 						new Object[] {producao.getCodigo(), producao.getQuantidade(),
 								producao.getCustoProducao()});
-				//System.out.println("aqui");
 			}
 		});
 	}

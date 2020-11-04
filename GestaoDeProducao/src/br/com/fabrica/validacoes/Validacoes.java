@@ -133,10 +133,7 @@ public class Validacoes {
 			return "";
 		return string;
 	}
-	
-	public static void main(String[] args) {
-		System.out.println(obtemExpressoes("121", "\\w+"));
-	}
+
 	
 	/**
 	 * Verifica a medida que está armazenada na variável passada como parâmetro com os valores da enum UnidadeMedida e 

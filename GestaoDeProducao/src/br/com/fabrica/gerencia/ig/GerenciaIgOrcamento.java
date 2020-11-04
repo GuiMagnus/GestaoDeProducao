@@ -22,7 +22,6 @@ public class GerenciaIgOrcamento {
 		List<Venda> vendas = arquivoVenda.leProdutosNoArquivo();
 		float valor = go.somaDespedasMes((String) comboBox.getSelectedItem(), produtos);
 		tfValor.setText(valor + "");
-		System.out.println("okkk");
 		float numero = go.obtemNumeroTotalDeVendas((String) comboBox.getSelectedItem(), vendas);
 		
 		tfNumero.setText(String.format("%.2f", numero));

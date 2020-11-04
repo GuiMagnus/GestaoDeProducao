@@ -40,7 +40,7 @@ public class GerenciaIgAlteraPrecoProduto {
 			produto.setMargemLucro(margem);
 		}
 		
-		Produto alteracao = arquivoProduto.alteraPrecoProduto(produto);
+		Produto alteracao = arquivoProduto.alteraProduto(produto);
 		if(alteracao != null)
 			msgInfo(jf, String.format("O novo preço de venda é: %.2f\n"
 					+ "A nova margem de lucro é: %.2f", produto.getPrecoVenda(),

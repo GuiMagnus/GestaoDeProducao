@@ -1,7 +1,6 @@
 package br.com.fabrica.gerencia.ig;
 
 import static br.com.fabrica.constantes.Constantes.*;
-
 import static br.com.fabrica.gui.EntradaESaida.msgErro;
 import static br.com.fabrica.gui.EntradaESaida.msgInfo;
 import static br.com.fabrica.validacoes.Validacoes.obtemCodigo;
@@ -13,14 +12,15 @@ import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.fabrica.arquivos.ArquivoInsumoProduto;
+import br.com.fabrica.arquivos.ArquivoProduto;
 import br.com.fabrica.gerencia.modelo.GerenciaInsumoProduto;
 import br.com.fabrica.gui.IgInsumos;
 import br.com.fabrica.modelo.Insumo;
+import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.UnidadeMedida;
 import br.com.fabrica.validacoes.Validacoes;
 
@@ -43,12 +43,27 @@ public class GerenciaIgInsumoProduto {
 		int codigo = obtemCodigo(comboBox.getSelectedItem().toString());
 		if(codigo != 0) {
 			List<Insumo> ins = cadastraInsumosProduto(codigo, table, jf);
+			Produto produto = new Produto();
+			produto.setCodigo(codigo);
+			float tamanhoUnidade = Validacoes.transformaEmFloat(tfUnidade.getText());
+			if(tamanhoUnidade <= 0)
+				msgErro(jf, ERR_UNIDADE_MEDIDA, INSUMO);
+			else {
+				produto.setTamanhoUnidade(tamanhoUnidade);
+				//Necessário para setar o tamanho da unidade no produto
+				Produto prod = new ArquivoProduto().alteraProduto(produto);
+				if(prod == null)
+					msgErro(jf, ERR_CAD_UNIDADE_MEDIDA, INSUMO);
+				else {
+					boolean cadastrado = arquivoInsumo.escreveInsumosNoArquivo(ins);
 
-			boolean cadastrado = arquivoInsumo.escreveInsumosNoArquivo(ins);
-			if(cadastrado)
-				msgInfo(jf, CAD_INSUMO, INSUMO);
-			else
-				msgErro(jf, ERR_CAD_INSUMO, INSUMO);
+					if(cadastrado)
+						msgInfo(jf, CAD_INSUMO, INSUMO);
+					else
+						msgErro(jf, ERR_CAD_INSUMO, INSUMO);
+				}
+
+			}
 		}
 
 	}

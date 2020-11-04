@@ -107,13 +107,11 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 	}
 
 	public boolean escreveHistoricoNoArquivo(List<HistoricoPreco> hpList, String arquivo) {
-		System.out.println("CHEGUEI");
 		try {
 			openFile(arquivo);
 			setFilePointer(recordQuantity());
 			for(HistoricoPreco hp : hpList) {
 				writeObject(hp);
-				System.out.println(hp);
 			}
 			closeFile();
 			return true;

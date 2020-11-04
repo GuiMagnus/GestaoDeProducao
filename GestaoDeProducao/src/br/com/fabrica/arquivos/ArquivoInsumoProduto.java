@@ -228,7 +228,7 @@ public class ArquivoInsumoProduto extends BinaryFile{
 		List<Insumo> listaDeInsumos = leInsumosNoArquivo();
 		
 		for (Insumo insumo : listaDeInsumos)
-		//	if(insumo.getCodigoProduto() == codigo)
+			//if(insumo.getCodigoProduto() == codigo)
 				listaDeInsumosDeUmProduto.add(insumo);
 		
 		return listaDeInsumosDeUmProduto;

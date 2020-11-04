@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fabrica.modelo.Insumo;
+import br.com.fabrica.modelo.Produto;
 
 
 
@@ -55,11 +56,8 @@ public class ArquivoInsumo extends BinaryFile{
 			insumo = (Insumo) objeto;
 		else
 			throw new ClassCastException();
-		System.out.println(insumo.getCodigoProduto());
 		randomAccessFile.writeInt(insumo.getCodigo());
-		randomAccessFile.writeInt(insumo.getCodigoProduto());
 		randomAccessFile.writeChars(setStringLength(insumo.getNome(), 50));
-		System.out.println("GRAVAÇÂO"+insumo.getQuantidade());
 		randomAccessFile.writeFloat(insumo.getQuantidade());
 		randomAccessFile.writeFloat(insumo.getPrecoUnitario());
 	}
@@ -84,9 +82,8 @@ public class ArquivoInsumo extends BinaryFile{
 
 		insumo.setCodigo(randomAccessFile.readInt());
 		insumo.setNome(readString(50));
-		insumo.setQuantidade(randomAccessFile.readInt());
+		insumo.setQuantidade(randomAccessFile.readFloat());
 		insumo.setPrecoUnitario(randomAccessFile.readFloat());
-		System.out.println("GRAVAÇÂO"+insumo.getQuantidade());
 		return insumo;
 	}
 
@@ -163,14 +160,14 @@ public class ArquivoInsumo extends BinaryFile{
 	}
 	
 	/***
-	 * Obtém o código sequencial dos produtos a partir do número de registro no arquivo de produtos
-	 * caso esteja vazio este será o primeiro produto a ser gravado no arquivo.
-	 * @return retorna o código sequencial para o próximo dado do registro de produtos.
+	 * Obtém o código sequencial dos insumos a partir do número de registro no arquivo de insumos
+	 * caso esteja vazio este será o primeiro insumo a ser gravado no arquivo.
+	 * @return retorna o código sequencial para o próximo dado do registro de insumos.
 	 */
 	public int obtemCodigoInsumo() {
 		int codigo = 0;
 		try {
-			openFile(ARQ_PRODUTO);
+			openFile(ARQ_INSUMO);
 			if(recordQuantity() == 0)
 				codigo = 1;
 			else {
@@ -195,7 +192,6 @@ public class ArquivoInsumo extends BinaryFile{
 				setFilePointer(i);
 				Insumo insumo = (Insumo) readObject();
 				listaInsumos.add(insumo);
-				//System.out.println(insumo.getCodigoProduto());
 			}
 			closeFile();
 			return listaInsumos;
@@ -208,7 +204,50 @@ public class ArquivoInsumo extends BinaryFile{
 		}
 	}
 	
-	public boolean alteraInsumo(int codigoProduto, int codigoInsumo, float novoPreco) {
+	
+	
+	public Insumo alteraInsumo(Insumo insumo,float qtde) {
+		Insumo insumoAux = null;
+		try {
+			openFile(ARQ_PRODUTO);
+			for(int i = 0; i < recordQuantity(); i++) {
+				setFilePointer(i);
+				insumoAux = (Insumo) readObject();
+				if(insumoAux.getCodigo() == insumo.getCodigo()) {
+					insumoAux.setQuantidade(insumo.getQuantidade()-qtde);
+					escreveInsumoNoArquivoPorPosicao(insumoAux, i);
+					break;
+				}
+			}
+			closeFile();
+			return insumo;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return insumo;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return insumo;
+		}
+	}
+	
+	public boolean escreveInsumoNoArquivoPorPosicao(Insumo insumo, int posicao) {
+		try {
+			openFile(ARQ_INSUMO);
+			setFilePointer(posicao);
+			writeObject(insumo);
+			closeFile();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false; 
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	
+	/*public boolean alteraInsumo(int codigoProduto, int codigoInsumo, float novoPreco) {
 		try {
 			openFile(ARQ_INSUMO);
 			for(int i = 0; i < recordQuantity(); i++) {
@@ -230,7 +269,7 @@ public class ArquivoInsumo extends BinaryFile{
 			return false;
 		}
 	}
-
+	*/
 	public boolean alteraInsumoNoArquivo(int codigoProduto, int codigoInsumo, float novoPreco) {
 		try {
 			openFile(ARQ_INSUMO);

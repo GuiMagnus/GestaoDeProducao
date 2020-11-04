@@ -6,15 +6,22 @@ import static br.com.fabrica.constantes.Constantes.PRODUCAO;
 import static br.com.fabrica.gui.EntradaESaida.msgErro;
 import static br.com.fabrica.gui.EntradaESaida.msgInfo;
 
+import java.util.List;
+
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import br.com.fabrica.arquivos.ArquivoProducao;
+import br.com.fabrica.arquivos.ArquivoProduto;
+import br.com.fabrica.gerencia.modelo.GerenciaInsumo;
 import br.com.fabrica.gerencia.modelo.GerenciaProducao;
+import br.com.fabrica.gerencia.modelo.GerenciaProduto;
 import br.com.fabrica.gui.IgProducao;
+import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.modelo.Producao;
 import br.com.fabrica.modelo.Produto;
+import br.com.fabrica.validacoes.Validacoes;
 
 /**
  * Classe responsável em obter os dados informados pelo usuário.
@@ -41,28 +48,39 @@ public class GerenciaIgProducao {
 	public static void cadastrarProducao(JComboBox<String> comboBox, JTextField tfData,
 			JTextField tfQtdProduzida, JFrame jf) {
 		Producao producao = new Producao();
-		Produto produto = new Produto();
-		produto.setNome(comboBox.getSelectedItem().toString());
+		
+		int codigoProduto = Validacoes.obtemCodigo(comboBox.getSelectedItem().toString());
+		Produto produto = new ArquivoProduto().obtemProduto(codigoProduto);
 		
 		GerenciaProducao gp = new GerenciaProducao();
-		if(gp.verificaQuantidadeInsumo(produto, Integer.parseInt(tfQtdProduzida.getText())))
+		if(gp.verificaInsumos(produto, Integer.parseInt(tfQtdProduzida.getText())) <= 0) {
 			msgErro(jf, ERR_QTD_INSUMO_PROD, PRODUCAO);
+		}
 		else {
+			List<Insumo> insumosProduto = new GerenciaProduto().obtemListaInsumosProduto(produto); 
+			List<Insumo> insumosDoEstoque = new GerenciaInsumo().obtemPrecoInsumosEstoque(insumosProduto);
+			produto.setInsumos(insumosDoEstoque);
 			producao.setProduto(produto);
 			producao.setData(tfData.getText());
 			producao.setQuantidade(Integer.parseInt(tfQtdProduzida.getText()));
-			
-			
+			float valorProducao =  gp.verificaInsumos(produto, producao.getQuantidade());
+			//VALOR PRODUÇÂO RETORNA 0;
+			System.out.println(valorProducao);
+			producao.setCustoProducao(valorProducao);
 			boolean cadastrado = arquivoProducao.escreveProducaoNoArquivo(producao);
-			if(cadastrado)
+			if(cadastrado) {
 				msgInfo(jf, CAD_PRODUCAO, PRODUCAO);
+				
+				/*float valorVenda =  gp.calculaValorTotalVenda(produto,
+					producao.getQuantidade()))*/
+				msgInfo(jf, String.format("O custo total da produção é: %.2f\n" ,valorProducao),
+						PRODUCAO);
+			}
+				
 			else
 				msgErro(jf, ERR_CAD_PRODUCAO, PRODUCAO);
 			
-			msgInfo(jf, String.format("O custo total da produção é: %.2f\n"
-					+ "O valor de venda que será obtido: %.2f", gp.calculaCustoTotalProducao(produto,
-							producao.getQuantidade()), gp.calculaValorTotalVenda(produto,
-									producao.getQuantidade())), PRODUCAO);
+			
 		}
 		
 		

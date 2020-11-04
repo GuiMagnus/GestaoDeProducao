@@ -19,7 +19,7 @@ import br.com.fabrica.validacoes.Validacoes;
 public class ArquivoProduto extends BinaryFile{
 
 	/**
-	 * Obtém o tamanho do registro que é de 120 bytes, pois são:
+	 * Obtém o tamanho do registro que é de 124 bytes, pois são:
 	 * 4 bytes do código do produto
 	 *100 bytes do nome do Produto com 50 caracteres (2 bytes de cada carácter UNICODE)
 	 *4 bytes para a unidade de medida(quilograma, grama, litro, mililitro)
@@ -194,6 +194,7 @@ public class ArquivoProduto extends BinaryFile{
 		try {
 			openFile(ARQ_PRODUTO);
 			setFilePointer(posicao);
+			System.out.println(produto);
 			writeObject(produto);
 			closeFile();
 			return true;
@@ -206,14 +207,18 @@ public class ArquivoProduto extends BinaryFile{
 		}
 	}
 	
-	public Produto alteraPrecoProduto(Produto prod) {
+	public Produto alteraProduto(Produto prod) {
 		Produto produto = null;
 		try {
 			openFile(ARQ_PRODUTO);
 			for(int i = 0; i < recordQuantity(); i++) {
 				setFilePointer(i);
 				produto = (Produto) readObject();
+				
 				if(produto.getCodigo() == prod.getCodigo()) {
+					
+					produto.setTamanhoUnidade(prod.getTamanhoUnidade());
+					System.out.println("->"+produto);
 					escreveProdutoNoArquivoPorPosicao(produto, i);
 					break;
 				}

@@ -21,8 +21,9 @@ public class GerenciaProducao {
 	 */
 	public float calculaCustoTotalProducao(Produto produto, int quantidade) {
 		float custo = 0;
-		for(Insumo insumo : produto.getInsumos())
+		for(Insumo insumo : produto.getInsumos()) {
 			custo += insumo.getPrecoUnitario();
+		}
 		
 		custo *= quantidade;
 		return custo;
@@ -35,41 +36,39 @@ public class GerenciaProducao {
 	 * @return - <code>float</code> : valor total dos custos referentes a produção
 	 */
 	public float calculaValorTotalVenda(Produto produto, int quantidade) {
-		float custo = 0;
-		GerenciaProduto gp = new GerenciaProduto();
-		custo += gp.calculaPrecoVenda(produto) * quantidade;
-		
-		return custo;
+		float custo = verificaInsumos(produto, quantidade), valor = 0;
+		if(custo > 0)
+			valor = produto.getMargemLucro() * custo;
+		return valor;
 	}
 	
-	public boolean verificaQuantidadeInsumo(Produto produto, int quantidade) {
+	public float verificaInsumos(Produto produto, int quantidade) {
 		ArquivoInsumo ai = new ArquivoInsumo();
 		List<Insumo> insumos = ai.leInsumosNoArquivo();
 		List<Insumo> listaInsumosProduto = new GerenciaProduto().obtemListaInsumosProduto(produto);
-		//System.out.println("CHEGUEI LISTA");
-		if(insumos == null) {
-			//System.out.println("INSUMOS");
-			return false;
-		}
-		if(listaInsumosProduto == null) {
-			//System.out.println("INSUMOS PRODUTO");
-			return false;
-		}
+		float qtde = 0,valor = 0;
+		if(insumos == null)
+			return 0;
+		
+		if(listaInsumosProduto == null)
+			return 0;
+		
 		else if(listaInsumosProduto != null) {
 			for(Insumo insumoP : listaInsumosProduto) {
 				for(Insumo insumo : insumos) {
-				//	System.out.println("Insumo:"+insumo.getNome());
-					//System.out.println("Insumos Produto:"+insumoP.getNome());
 					if(insumo.getNome().equalsIgnoreCase(insumoP.getNome())) {
-						//System.out.println("Quantidade:"+insumo.getQuantidade());
-						//System.out.println("Resultado:"+((insumoP.getQuantidade() * quantidade)/produto.getTamanhoUnidade()));
-						if(insumo.getQuantidade() < ((insumoP.getQuantidade() * quantidade)/produto.getTamanhoUnidade()))
-							return false;
+						qtde = ((insumoP.getQuantidade() * quantidade)/produto.getTamanhoUnidade());
+						if(insumo.getQuantidade() < qtde)
+							return 0;
+						valor += qtde * insumo.getPrecoUnitario();
+						new ArquivoInsumo().alteraInsumo(insumo, insumoP.getQuantidade() * quantidade);
+					
 					}
 				}
 			}
 		}
-		
-		return true;
+		System.out.println("VALOR PROD->"+valor);
+		return valor;
 	}
+	
 }

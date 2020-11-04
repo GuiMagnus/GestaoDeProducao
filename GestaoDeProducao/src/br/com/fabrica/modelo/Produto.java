@@ -208,9 +208,9 @@ public class Produto implements Comparable<Produto>, Comparator<Produto>{
 	public String toString() {
 		return String.format(
 				"Código: %d, nome: %s, unidadeMedida: %s, margemLucro: %.2f, "
-				+ "precoFabricacao: %.2f, precoVenda: %.2f, quantidadeProduto: %d",
+				+ "precoFabricacao: %.2f, precoVenda: %.2f, quantidadeProduto: %d, TamanhoUnidade:%.2f",
 				codigo, nome, unidadeMedida.getUnidade(), margemLucro, precoFabricacao,
-				precoVenda, quantidadeProduto); 
+				precoVenda, quantidadeProduto,tamanhoUnidade); 
 	}
 
 

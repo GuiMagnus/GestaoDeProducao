@@ -21,16 +21,17 @@ import br.com.fabrica.modelo.Produto;
 
 public class ArquivoProducao extends BinaryFile{
 	/**
-	 * Obtém o tamanho do registro que é de 126 bytes, pois são:
+	 * Obtém o tamanho do registro que é de 128 bytes, pois são:
 	 *4 bytes do codigo da produção.
 	 *100 bytes do nome do produto com 50 caracteres (2 bytes de cada carácter UNICODE);
 	 *4 bytes da quantidade;
 	 *20 bytes da data de produção
+	 *4 bytes custo produção
 	 * @return um <code>int</code> com o tamanho, em bytes, do registro.
 	 */
 	@Override
 	public int recordSize() {
-		return 128;
+		return 132;
 	}
 
 	
@@ -56,7 +57,7 @@ public class ArquivoProducao extends BinaryFile{
 		randomAccessFile.writeChars(setStringLength(producao.getProduto().getNome(),50));
 		randomAccessFile.writeInt(producao.getProduto().getQuantidadeProduto());
 		randomAccessFile.writeChars(setStringLength(producao.getData(), 10));
-		
+		randomAccessFile.writeFloat(producao.getCustoProducao());
 	}
 
 	public void writeObject(Producao producao) throws IOException {
@@ -94,7 +95,7 @@ public class ArquivoProducao extends BinaryFile{
 		
 		producao.setProduto(produto);
 		producao.setData(readString(10));
-		
+		producao.setCustoProducao(randomAccessFile.readFloat());
 		return producao;
 	}
 	

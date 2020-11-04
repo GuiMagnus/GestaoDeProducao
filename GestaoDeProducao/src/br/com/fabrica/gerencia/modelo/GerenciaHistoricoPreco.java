@@ -55,7 +55,7 @@ public class GerenciaHistoricoPreco {
 	 * @return - <code>float</code> :preço mais recente que foi cadastrado.
 	 */
 	public float obtemPrecoMaisRecente(List<HistoricoPreco> historicoPrecos) {
-		return historicoPrecos.get(historicoPrecos.size() - 1).getPreco();
+		return historicoPrecos.get(historicoPrecos.size()).getPreco();
  	}
 	
 	/**

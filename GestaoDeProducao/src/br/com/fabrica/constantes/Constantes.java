@@ -149,4 +149,6 @@ public class Constantes {
 	public static String VALOR_DEFAULT_COMBOBOX = "Selecione uma opção";
 	
 	public static String ERR_UNIDADE_MEDIDA = "Unidade de Medida inválida";
+	
+	public static String ERR_CAD_UNIDADE_MEDIDA = "Erro ao cadastrar tamanho da unidade!";
 }

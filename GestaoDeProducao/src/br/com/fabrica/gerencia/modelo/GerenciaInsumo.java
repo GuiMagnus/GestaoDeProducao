@@ -55,5 +55,15 @@ public class GerenciaInsumo {
 		}
 		return false;
 	}
-	
+	public List<Insumo> obtemPrecoInsumosEstoque(List<Insumo> insumosProduto){
+		ArquivoInsumo arquivoInsumo = new ArquivoInsumo();
+		List<Insumo> listaEstoque = arquivoInsumo.leInsumosNoArquivo();
+		List<Insumo> insumosEstoqueDeUmProduto = new ArrayList<Insumo>();
+		for (Insumo insumoProduto : insumosProduto)
+			for (Insumo insumoEstoque : listaEstoque) 
+				if(insumoProduto.getNome().equalsIgnoreCase(insumoEstoque.getNome()))
+					insumosEstoqueDeUmProduto.add(insumoEstoque);
+		
+		return insumosEstoqueDeUmProduto;
+	}
 }

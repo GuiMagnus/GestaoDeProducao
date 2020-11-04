@@ -203,7 +203,6 @@ public class IgVendas extends JFrame {
 			public int verificaTabela(JTable table, Produto prod) {
 				for (int i = 0; i < table.getRowCount(); i++) 
 					if(prod.getNome().equalsIgnoreCase((String) table.getValueAt(i, 0))) {
-						System.out.println("Igual");
 						return i;
 					}
 				return -1;
