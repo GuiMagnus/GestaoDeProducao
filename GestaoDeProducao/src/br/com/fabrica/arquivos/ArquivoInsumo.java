@@ -2,7 +2,6 @@ package br.com.fabrica.arquivos;
 
 import static br.com.fabrica.constantes.Constantes.ARQ_INSUMO;
 import static br.com.fabrica.constantes.Constantes.ARQ_PRECO_INSUMO;
-import static br.com.fabrica.constantes.Constantes.ARQ_PRODUTO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fabrica.modelo.Insumo;
-import br.com.fabrica.modelo.Produto;
 
 
 
@@ -209,12 +207,12 @@ public class ArquivoInsumo extends BinaryFile{
 	public Insumo alteraInsumo(Insumo insumo,float qtde) {
 		Insumo insumoAux = null;
 		try {
-			openFile(ARQ_PRODUTO);
+			openFile(ARQ_INSUMO);
 			for(int i = 0; i < recordQuantity(); i++) {
 				setFilePointer(i);
 				insumoAux = (Insumo) readObject();
 				if(insumoAux.getCodigo() == insumo.getCodigo()) {
-					insumoAux.setQuantidade(insumo.getQuantidade()-qtde);
+					insumoAux.setQuantidade(insumo.getQuantidade() - qtde);
 					escreveInsumoNoArquivoPorPosicao(insumoAux, i);
 					break;
 				}

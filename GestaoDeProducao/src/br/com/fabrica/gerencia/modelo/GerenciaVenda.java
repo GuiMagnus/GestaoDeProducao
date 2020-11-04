@@ -17,7 +17,8 @@ public class GerenciaVenda {
 	 * @return - <code>float</code> : valor total de venda do produto
 	 */
 	public float calculaValorTotalProduto(Produto produto, int quantidade) {
-		float valor = produto.getPrecoVenda() * quantidade;
+		GerenciaProducao gp = new GerenciaProducao();
+		float valor = gp.calculaVendaProduto(produto, quantidade);
 		return valor;
 	}
 	
@@ -31,7 +32,7 @@ public class GerenciaVenda {
 	public float calculaValorTotalVenda(Venda venda) {
 		float valor = 0;
 		for(Produto produto : venda.getProdutos())
-			valor += calculaValorTotalProduto(produto, venda.getQuantidade());
+			valor +=  calculaValorTotalProduto(produto, venda.getQuantidade());
 		return valor;
 	}
 }

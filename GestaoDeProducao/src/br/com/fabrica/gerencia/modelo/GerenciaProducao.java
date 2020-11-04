@@ -3,6 +3,7 @@ package br.com.fabrica.gerencia.modelo;
 import java.util.List;
 
 import br.com.fabrica.arquivos.ArquivoInsumo;
+import br.com.fabrica.arquivos.ArquivoInsumoProduto;
 import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.modelo.Produto;
 
@@ -36,13 +37,34 @@ public class GerenciaProducao {
 	 * @return - <code>float</code> : valor total dos custos referentes a produção
 	 */
 	public float calculaValorTotalVenda(Produto produto, int quantidade) {
-		float custo = verificaInsumos(produto, quantidade), valor = 0;
+		float custo = verificaInsumosECalculaPreco(produto, quantidade), valor = 0;
 		if(custo > 0)
-			valor = produto.getMargemLucro() * custo;
+			valor = produto.getMargemLucro() / 100 * custo;
 		return valor;
 	}
 	
-	public float verificaInsumos(Produto produto, int quantidade) {
+	/**
+	 * Obtém o valor total de venda que é possível obter com essa produção.
+	 * @param Produto - <code>Produto</code> : produto que irá calcular o custo de produção
+	 * @param quantidade - <code>int</code> : Quantidade de prudutos que serão produzidos 
+	 * @return - <code>float</code> : valor total dos custos referentes a produção
+	 */
+	public float calculaVendaProduto(Produto produto, int quantidade) {
+		float custo = verificaInsumosECalculaPreco(produto, quantidade), valor = 0;
+		if(custo > 0)
+			valor =  (custo/ quantidade) + ((produto.getMargemLucro()/100) * (custo/ quantidade));
+		return valor;
+	}
+	
+	/**
+	 * Verifica se a quantidade de insumos presentes no estoque é o suficiente
+	 * para realizar a produção. Se possuir insumos suficientes, calcula-se o 
+	 * valor de referente a produção do produto
+	 * @param produto <code>Produto</code> que deseja ser produzido
+	 * @param quantidade <code>int</code> quantidade de produtos que deseja produzir
+	 * @return <code>float</code> referente ao preço do produto
+	 */
+	public float verificaInsumosECalculaPreco(Produto produto, int quantidade) {
 		ArquivoInsumo ai = new ArquivoInsumo();
 		List<Insumo> insumos = ai.leInsumosNoArquivo();
 		List<Insumo> listaInsumosProduto = new GerenciaProduto().obtemListaInsumosProduto(produto);
@@ -61,13 +83,12 @@ public class GerenciaProducao {
 						if(insumo.getQuantidade() < qtde)
 							return 0;
 						valor += qtde * insumo.getPrecoUnitario();
-						new ArquivoInsumo().alteraInsumo(insumo, insumoP.getQuantidade() * quantidade);
+						new ArquivoInsumoProduto().alteraInsumo(insumo.getCodigo(), insumo.getCodigoProduto(), qtde * insumo.getPrecoUnitario());
 					
 					}
 				}
 			}
 		}
-		System.out.println("VALOR PROD->"+valor);
 		return valor;
 	}
 	

@@ -123,7 +123,23 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 			return false;
 		}
 	}
-
+	/*
+	public boolean escreveHistoricoNoArquivo(HistoricoPreco hp, String arquivo) {
+		try {
+			openFile(arquivo);
+			setFilePointer(recordQuantity());
+			writeObject(hp);
+			closeFile();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false; 
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+*/
 
 	public List<HistoricoPreco> obtemHistorico(int codigo) {
 		HistoricoPreco hp = new HistoricoPreco();

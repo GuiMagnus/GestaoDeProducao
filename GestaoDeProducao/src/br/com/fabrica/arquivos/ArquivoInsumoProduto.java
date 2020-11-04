@@ -183,7 +183,7 @@ public class ArquivoInsumoProduto extends BinaryFile{
 			return null;
 		}
 	}
-	//TODO
+	
 	public boolean alteraInsumo(int codigoProduto, int codigoInsumo, float novoPreco) {
 		try {
 			openFile(ARQ_INSUMO_PRODUTO);

@@ -47,14 +47,15 @@ public class GerenciaIgProducao {
 	 */
 	public static void cadastrarProducao(JComboBox<String> comboBox, JTextField tfData,
 			JTextField tfQtdProduzida, JFrame jf) {
-		Producao producao = new Producao();
 		
+		Producao producao = new Producao();
 		int codigoProduto = Validacoes.obtemCodigo(comboBox.getSelectedItem().toString());
 		Produto produto = new ArquivoProduto().obtemProduto(codigoProduto);
-		
 		GerenciaProducao gp = new GerenciaProducao();
-		if(gp.verificaInsumos(produto, Integer.parseInt(tfQtdProduzida.getText())) <= 0) {
+
+		if(gp.verificaInsumosECalculaPreco(produto, Integer.parseInt(tfQtdProduzida.getText())) <= 0) {
 			msgErro(jf, ERR_QTD_INSUMO_PROD, PRODUCAO);
+			
 		}
 		else {
 			List<Insumo> insumosProduto = new GerenciaProduto().obtemListaInsumosProduto(produto); 
@@ -63,27 +64,20 @@ public class GerenciaIgProducao {
 			producao.setProduto(produto);
 			producao.setData(tfData.getText());
 			producao.setQuantidade(Integer.parseInt(tfQtdProduzida.getText()));
-			float valorProducao =  gp.verificaInsumos(produto, producao.getQuantidade());
-			//VALOR PRODUÇÂO RETORNA 0;
-			System.out.println(valorProducao);
+			float valorProducao =  gp.verificaInsumosECalculaPreco(produto, producao.getQuantidade());
 			producao.setCustoProducao(valorProducao);
 			boolean cadastrado = arquivoProducao.escreveProducaoNoArquivo(producao);
 			if(cadastrado) {
 				msgInfo(jf, CAD_PRODUCAO, PRODUCAO);
 				
-				/*float valorVenda =  gp.calculaValorTotalVenda(produto,
-					producao.getQuantidade()))*/
-				msgInfo(jf, String.format("O custo total da produção é: %.2f\n" ,valorProducao),
+				float valorVenda =  gp.calculaVendaProduto(produto,producao.getQuantidade());
+				msgInfo(jf, String.format("O custo total da produção é: %.2f\n"
+						+ "O valor de venda é: %.2f" ,valorProducao, valorVenda),
 						PRODUCAO);
 			}
-				
 			else
 				msgErro(jf, ERR_CAD_PRODUCAO, PRODUCAO);
-			
-			
 		}
-		
-		
 		
 	}
 	

@@ -182,10 +182,14 @@ public class IgVendas extends JFrame {
 						
 					}
 					else
-						defaultTableModel.insertRow(defaultTableModel.getRowCount(), new Object[] {prod.getNome(), prod.getQuantidadeProduto()+(int)spinner.getValue(),prod.getPrecoFabricacao()});
+						defaultTableModel.insertRow(defaultTableModel.getRowCount(), new Object[] {
+								prod.getNome(), prod.getQuantidadeProduto()+(int)spinner.getValue(),prod.getPrecoFabricacao()
+						});
 				}
 				else
-					defaultTableModel.insertRow(defaultTableModel.getRowCount(), new Object[] {prod.getNome(), prod.getQuantidadeProduto(),prod.getPrecoFabricacao()});
+					defaultTableModel.insertRow(defaultTableModel.getRowCount(), new Object[] {
+							prod.getNome(), prod.getQuantidadeProduto(),prod.getPrecoFabricacao()
+					});
 				
 				
 				spinner.setValue(0);
@@ -234,8 +238,6 @@ public class IgVendas extends JFrame {
 		
 		String[] colunas = new String[] {"Nome", "Quantidade","Preço Unitário","Valor Total"};
 		table = new JTable();
-		//table.setBorder(new TitledBorder(null, "Vendas", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		//panel.add(table, BorderLayout.SOUTH);
 		defaultTableModel = new DefaultTableModel(colunas, 0);
 		table.setModel(defaultTableModel);
 		
@@ -246,24 +248,6 @@ public class IgVendas extends JFrame {
 		// Define a posição, o tamanho e exibe a janela.
 		setBounds(100, 100, 428, 314);
 		setVisible(true);
-		/*table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"Quantidade", "Pre\u00E7o Unit\u00E1rio", "Valor total"
-			}
-		));*/
 		table.getColumnModel().getColumn(1).setPreferredWidth(95);
 		scrollPane.setViewportView(table);
 		

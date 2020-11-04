@@ -21,8 +21,9 @@ public class GerenciaInsumoProduto {
 	public List<Insumo> obtemInsumosProduto(int codigo){
 		ArquivoInsumoProduto arquivoInsumo = new ArquivoInsumoProduto();
 		List<Insumo> lista = arquivoInsumo.leInsumosNoArquivo();
-		List<Insumo> listaInsumoProduto = new ArrayList<Insumo>();
+		List<Insumo> listaInsumoProduto = null;
 		if(lista != null)
+			listaInsumoProduto = new ArrayList<Insumo>();
 			for(Insumo insumo : lista) {
 				if(insumo.getCodigoProduto() == codigo)
 					listaInsumoProduto.add(insumo);
@@ -45,6 +46,27 @@ public class GerenciaInsumoProduto {
 		}
 		return false;
 	}
+	/*
+	public List<Insumo> determinaPrecoProduto(Produto produto){
+		List<Insumo> listaInsumo = obtemInsumosProduto(produto.getCodigo());
+		
+		if(listaInsumo == null)
+			return null;
+		ArquivoInsumoProduto arquivoInsumo = new ArquivoInsumoProduto();
+		List<Insumo> lista = arquivoInsumo.leInsumosNoArquivo();
+		
+		for(Insumo insumo : lista) {
+			for(Insumo insumoProduto : listaInsumo) {
+				if(insumo.getNome().equalsIgnoreCase(insumoProduto.getNome())) {
+					insumoProduto.setPrecoUnitario(insumo.getPrecoUnitario() * insumoProduto.getQuantidade());
+					GerenciaHistoricoPreco ghp = new GerenciaHistoricoPreco()
+				}
+					
+			}
+		}
+		
+		return listaInsumo;
+	}*/
 	
 	//????
 	public boolean alteraPrecoInsumo(List<Insumo> insumos, float novoPreco, int codigoInsumo) {
