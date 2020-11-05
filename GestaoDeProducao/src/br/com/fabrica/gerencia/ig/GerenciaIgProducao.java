@@ -64,6 +64,7 @@ public class GerenciaIgProducao {
 			producao.setProduto(produto);
 			producao.setData(tfData.getText());
 			producao.setQuantidade(Integer.parseInt(tfQtdProduzida.getText()));
+			System.out.println("QTDE"+Integer.parseInt(tfQtdProduzida.getText()));
 			float valorProducao =  gp.verificaInsumosECalculaPreco(produto, producao.getQuantidade());
 			producao.setCustoProducao(valorProducao);
 			boolean cadastrado = arquivoProducao.escreveProducaoNoArquivo(producao);

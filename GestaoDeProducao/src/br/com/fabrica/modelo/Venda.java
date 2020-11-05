@@ -9,12 +9,13 @@ public class Venda {
 	private String hora;
 	private List<Produto> produtos;
 	private int quantidade;// verificar pois o objeto produto já possui o atributo quantidade
-	
+	private float valorTotalVenda;
 	/**
 	 * Construtor default da classe Venda.
 	 * Atribui valores default aos atributos da classe.
 	 */
-	public Venda() {	}
+	public Venda() {	
+	}
 
 	/**
 	 * Construtor sobrecarregado da classe Venda, atribui valores passados 
@@ -30,7 +31,6 @@ public class Venda {
 		this.produtos = produtos;
 		this.quantidade = quantidade;
 	}
-	
 	/**
 	 * Obtém a data da venda do produto.
 	 * @return <code>String</code> valor referente data da venda do produto.
@@ -38,6 +38,8 @@ public class Venda {
 	public String getData() {
 		return data;
 	}
+
+	
 
 	/**
 	 * Atibui ao objeto da classe a data da venda do produto.
@@ -112,6 +114,14 @@ public class Venda {
 	}
 
 	
+	public float getValorTotalVenda() {
+		return valorTotalVenda;
+	}
+
+	public void setValorTotalVenda(float valorTotalVenda) {
+		this.valorTotalVenda = valorTotalVenda;
+	}
+
 	public float valorTotalVendaPorProduto() {
 		float valor = 0;
 		for(Produto produto : produtos)

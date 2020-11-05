@@ -37,6 +37,13 @@ public class Constantes {
 	public static String ARQ_VENDA = "..\\GestaoDeProducao\\arquivos\\venda.dat";
 	
 	/**
+	 * <code>String</code> : Determina o arquivo relacionado a venda.
+	 */
+	public static String ARQ_VENDA_PRODUTO = "..\\GestaoDeProducao\\arquivos\\vendaProduto.dat";
+	
+	
+	
+	/**
 	 * <code>String</code> : Determina o arquivo relacionado a produtos.
 	 */
 	public static String ARQ_PRECO_INSUMO = "..\\GestaoDeProducao\\arquivos\\historicoPrecoInsumo.dat";
@@ -90,6 +97,12 @@ public class Constantes {
 	 *<code>String</code> :  Mensagem informando o cadastro de produção.
 	 */
 	public static String PRODUCAO = "Cadastro de Produção";
+	
+	/**
+	 *<code>String</code> :  Mensagem informando o cadastro de produção.
+	 */
+	public static String VENDA = "Cadastro de Venda";
+	
 	
 	/**
 	 * <code>String</code> : Mensagem informando que a produção não foi cadastrada.
@@ -151,4 +164,6 @@ public class Constantes {
 	public static String ERR_UNIDADE_MEDIDA = "Unidade de Medida inválida";
 	
 	public static String ERR_CAD_UNIDADE_MEDIDA = "Erro ao cadastrar tamanho da unidade!";
+	
+	public static String ERR_QTDE_MAXIMA = "Quantidade produzida insuficiente!";
 }

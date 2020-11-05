@@ -1,9 +1,13 @@
 package br.com.fabrica.arquivos;
 
+import static br.com.fabrica.constantes.Constantes.*;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.Venda;
 
@@ -15,8 +19,8 @@ import br.com.fabrica.modelo.Venda;
  *
  */
 public class ArquivoVendaProduto extends BinaryFile {
-	
-	
+
+
 	/**
 	 * Obtém o tamanho do registro que é de bytes, pois são:
 	 * 4 bytes do código da venda.
@@ -48,23 +52,23 @@ public class ArquivoVendaProduto extends BinaryFile {
 			venda = (Venda) objeto;
 		else
 			throw new ClassCastException();
-		
+
 		randomAccessFile.writeInt(venda.getCodigo());
 		for(Produto produto : venda.getProdutos()) {
 			randomAccessFile.writeChars(setStringLength(produto.getNome(), 50));
 			randomAccessFile.writeInt(produto.getQuantidadeProduto());
 			randomAccessFile.writeFloat(produto.getPrecoFabricacao());
 		}
-		
-		
+
+
 	}
 
 	// Versão sobrecarregada (overload) de writeObject.
-		public void writeObject(Venda venda) throws IOException {
-			Object object = venda;
-			writeObject(object);
-		}
-	
+	public void writeObject(Venda venda) throws IOException {
+		Object object = venda;
+		writeObject(object);
+	}
+
 	/**
 	 * Lê o código de uma venda a partir do arquivo de vendas
 	 * e adiciona em uma lista referente a classe {@link Venda} todos os produtos que foram vendidos
@@ -75,19 +79,55 @@ public class ArquivoVendaProduto extends BinaryFile {
 	public Object readObject() throws IOException {
 		Venda venda = new Venda();
 		venda.setCodigo(randomAccessFile.readInt());
-		
+
 		List<Produto> produtos = new ArrayList<Produto>();
 		for(Produto produto : produtos) {
 			produto.setNome(readString(50));
 			produto.setQuantidadeProduto(randomAccessFile.readInt());
 			produto.setPrecoVenda(randomAccessFile.readFloat());
-			
+
 			produtos.add(produto);
 		}
-		
+
 		venda.setProdutos(produtos);
 
 		return venda;
 	}
+	/***
+	 * Obtém o código sequencial das vendas gravado no arquivo de vendas
+	 * @return retorna o código sequencial para o próximo dado de registros das vendas.
+	 */
+	public int obtemCodigoVenda() {
+		try {
+			openFile(ARQ_VENDA_PRODUTO);
+			if(recordQuantity() == 0)
+				return 1;
+			else {
+				return (int) (recordQuantity() + 1);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return 0;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+	public void gravaProdutosVendidos(List<Produto> produtos) {
+		try {
+			openFile(ARQ_VENDA_PRODUTO);
+			setFilePointer(recordQuantity());
+			for (Produto produto : produtos) {
+				Venda venda = new Venda();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
+	}
 }

@@ -15,22 +15,6 @@ import br.com.fabrica.modelo.Produto;
 public class GerenciaProducao {
 	
 	/**
-	 * Obtém o custo total da produção de um determinado produto.
-	 * @param Produto - <code>Produto</code> : produto que irá calcular o custo de produção
-	 * @param quantidade - <code>int</code> : Quantidade de prudutos que serão produzidos 
-	 * @return - <code>float</code> : valor total dos custos referentes a produção
-	 */
-	public float calculaCustoTotalProducao(Produto produto, int quantidade) {
-		float custo = 0;
-		for(Insumo insumo : produto.getInsumos()) {
-			custo += insumo.getPrecoUnitario();
-		}
-		
-		custo *= quantidade;
-		return custo;
-	}
-	
-	/**
 	 * Obtém o valor total de venda que é possível obter com essa produção.
 	 * @param Produto - <code>Produto</code> : produto que irá calcular o custo de produção
 	 * @param quantidade - <code>int</code> : Quantidade de prudutos que serão produzidos 

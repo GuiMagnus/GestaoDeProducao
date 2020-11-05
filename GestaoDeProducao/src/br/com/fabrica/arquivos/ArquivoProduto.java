@@ -218,7 +218,6 @@ public class ArquivoProduto extends BinaryFile{
 				if(produto.getCodigo() == prod.getCodigo()) {
 					
 					produto.setTamanhoUnidade(prod.getTamanhoUnidade());
-					System.out.println("->"+produto);
 					escreveProdutoNoArquivoPorPosicao(produto, i);
 					break;
 				}
