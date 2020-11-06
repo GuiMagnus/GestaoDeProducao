@@ -16,9 +16,23 @@ import br.com.fabrica.gerencia.modelo.GerenciaProduto;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.validacoes.Validacoes;
 
+/**
+ * Classe responsável por gerenciar as funções da classe <code>IgAlteraPrecoProduto</code>
+ * @see IgAlteraPrecoProduto
+ * @author Rafaela
+ *
+ */
 public class GerenciaIgAlteraPrecoProduto {
 	public static ArquivoProduto arquivoProduto = new ArquivoProduto();
 	
+	/**
+	 * Altera o preço referente ao produto
+	 * @param comboProduto Lista de produtos cadastrados
+	 * @param spinner nova margem de lucro
+	 * @param tfPreco novo preço do insumo
+	 * @param jf Janela principal
+	 */
+
 	public static void alteraPreco(JComboBox<String> comboProduto, JTextField tfPreco,
 			JSpinner spinner, JFrame jf) {
 		Produto produto = new Produto();

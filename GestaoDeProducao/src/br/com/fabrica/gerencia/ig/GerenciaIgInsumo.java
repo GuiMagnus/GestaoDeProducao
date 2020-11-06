@@ -16,6 +16,12 @@ import br.com.fabrica.gui.IgInsumos;
 import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.validacoes.Validacoes;
 
+/**
+ * Classe responsável por gerenciar as funções da classe <code>IgInsumo</code>
+ * @see IgInsumos
+ * @author Rafaela
+ *
+ */
 public class GerenciaIgInsumo {
 	private static ArquivoInsumo arquivoInsumo = new ArquivoInsumo();
 

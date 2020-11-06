@@ -4,9 +4,12 @@ import static br.com.fabrica.constantes.Constantes.ARQ_PRODUCAO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.fabrica.modelo.Producao;
 import br.com.fabrica.modelo.Produto;
+import br.com.fabrica.validacoes.Data;
 
 
 /**
@@ -24,14 +27,13 @@ public class ArquivoProducao extends BinaryFile{
 	 * Obtém o tamanho do registro que é de 128 bytes, pois são:
 	 *4 bytes do codigo da produção.
 	 *100 bytes do nome do produto com 50 caracteres (2 bytes de cada carácter UNICODE);
-	 *4 bytes da quantidade;
 	 *20 bytes da data de produção
 	 *4 bytes custo produção
 	 * @return um <code>int</code> com o tamanho, em bytes, do registro.
 	 */
 	@Override
 	public int recordSize() {
-		return 132;
+		return 128;
 	}
 
 	
@@ -55,25 +57,14 @@ public class ArquivoProducao extends BinaryFile{
 		
 		randomAccessFile.writeInt(obtemCodigoProducao());
 		randomAccessFile.writeChars(setStringLength(producao.getProduto().getNome(),50));
-		randomAccessFile.writeInt(producao.getQuantidade());
-		randomAccessFile.writeChars(setStringLength(producao.getData(), 10));
+		randomAccessFile.writeInt(producao.getProduto().getQuantidade());
+		randomAccessFile.writeChars(setStringLength(producao.getData().toString(), 10));
 		randomAccessFile.writeFloat(producao.getCustoProducao());
 	}
 
-	public void writeObject(Producao producao) throws IOException {
-		/* Solução 1: não usa o cast, usa o relacionamento "é um" entre o objeto de subclasse Produto e o objeto de 
-		 * 					superclasse Object para invocar o método writeObject que recebe um Object.
-		 */                  
+	public void writeObject(Producao producao) throws IOException {               
 		Object object = producao;
 		writeObject(object);
-		
-		/* Solução 2: usa o cast que é desnecessário por causa do relacionamento "é um" entre o objeto
-		 *                  de subclasse Produto e o objeto de superclasse Object para invocar o método writeObject
-		 *                  que recebe um Object. O cast só é necessário para evitar a recursão e chamar a 
-		 *                  versão sobrecarregada de writeObject que recebe um Object.   
-		 *                  
-		 *                   writeObject((Object) produto);
-		 */
 	}
 
 	/**
@@ -91,10 +82,10 @@ public class ArquivoProducao extends BinaryFile{
 		
 		Produto produto = new Produto();
 		produto.setNome(readString(50));
-		produto.setQuantidadeProduto(randomAccessFile.readInt());
-		
+		produto.setQuantidade(randomAccessFile.readInt());
 		producao.setProduto(produto);
-		producao.setData(readString(10));
+		Data data = new Data(readString(10));
+		producao.setData(data);
 		producao.setCustoProducao(randomAccessFile.readFloat());
 		return producao;
 	}
@@ -121,7 +112,12 @@ public class ArquivoProducao extends BinaryFile{
 		}
 	}
 	
-	public Producao leProdutoNoArquivo(int indice) {
+	/**
+	 * Obtém uma produção que foi cadastrada.
+	 * @param indice <code>int</code> referencia ao produto que será obtido
+	 * @return informações referentes a produção.
+	 */
+	public Producao leProducaoNoArquivo(int indice) {
 		try {
 			openFile(ARQ_PRODUCAO);
 			setFilePointer(indice);
@@ -137,6 +133,10 @@ public class ArquivoProducao extends BinaryFile{
 		}
 	}
 	
+	/***
+	 * Obtém o código sequencial para a produção
+	 * @return retorna o código sequencial para o próximo dado de histórico
+	 */
 	public int obtemCodigoProducao() {
 		try {
 			if(recordQuantity() == 0)
@@ -152,6 +152,12 @@ public class ArquivoProducao extends BinaryFile{
 			return 0;
 		}
 	}
+	
+	/**
+	 * Obtém a produção de um determinado produto.
+	 * @param codigo <code>int</code> código referente a produção
+	 * @return <code>Producao</code> dados da produção procurada. 
+	 */
 	public Producao obterProducao(int codigo) {
 		Producao producao = null;
 		try {
@@ -170,6 +176,84 @@ public class ArquivoProducao extends BinaryFile{
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	/**
+	 * Obtém as produções cadastradas.
+	 * @param codigo <code>int</code> código referente a produção
+	 * @return <code>List</code> lista de produções
+	 */
+	public List<Producao> leProducoesNoArquivo() {
+		List<Producao> listaProducao = new ArrayList<>();
+		try {
+			openFile(ARQ_PRODUCAO);
+			for(int i = 0; i < recordQuantity(); i++) {
+				setFilePointer(i);
+				Producao producao = (Producao) readObject();
+				listaProducao.add(producao);
+			}
+			closeFile();
+			return listaProducao;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * Altera as informações de uma produção cadastrada.
+	 * @param prod <code>Producao</code> produção a ser alterada.
+	 * @return <code>Producao</code> produção alterada.
+	 */
+	public Producao alteraProducao(Producao prod) {
+		Producao producao = null;
+		try {
+			openFile(ARQ_PRODUCAO);
+			for(int i = 0; i < recordQuantity(); i++) {
+				setFilePointer(i);
+				producao = (Producao) readObject();
+				
+				if(producao.getCodigo() == prod.getCodigo()) {
+					producao = prod;
+					//produto.setTamanhoUnidade(prod.getTamanhoUnidade());
+					escreveProducaoPorPosicao(producao, i);
+					break;
+				}
+			}
+			closeFile();
+			return producao;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return producao;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return producao;
+		}
+	}
+	
+	/**
+	 * Escreve uma produção em uma determinada posição.
+	 * @param producao <code>Producao</code> producao a ser cadastrada.
+	 * @param posicao <code>int</code> posição que será escrito a produção
+	 * @return Retorna True ou False indicando se a gravação teve sucesso ou falha.
+	 */
+	public boolean escreveProducaoPorPosicao(Producao producao, int posicao) {
+		try {
+			openFile(ARQ_PRODUCAO);
+			setFilePointer(posicao);
+			writeObject(producao);
+			closeFile();
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false; 
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 }

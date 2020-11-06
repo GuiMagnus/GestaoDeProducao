@@ -1,10 +1,17 @@
 package br.com.fabrica.modelo;
 
-public class Producao {
+import br.com.fabrica.validacoes.Data;
+
+/**
+ * Classe responsável por armazenar os dados da produção
+ * @author Rafaela
+ *
+ */
+public class Producao implements Comparable<Producao>{
 	private int codigo;
 	private Produto produto;
-	private int quantidade;
-	private String data;
+	//private int quantidade;
+	private Data data;
 	private float custoProducao;
 	/**
 	 * Construtor default da classe Producao. Instancia um objeto producao atribuindo
@@ -22,9 +29,8 @@ public class Producao {
 	 * @param data - <code>String</code> : Data da produção do produto.
 	 * @param custoProducao <code>float</code> : Custo da produção de determinado produto.
 	 */
-	public Producao(Produto produto, int quantidade, String data, float custoProducao) {
+	public Producao(Produto produto, Data data, float custoProducao) {
 		this.produto = produto;
-		this.quantidade = quantidade;
 		this.data = data;
 		this.custoProducao = custoProducao;
 	}
@@ -47,26 +53,10 @@ public class Producao {
 	}
 
 	/**
-	 * Obtém a quantidade a ser produzida de determinado produto.
-	 * @return <code>int </code> : Retorna a quantidade da produção.
-	 */
-	public int getQuantidade() {
-		return quantidade;
-	}
-
-	/**
-	 * Atribui ao objeto da classe a quantidade a ser produzida de determinado produto.
-	 * @param quantidade - <code>int</code> : valor referente a quantidade a ser produzida.
-	 */
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
-	}
-
-	/**
 	 * Obtém a data da produção de um produto.
 	 * @return <code>String</code> : String referente a data de uma produção.
 	 */
-	public String getData() {
+	public Data getData() {
 		return data;
 	}
 
@@ -74,7 +64,7 @@ public class Producao {
 	 * Atribui ao objeto da classe a string referente a data da produção de um produto.
 	 * @param data - <code>String</code> : string referente a data de uma produção.
 	 */
-	public void setData(String data) {
+	public void setData(Data data) {
 		this.data = data;
 	}
 	
@@ -116,8 +106,13 @@ public class Producao {
 	 */
 	@Override
 	public String toString() {
-		return String.format("Codigo: %d, produto: %s, quantidade: %d, data: %s, custoProducao:%s",
-				getCodigo(), produto.getNome(), quantidade, data, custoProducao);
+		return String.format("Codigo: %d, produto: %s, data: %s, custoProducao:%s",
+				getCodigo(), produto.getNome(), data, custoProducao);
+	}
+
+	@Override
+	public int compareTo(Producao producao) {
+		return producao.produto.getNome().compareToIgnoreCase(producao.produto.getNome());
 	}
 	
 }

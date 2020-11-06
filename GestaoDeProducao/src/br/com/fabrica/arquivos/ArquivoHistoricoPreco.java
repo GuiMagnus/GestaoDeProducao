@@ -11,8 +11,9 @@ import br.com.fabrica.modelo.HistoricoPreco;
 
 
 /**
- *  Esta classe fornece uma implementação para as operações que permitem manipular um arquivo de acesso 
- * aleatório para ler e escrever objetos da classe <code>HistoricoPreco</code>.
+ *  Esta classe fornece uma implementação para as operações que permitem manipular
+ *  um arquivo de acesso aleatório para ler e escrever objetos da classe 
+ *  <code>HistoricoPreco</code>.
  * @author GuilhermeMagnus
  *
  */
@@ -57,8 +58,7 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 
 	}
 
-	// Versão sobrecarregada (overload) de writeObject.
-	public void writeObject(HistoricoPreco historicoPreco) throws IOException {
+	private void writeObject(HistoricoPreco historicoPreco) throws IOException {
 		Object object = historicoPreco;
 		writeObject(object);
 	}
@@ -89,13 +89,11 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 	public int obtemCodigoHistorico() {
 		int codigo = 0;
 		try {
-			//openFile(ARQ_HISTORICO_INSUMO);
 			if(recordQuantity() == 0)
 				codigo = 1;
 			else {
 				codigo = (int) (recordQuantity() + 1);
 			}
-			//closeFile();
 			return codigo;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -106,6 +104,13 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 		}
 	}
 
+	/**
+	 * Escreve um <code>HistoricoPreco</code> no arquivo referente aos preços;
+	 * @param hpList lista de preços a serem salvos
+	 * @param arquivo arquivo onde serão salvas as informações
+	 * @return <code>true</code> caso consiga escrever no arquivo. <code>false</code>
+	 * caso não consiga escrever no arquivo.
+	 */
 	public boolean escreveHistoricoNoArquivo(List<HistoricoPreco> hpList, String arquivo) {
 		try {
 			openFile(arquivo);
@@ -123,24 +128,11 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 			return false;
 		}
 	}
-	/*
-	public boolean escreveHistoricoNoArquivo(HistoricoPreco hp, String arquivo) {
-		try {
-			openFile(arquivo);
-			setFilePointer(recordQuantity());
-			writeObject(hp);
-			closeFile();
-			return true;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return false; 
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-*/
-
+	/**
+	 * Obtém os históricos de preços que foram salvos.
+	 * @param codigo <code>int</code>> código de referencia dos dados a serem obtidos
+	 * @return <code>List</code> lista contendo os preços;
+	 */
 	public List<HistoricoPreco> obtemHistorico(int codigo) {
 		HistoricoPreco hp = new HistoricoPreco();
 		List<HistoricoPreco> hpList = new ArrayList<HistoricoPreco>();

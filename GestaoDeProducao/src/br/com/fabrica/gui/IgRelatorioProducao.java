@@ -14,9 +14,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import br.com.fabrica.modelo.Producao;
-import br.com.fabrica.modelo.Produto;
-import br.com.fabrica.modelo.UnidadeMedida;
+import br.com.fabrica.gerencia.ig.GerenciaIgRelatorioProducao;
 
 /**
  * Classe responsavel por criar a tela de Relatorio de produção
@@ -87,11 +85,6 @@ public class IgRelatorioProducao extends JFrame {
 		String[] colunas = new String[] {"Nome do produto", "Quantidade produzida","Custo total de produção"};
 		defaultTableModel = new DefaultTableModel(colunas, 0);
 
-		//defaultTableModel.insertRow(defaultTableModel.getRowCount(), new Object[] {prod.getNome(), prod.getQuantidadeProduto()+(int)spinner.getValue(),prod.getPrecoFabricacao()});
-		// Define a posição, o tamanho e exibe a janela.
-		
-		
-		
 		lblData = new JLabel("Data final:");
 		lblData.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblData.setBounds(208, 56, 75, 25);
@@ -138,6 +131,15 @@ public class IgRelatorioProducao extends JFrame {
 		//jf.setResizable(false);
 		jf.setSize(591, 568);
 		
+		btnOk.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				jf.setVisible(false);
+				IgMenu igMenu = new IgMenu();
+				igMenu.getJf().setVisible(true);
+			}
+		});
+		
 		btnCancelar.addActionListener(new ActionListener() {
 			
 			@Override
@@ -150,11 +152,7 @@ public class IgRelatorioProducao extends JFrame {
 		jf.setVisible(true);
 		btnObterDados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Produto produto = new Produto("Aaa",UnidadeMedida.QUILOGRAMA,5.0f,10.0f,1,null,null);
-				Producao producao = new Producao(produto,1,"02/01/1997",5.0f);
-				defaultTableModel.insertRow(defaultTableModel.getRowCount(),
-						new Object[] {producao.getCodigo(), producao.getQuantidade(),
-								producao.getCustoProducao()});
+				GerenciaIgRelatorioProducao.relatorio(jf, tfInicial, tfFinal, defaultTableModel);
 			}
 		});
 	}

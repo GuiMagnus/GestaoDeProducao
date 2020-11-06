@@ -3,12 +3,26 @@ package br.com.fabrica.gerencia.modelo;
 import java.util.Calendar;
 import java.util.List;
 
+import br.com.fabrica.modelo.MesesAno;
+import br.com.fabrica.modelo.Orcamento;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.Venda;
 import br.com.fabrica.validacoes.Data;
 
+/**
+ * Classe responsável por gerenciar o Orcamento
+ * @see Orcamento
+ * @author Rafaela
+ *
+ */
 public class GerenciaOrcamento {
 	
+	/**
+	 * Soma as despesas de produção de cada mês
+	 * @param mes mes que deseja obter as despesas
+	 * @param produtos lista de produtos que geraram despesas
+	 * @return valor das despesas
+	 */
 	public float somaDespedasMes(String mes, List<Produto> produtos) {
 		Data dataI = null;
 		Data dataF = null;
@@ -28,6 +42,12 @@ public class GerenciaOrcamento {
 		return valorDespesa;
 	}
 	
+	/**
+	 * Obtém o número total de vendas em um mês
+	 * @param mes mes que deseja obter as informações
+	 * @param vendas lista de produtos que foram vendidos
+	 * @return quantidade de produtos vendidos
+	 */
 	public int obtemNumeroTotalDeVendas(String mes, List<Venda> vendas) {
 		Data dataI = null;
 		Data dataF = null;
@@ -47,6 +67,12 @@ public class GerenciaOrcamento {
 		return qtdVenda;
 	}
 	
+	/**
+	 * Obtém o valor total obtido com as vendas
+	 * @param mes mes que deseja obter as informações
+	 * @param vendas lista de produtos que foram vendidos
+	 * @return valor total das vendas
+	 */
 	public float obtemValorTotalDeVendas(String mes, List<Venda> vendas) {
 		Data dataI = null;
 		Data dataF = null;
@@ -66,6 +92,12 @@ public class GerenciaOrcamento {
 		return valorVenda;
 	}
 	
+	/**
+	 * Calcula o saldo obtido no mes
+	 * @param valorVenda valor obtido com as vendas
+	 * @param valorDespesa valor gasto com as despesas
+	 * @return saldo obtido no mes
+	 */
 	public float saldo(float valorVenda, float valorDespesa) {
 		return valorVenda - valorDespesa;
 	}

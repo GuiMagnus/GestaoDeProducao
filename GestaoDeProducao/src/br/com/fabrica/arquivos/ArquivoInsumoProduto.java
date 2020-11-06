@@ -1,6 +1,8 @@
 package br.com.fabrica.arquivos;
 
-import static br.com.fabrica.constantes.Constantes.*;
+import static br.com.fabrica.constantes.Constantes.ARQ_INSUMO_PRODUTO;
+import static br.com.fabrica.constantes.Constantes.ARQ_PRECO_INSUMO;
+import static br.com.fabrica.constantes.Constantes.ARQ_PRODUTO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fabrica.modelo.Insumo;
-import br.com.fabrica.validacoes.Validacoes;
 
 
 
@@ -28,12 +29,11 @@ public class ArquivoInsumoProduto extends BinaryFile{
 	 *  4 bytes do código do insumo;
 	 *  4 bytes do código do produto a que ele pertence
 	 *  4 bytes da quantidade a ser usada do insumo no produto a que ele pertence.
-	 *  4 bytes do tamanho da unidade.
 	 * @return um <code>int</code> com o tamanho, em bytes, do registro.
 	 */
 	@Override
 	public int recordSize() {
-		return 116;
+		return 112;
 	}
 
 
@@ -59,7 +59,6 @@ public class ArquivoInsumoProduto extends BinaryFile{
 		randomAccessFile.writeInt(insumo.getCodigoProduto());
 		randomAccessFile.writeChars(setStringLength(insumo.getNome(), 50));
 		randomAccessFile.writeFloat(insumo.getQuantidade());
-		randomAccessFile.writeChars(setStringLength(insumo.getMedida().getUnidade(),2));
 	}
 
 	// Versão sobrecarregada (overload) de writeObject.
@@ -84,7 +83,6 @@ public class ArquivoInsumoProduto extends BinaryFile{
 		insumo.setCodigoProduto(randomAccessFile.readInt());
 		insumo.setNome(readString(50));
 		insumo.setQuantidade(randomAccessFile.readFloat());
-		insumo.setMedida(Validacoes.verificaMedida(readString(2)));
 		return insumo;
 	}
 
@@ -164,6 +162,11 @@ public class ArquivoInsumoProduto extends BinaryFile{
 			return 0;
 		}
 	}
+	
+	/**
+	 * Obtém os insumos que estão cadastrados.
+	 * @return <code>List</code> lista de insumos cadastrados
+	 */
 	public List<Insumo> leInsumosNoArquivo() {
 		List<Insumo> listaInsumos = new ArrayList<>();
 		try {
@@ -184,6 +187,13 @@ public class ArquivoInsumoProduto extends BinaryFile{
 		}
 	}
 	
+	
+	/**
+	 * Altera preço de um determinado insumo
+	 * @param insumo <code>Insumo</code> insumo que se deseja alterar.
+	 * @param qtde <code>int</code> informação que será atualizada. 
+	 * @return <code>Insumo</code> objeto alterado
+	 */
 	public boolean alteraInsumo(int codigoProduto, int codigoInsumo, float novoPreco) {
 		try {
 			openFile(ARQ_INSUMO_PRODUTO);
@@ -207,6 +217,12 @@ public class ArquivoInsumoProduto extends BinaryFile{
 		}
 	}
 	
+	/**
+	 * Escreve um insumo em uma determinada posição.
+	 * @param insumo <code>Insumo</code> insumo a ser cadastrado.
+	 * @param posicao <code>int</code> posição que será escrito o insumo
+	 * @return Retorna True ou False indicando se a gravação teve sucesso ou falha.
+	 */
 	public boolean escreveInsumosNoArquivoPorPosicao(Insumo insumo, int posicao) {
 		try {
 			openFile(ARQ_INSUMO_PRODUTO);
@@ -222,13 +238,18 @@ public class ArquivoInsumoProduto extends BinaryFile{
 			return false;
 		}
 	}
+	
+	/**
+	 * Obtém os insumos referentes a um determinado produto.
+	 * @param codigo <code>int</code> código referente ao produto
+	 * @return <code>List</code> lista de insumos do produto
+	 */
 	public List<Insumo> obtemInsumosDeUmProduto(int codigo){
 		
 		List<Insumo> listaDeInsumosDeUmProduto = new ArrayList<Insumo>();
 		List<Insumo> listaDeInsumos = leInsumosNoArquivo();
 		
 		for (Insumo insumo : listaDeInsumos)
-			//if(insumo.getCodigoProduto() == codigo)
 				listaDeInsumosDeUmProduto.add(insumo);
 		
 		return listaDeInsumosDeUmProduto;

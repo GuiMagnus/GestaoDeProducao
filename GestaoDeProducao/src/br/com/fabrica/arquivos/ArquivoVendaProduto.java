@@ -1,13 +1,12 @@
 package br.com.fabrica.arquivos;
 
-import static br.com.fabrica.constantes.Constantes.*;
+import static br.com.fabrica.constantes.Constantes.ARQ_VENDA_PRODUTO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.Venda;
 
@@ -27,12 +26,11 @@ public class ArquivoVendaProduto extends BinaryFile {
 	 *100 bytes para o nome do produto vendido.
 	 *4 bytes para a quantidade desse produto vendido.
 	 *4 bytes para o preço unitário do produto.
-	 *4 bytes para o valor total de cada venda
+	 *4 bytes para o valor total de cada item da venda
 	 * @return um <code>int</code> com o tamanho, em bytes, do registro.
 	 */
 	@Override
 	public int recordSize() {
-		// TODO Auto-generated method stub
 		return 116;
 	}
 
@@ -47,18 +45,16 @@ public class ArquivoVendaProduto extends BinaryFile {
 	 */
 	@Override
 	public void writeObject(Object objeto) throws IOException {
-		Venda venda = new Venda();
-		if(objeto instanceof Venda)
-			venda = (Venda) objeto;
+		Produto produto = new Produto();
+		if(objeto instanceof Produto)
+			produto = (Produto) objeto;
 		else
 			throw new ClassCastException();
 
-		randomAccessFile.writeInt(venda.getCodigo());
-		for(Produto produto : venda.getProdutos()) {
-			randomAccessFile.writeChars(setStringLength(produto.getNome(), 50));
-			randomAccessFile.writeInt(produto.getQuantidadeProduto());
-			randomAccessFile.writeFloat(produto.getPrecoFabricacao());
-		}
+		randomAccessFile.writeInt(produto.getCodigo());
+		randomAccessFile.writeChars(setStringLength(produto.getNome(), 50));
+		randomAccessFile.writeInt(produto.getQuantidade());
+		randomAccessFile.writeFloat(produto.getPrecoFabricacao());
 
 
 	}
@@ -83,7 +79,7 @@ public class ArquivoVendaProduto extends BinaryFile {
 		List<Produto> produtos = new ArrayList<Produto>();
 		for(Produto produto : produtos) {
 			produto.setNome(readString(50));
-			produto.setQuantidadeProduto(randomAccessFile.readInt());
+			produto.setQuantidade(randomAccessFile.readInt());
 			produto.setPrecoVenda(randomAccessFile.readFloat());
 
 			produtos.add(produto);
@@ -113,21 +109,25 @@ public class ArquivoVendaProduto extends BinaryFile {
 			return 0;
 		}
 	}
-	public void gravaProdutosVendidos(List<Produto> produtos) {
+	
+	/**
+	 * Grava os produtos que foram vendidos em determinada venda
+	 * @param venda <code>Venda</code> venda a ser registrada.
+	 * @return Retorna True ou False indicando se a gravação obteve sucesso ou falha.
+	 */
+	public boolean gravaProdutosVendidos(Venda venda) {
 		try {
 			openFile(ARQ_VENDA_PRODUTO);
 			setFilePointer(recordQuantity());
-			for (Produto produto : produtos) {
-				Venda venda = new Venda();
-			}
+			for(Produto produto : venda.getProdutos())
+				writeObject(produto);
+			return true;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
-		
-
 	}
 }

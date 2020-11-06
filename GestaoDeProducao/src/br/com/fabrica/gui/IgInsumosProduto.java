@@ -113,7 +113,7 @@ public class IgInsumosProduto extends JFrame {
 
 		table = new JTable();
 		
-		String[] colunas = new String[] {"Nome", "Quantidade","Unidade"};
+		String[] colunas = new String[] {"Nome", "Quantidade"};
 		table.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {

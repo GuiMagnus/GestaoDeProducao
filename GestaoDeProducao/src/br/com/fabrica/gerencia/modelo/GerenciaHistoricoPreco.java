@@ -11,6 +11,7 @@ import br.com.fabrica.modelo.HistoricoPreco;
 /**
  * Classe responsável por gerenciar o histórico de preços referente aos insumos
  * e aos produtos.
+ * @see HistoricoPreco
  * @author Rafaela
  *
  */
@@ -28,16 +29,7 @@ public class GerenciaHistoricoPreco {
 		hp.setCodigoReferenciaDeDado(codigo);
 		historico.add(hp);
 	}
-	
-	/**
-	 * Obtém o preço e a data mais recente.
-	 * @param historicoPrecoshistorico - <code>List</code> : lista que contém os preços
-	 * @return - <code>HistoricoPreco</code> : preço e data mais recente que foram cadastrados.
-	 */
-	public HistoricoPreco obtemPrecoRecente(List<HistoricoPreco> historicoPrecos) {
-		return historicoPrecos.get(historicoPrecos.size() - 1);
- 	}
-	
+
 	/**
 	 * Obtém o preço e a data mais antiga.
 	 * @param historicoPrecoshistorico - <code>List</code> : lista que contém os preços
@@ -58,12 +50,4 @@ public class GerenciaHistoricoPreco {
 		return historicoPrecos.get(historicoPrecos.size()).getPreco();
  	}
 	
-	/**
-	 * Obtém a data mais recente.
-	 * @param historicoPrecos - <code>List</code> : lista que contém os preços
-	 * @return - <code>String</code> : data mais recente que foi cadastrada.
-	 */
-	public String obtemDataMaisRecente(List<HistoricoPreco> historicoPrecos) {
-		return historicoPrecos.get(historicoPrecos.size() - 1).getData();
- 	}
 }

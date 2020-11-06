@@ -16,6 +16,13 @@ import br.com.fabrica.arquivos.ArquivoProduto;
 import br.com.fabrica.gui.IgProdutos;
 import br.com.fabrica.modelo.Produto;
 
+
+/**
+ * Classe responsável por gerenciar as funções da classe <code>IgProduto</code>
+ * @see IgProduto
+ * @author Rafaela
+ *
+ */
 public class GerenciaIgProduto {
 	private static ArquivoProduto arquivoProduto = new ArquivoProduto();
 	

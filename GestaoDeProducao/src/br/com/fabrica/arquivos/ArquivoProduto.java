@@ -57,7 +57,7 @@ public class ArquivoProduto extends BinaryFile{
 		randomAccessFile.writeChars(setStringLength(produto.getUnidadeMedida().getUnidade(), 2));
 		randomAccessFile.writeFloat(produto.getMargemLucro());
 		randomAccessFile.writeFloat(produto.getPrecoVenda());
-		randomAccessFile.writeInt(produto.getQuantidadeProduto());
+		randomAccessFile.writeInt(produto.getQuantidade());
 		randomAccessFile.writeFloat(produto.getTamanhoUnidade());
 
 	}
@@ -86,7 +86,7 @@ public class ArquivoProduto extends BinaryFile{
 		produto.setUnidadeMedida(Validacoes.verificaMedida(tipoProduto));
 		produto.setMargemLucro(randomAccessFile.readFloat());
 		produto.setPrecoVenda(randomAccessFile.readFloat());
-		produto.setQuantidadeProduto(randomAccessFile.readInt());
+		produto.setQuantidade(randomAccessFile.readInt());
 		produto.setTamanhoUnidade(randomAccessFile.readFloat());
 		return produto;
 	}
@@ -190,6 +190,12 @@ public class ArquivoProduto extends BinaryFile{
 		}
 	}
 	
+	/**
+	 * Escreve um produto em uma determinada posição.
+	 * @param produto <code>Produto</code> produto a ser cadastrado.
+	 * @param posicao <code>int</code> posição que será escrito o produto
+	 * @return Retorna True ou False indicando se a gravação teve sucesso ou falha.
+	 */
 	public boolean escreveProdutoNoArquivoPorPosicao(Produto produto, int posicao) {
 		try {
 			openFile(ARQ_PRODUTO);
@@ -207,6 +213,11 @@ public class ArquivoProduto extends BinaryFile{
 		}
 	}
 	
+	/**
+	 * Altera as informações de um produto cadastrada.
+	 * @param prod <code>Produto</code> produto a ser alterada.
+	 * @return <code>Produto</code> produção alterada.
+	 */
 	public Produto alteraProduto(Produto prod) {
 		Produto produto = null;
 		try {
@@ -233,6 +244,11 @@ public class ArquivoProduto extends BinaryFile{
 		}
 	}
 	
+	/**
+	 * Obtém o produto cadastrado.
+	 * @param codigo <code>int</code> código referente ao produto
+	 * @return <code>Produto</code> dados do produto procurado 
+	 */
 	public Produto obtemProduto(int codigoProduto) {
 		Produto produto = null;
 		try {

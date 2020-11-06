@@ -37,7 +37,7 @@ public class Constantes {
 	public static String ARQ_VENDA = "..\\GestaoDeProducao\\arquivos\\venda.dat";
 	
 	/**
-	 * <code>String</code> : Determina o arquivo relacionado a venda.
+	 * <code>String</code> : Determina o arquivo relacionado a venda de um produto.
 	 */
 	public static String ARQ_VENDA_PRODUTO = "..\\GestaoDeProducao\\arquivos\\vendaProduto.dat";
 	
@@ -49,12 +49,12 @@ public class Constantes {
 	public static String ARQ_PRECO_INSUMO = "..\\GestaoDeProducao\\arquivos\\historicoPrecoInsumo.dat";
 	
 	/**
-	 * <code>String</code> : Determina o arquivo relacionado a produtos.
+	 * <code>String</code> : Determina o arquivo relacionado aos preços dos produtos.
 	 */
 	public static String ARQ_PRECO_PRODUTO = "..\\GestaoDeProducao\\arquivos\\historicoPrecoProduto.dat";
 	
 	/**
-	 * <code>String</code> : Determina o arquivo relacionado a produtos.
+	 * <code>String</code> : Determina o arquivo relacionado ao insumos do produtos.
 	 */
 	public static String ARQ_INSUMO_PRODUTO = "..\\GestaoDeProducao\\arquivos\\insumosProduto.dat";
 	
@@ -97,12 +97,6 @@ public class Constantes {
 	 *<code>String</code> :  Mensagem informando o cadastro de produção.
 	 */
 	public static String PRODUCAO = "Cadastro de Produção";
-	
-	/**
-	 *<code>String</code> :  Mensagem informando o cadastro de produção.
-	 */
-	public static String VENDA = "Cadastro de Venda";
-	
 	
 	/**
 	 * <code>String</code> : Mensagem informando que a produção não foi cadastrada.
@@ -154,6 +148,9 @@ public class Constantes {
 	 */
 	public static String EXP_HORA = "[0-2][0-3]:[0-5][0-9]:[0-5][0-9]";
 	
+	/**
+	 * <code>String</code> : Mensagem de erro para informar a falta de insumos.
+	 */
 	public static String ERR_QTD_INSUMO_PROD = "Não existem insumos o suficiente para essa produção";
 	
 	/**
@@ -161,9 +158,33 @@ public class Constantes {
 	 */
 	public static String VALOR_DEFAULT_COMBOBOX = "Selecione uma opção";
 	
+	/**
+	 * <code>String</code> : Mensagem de erro para informar a unidade de medida inválida.
+	 */
 	public static String ERR_UNIDADE_MEDIDA = "Unidade de Medida inválida";
 	
+	/**
+	 * <code>String</code> : Mensagem de erro para informar a unidade de medida inválida.
+	 */
 	public static String ERR_CAD_UNIDADE_MEDIDA = "Erro ao cadastrar tamanho da unidade!";
 	
+	/**
+	 * <code>String</code> : Mensagem de erro para informar que a quantidade é insuficiente.
+	 */
 	public static String ERR_QTDE_MAXIMA = "Quantidade produzida insuficiente!";
+	
+	/**
+	 * <code>String</code> : Mensagem informando sucesso ao cadastrar venda.
+	 */
+	public static String CAD_VENDA = "Venda cadastrada com sucesso";
+	
+	/**
+	 *<code>String</code> :  Mensagem informando o cadastro de Venda.
+	 */
+	public static String VENDA = "Venda de produtos";
+	
+	/**
+	 * <code>String</code> : Mensagem informando erro ao cadastrar venda.
+	 */
+	public static String ERR_CAD_VENDA = "Não foi possível registrar a venda";
 }

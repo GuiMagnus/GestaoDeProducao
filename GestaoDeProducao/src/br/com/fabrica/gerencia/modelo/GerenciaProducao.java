@@ -5,10 +5,12 @@ import java.util.List;
 import br.com.fabrica.arquivos.ArquivoInsumo;
 import br.com.fabrica.arquivos.ArquivoInsumoProduto;
 import br.com.fabrica.modelo.Insumo;
+import br.com.fabrica.modelo.Producao;
 import br.com.fabrica.modelo.Produto;
 
 /**
  * Classe responsável por gerenciar a produção de produtos
+ * @see Producao
  * @author Rafaela
  *
  */
@@ -65,7 +67,7 @@ public class GerenciaProducao {
 					if(insumo.getNome().equalsIgnoreCase(insumoP.getNome())) {
 						qtde = ((insumoP.getQuantidade() * quantidade)/produto.getTamanhoUnidade());
 						if(insumo.getQuantidade() < qtde)
-							return 0;
+							continue;
 						valor += qtde * insumo.getPrecoUnitario();
 						new ArquivoInsumoProduto().alteraInsumo(insumo.getCodigo(), insumo.getCodigoProduto(), qtde * insumo.getPrecoUnitario());
 					

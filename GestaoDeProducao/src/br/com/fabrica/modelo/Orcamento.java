@@ -1,5 +1,10 @@
 package br.com.fabrica.modelo;
 
+/**
+ * Classe responsável por armazenar os dados do orçamento
+ * @author Rafaela
+ *
+ */
 public class Orcamento {
 	private int codigo;
 	private String mes;

@@ -11,7 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import br.com.fabrica.gerencia.ig.GerenciaIgOrcamento;
-import br.com.fabrica.gerencia.modelo.MesesAno;
+import br.com.fabrica.modelo.MesesAno;
+
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 

@@ -12,6 +12,7 @@ import br.com.fabrica.modelo.Produto;
 
 /**
  * Classe responsável por gerenciar os produtos que a fábrica possui.
+ * @see Produto
  * @author Rafaela
  *
  */
@@ -74,12 +75,23 @@ public class GerenciaProduto {
 		}
 	}
 	
+	/**
+	 * Obtém a lista de insumos de um produto
+	 * @param produto produto que deseja obter os insumos
+	 * @return lista de insumos referente ao produto
+	 */
 	public List<Insumo> obtemListaInsumosProduto(Produto produto){
 		ArquivoInsumoProduto aip = new ArquivoInsumoProduto();
 		List<Insumo> lista = aip.obtemInsumosDeUmProduto(produto.getCodigo());
 		return lista;
 	}
 	
+	/**
+	 * Calcula o preço de custo de um determinado produto
+	 * @param produto produto que ira obter o preço
+	 * @param listaInsumos lista de insumos cadastrados no estoque
+	 * @return preço unitário do produto
+	 */
 	public float calculaPrecoProduto(Produto produto,List<Insumo> listaInsumos) {
 		float preco = 0;
 		GerenciaHistoricoPreco ghp = new GerenciaHistoricoPreco();

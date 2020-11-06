@@ -2,13 +2,20 @@ package br.com.fabrica.modelo;
 
 import java.util.List;
 
+import br.com.fabrica.validacoes.Data;
+
+/**
+ * Classe responsável por armazenar os dados referentes a venda
+ * @author Rafaela
+ *
+ */
 public class Venda {
 	
 	private int codigo;
-	private String data;
+	private Data data;
 	private String hora;
 	private List<Produto> produtos;
-	private int quantidade;// verificar pois o objeto produto já possui o atributo quantidade
+	//private int quantidade;// verificar pois o objeto produto já possui o atributo quantidade
 	private float valorTotalVenda;
 	/**
 	 * Construtor default da classe Venda.
@@ -25,17 +32,16 @@ public class Venda {
 	 * @param produtos <code>List</code> Lista contendo os produtos que foram vendidos
 	 * @param quantidade <code>int</code> valor referente a quantidade vendida.
 	 */
-	public Venda(String data, String hora, List<Produto> produtos, int quantidade) {
+	public Venda(Data data, String hora, List<Produto> produtos) {
 		this.data = data;
 		this.hora = hora;
 		this.produtos = produtos;
-		this.quantidade = quantidade;
 	}
 	/**
 	 * Obtém a data da venda do produto.
 	 * @return <code>String</code> valor referente data da venda do produto.
 	 */
-	public String getData() {
+	public Data getData() {
 		return data;
 	}
 
@@ -45,7 +51,7 @@ public class Venda {
 	 * Atibui ao objeto da classe a data da venda do produto.
 	 * @param <code>String</code> valor referente data da venda do produto.
 	 */
-	public void setData(String data) {
+	public void setData(Data data) {
 		this.data = data;
 	}
 
@@ -80,22 +86,6 @@ public class Venda {
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
 	}
-
-	/**
-	 * Obtém a quantidade de produtos vendidos.
-	 * @return <code>int</code> valor referente a quantidade de produtos vendidos. 
-	 */
-	public int getQuantidade() {
-		return quantidade;
-	}
-
-	/**
-	 * Atribui ao objeto da classe a quantidade de produtos vendidos.
-	 * @param <code>int</code> valor referente a quantidade de produtos vendidos. 
-	 */
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
-	}
 	
 	/**
 	 * Obtém o código de identificação da venda.
@@ -125,7 +115,7 @@ public class Venda {
 	public float valorTotalVendaPorProduto() {
 		float valor = 0;
 		for(Produto produto : produtos)
-			valor += produto.getPrecoFabricacao() * produto.getQuantidadeProduto();
+			valor += produto.getPrecoFabricacao() * produto.getQuantidade();
 		return valor;
 	}
 	
@@ -134,8 +124,8 @@ public class Venda {
 	 */
 	@Override
 	public String toString() {
-		return String.format("Codigo: %d, data: %s, hora: %s, produto: %s, quantidade: %d",
-				codigo, data, hora, produtos, quantidade);
+		return String.format("Codigo: %d, data: %s, hora: %s, produto: %s",
+				codigo, data, hora, produtos);
 	}
 	
 }

@@ -1,6 +1,13 @@
 package br.com.fabrica.gerencia.ig;
 
-import static br.com.fabrica.constantes.Constantes.*;
+import static br.com.fabrica.constantes.Constantes.CAD_INSUMO;
+import static br.com.fabrica.constantes.Constantes.ERR_CAD_INSUMO;
+import static br.com.fabrica.constantes.Constantes.ERR_CAD_UNIDADE_MEDIDA;
+import static br.com.fabrica.constantes.Constantes.ERR_NAO_CAD_INSUMO;
+import static br.com.fabrica.constantes.Constantes.ERR_NOME_INSUMO;
+import static br.com.fabrica.constantes.Constantes.ERR_QTD_INSUMO;
+import static br.com.fabrica.constantes.Constantes.ERR_UNIDADE_MEDIDA;
+import static br.com.fabrica.constantes.Constantes.INSUMO;
 import static br.com.fabrica.gui.EntradaESaida.msgErro;
 import static br.com.fabrica.gui.EntradaESaida.msgInfo;
 import static br.com.fabrica.validacoes.Validacoes.obtemCodigo;
@@ -19,11 +26,18 @@ import br.com.fabrica.arquivos.ArquivoInsumoProduto;
 import br.com.fabrica.arquivos.ArquivoProduto;
 import br.com.fabrica.gerencia.modelo.GerenciaInsumoProduto;
 import br.com.fabrica.gui.IgInsumos;
+import br.com.fabrica.gui.IgInsumosProduto;
 import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.UnidadeMedida;
 import br.com.fabrica.validacoes.Validacoes;
 
+/**
+ * Classe responsável por gerenciar as funções da classe <code>IgInsumoProduto</code>
+ * @see IgInsumosProduto
+ * @author Rafaela
+ *
+ */
 public class GerenciaIgInsumoProduto {
 	private static ArquivoInsumoProduto arquivoInsumo = new ArquivoInsumoProduto();
 
@@ -68,7 +82,12 @@ public class GerenciaIgInsumoProduto {
 
 	}
 
-	//TODO
+	/**
+	 * Obtém os insumos do produto ja cadastrados e joga as informações em uma tabela
+	 * @param codigo código do produto
+	 * @param defaultTableModel tabela que receberá os dados
+	 * @param jf Janela principal
+	 */
 	public static void obtemInsumosProduto(int codigo, DefaultTableModel defaultTableModel, JFrame jf){
 		GerenciaInsumoProduto gi = new GerenciaInsumoProduto();
 		if(codigo != 0) {
@@ -77,16 +96,21 @@ public class GerenciaIgInsumoProduto {
 				defaultTableModel.setNumRows(0);
 				for(int i = 0; i < insumos.size(); i++) {
 					defaultTableModel.insertRow(defaultTableModel.getRowCount(),
-							new Object[] {insumos.get(i).getNome(),insumos.get(i).getQuantidade(),
-									insumos.get(i).getMedida().getUnidade()});
+							new Object[] {insumos.get(i).getNome(),insumos.get(i).getQuantidade()});
 				}
-				defaultTableModel.insertRow(defaultTableModel.getRowCount(), new String[3]);
+				defaultTableModel.insertRow(defaultTableModel.getRowCount(), new String[2]);
 			}else
 				msgInfo(jf, ERR_NAO_CAD_INSUMO, INSUMO);
 		}
 	}
 
-
+	/**
+	 * Cadastra os insumos referentes ao produto
+	 * @param codigo código do produto
+	 * @param defaultTableModel tabela que receberá os dados
+	 * @param jf Janela principal
+	 * @return <code>List</code> lista com os insumos cadastrados
+	 */
 	public static List<Insumo> cadastraInsumosProduto(int codigo, DefaultTableModel table, JFrame jf){
 		List<Insumo> insumos = new ArrayList<Insumo>();
 
@@ -115,13 +139,6 @@ public class GerenciaIgInsumoProduto {
 				}
 				else
 					insumo.setQuantidade(validaQuantidade);
-				UnidadeMedida um = Validacoes.verificaMedida(String.format("%s",table.getValueAt(i, 2))); 
-				if(um == null) {
-					msgErro(jf, ERR_UNIDADE_MEDIDA, INSUMO);
-					break;
-				}
-				else
-					insumo.setMedida(um);
 				insumo.setCodigoProduto(codigo);
 				insumos.add(insumo);
 			}

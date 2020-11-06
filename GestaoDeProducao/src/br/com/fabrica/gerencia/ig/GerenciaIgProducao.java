@@ -21,12 +21,14 @@ import br.com.fabrica.gui.IgProducao;
 import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.modelo.Producao;
 import br.com.fabrica.modelo.Produto;
+import br.com.fabrica.validacoes.Data;
 import br.com.fabrica.validacoes.Validacoes;
 
 /**
  * Classe responsável em obter os dados informados pelo usuário.
  * Atribuir aos objetos ao qual os dados pertecem e escrever em seus respectivos
  * arquivos 
+ * @see IgProducao
  * @author Rafaela
  *
  */
@@ -62,16 +64,16 @@ public class GerenciaIgProducao {
 			List<Insumo> insumosDoEstoque = new GerenciaInsumo().obtemPrecoInsumosEstoque(insumosProduto);
 			produto.setInsumos(insumosDoEstoque);
 			producao.setProduto(produto);
-			producao.setData(tfData.getText());
-			producao.setQuantidade(Integer.parseInt(tfQtdProduzida.getText()));
-			System.out.println("QTDE"+Integer.parseInt(tfQtdProduzida.getText()));
-			float valorProducao =  gp.verificaInsumosECalculaPreco(produto, producao.getQuantidade());
+			producao.setData(new Data(tfData.getText()));
+			producao.getProduto().setQuantidade(Integer.parseInt(tfQtdProduzida.getText()));
+			float valorProducao =  gp.verificaInsumosECalculaPreco(produto, producao.getProduto().getQuantidade());
 			producao.setCustoProducao(valorProducao);
+			
 			boolean cadastrado = arquivoProducao.escreveProducaoNoArquivo(producao);
 			if(cadastrado) {
 				msgInfo(jf, CAD_PRODUCAO, PRODUCAO);
 				
-				float valorVenda =  gp.calculaVendaProduto(produto,producao.getQuantidade());
+				float valorVenda =  gp.calculaVendaProduto(produto,producao.getProduto().getQuantidade());
 				msgInfo(jf, String.format("O custo total da produção é: %.2f\n"
 						+ "O valor de venda é: %.2f" ,valorProducao, valorVenda),
 						PRODUCAO);
@@ -81,11 +83,5 @@ public class GerenciaIgProducao {
 		}
 		
 	}
-	
-	public void verificaEstoqueInsumo(Produto produto, int quantidade, JFrame jf) {
-		
-	}
-	
-	
 
 }

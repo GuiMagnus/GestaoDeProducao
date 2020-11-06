@@ -1,11 +1,18 @@
 package br.com.fabrica.gui;
 
+import static br.com.fabrica.constantes.Constantes.ERR_QTDE_MAXIMA;
+import static br.com.fabrica.constantes.Constantes.VENDA;
+import static br.com.fabrica.gui.EntradaESaida.msgErro;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -21,16 +28,12 @@ import javax.swing.table.DefaultTableModel;
 import br.com.fabrica.arquivos.ArquivoProducao;
 import br.com.fabrica.arquivos.ArquivoProduto;
 import br.com.fabrica.arquivos.ArquivoVenda;
-import br.com.fabrica.gerencia.ig.GerenciaIgProducao;
+import br.com.fabrica.gerencia.ig.GerenciaIgVenda;
 import br.com.fabrica.gerencia.modelo.GerenciaProducao;
 import br.com.fabrica.modelo.Producao;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.validacoes.Data;
 import br.com.fabrica.validacoes.Validacoes;
-import static br.com.fabrica.gui.EntradaESaida.*;
-import static br.com.fabrica.constantes.Constantes.*;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 
 
 /**
@@ -42,7 +45,7 @@ import java.awt.event.ItemEvent;
 public class IgVendas extends JFrame {
 	private JLabel lblNewLabel;
 	private JTextField tfCodigo;
-	private JTextField textField_2;
+	private JTextField tfVenda;
 	private JTextField tfData;
 	private JTextField tfHora;
 	private JLabel lblNome;
@@ -115,11 +118,11 @@ public class IgVendas extends JFrame {
 		lblValorTotalDa.setBounds(40, 504, 154, 25);
 		jf.getContentPane().add(lblValorTotalDa);
 
-		textField_2 = new JTextField();
-		textField_2.setEditable(false);
-		textField_2.setColumns(10);
-		textField_2.setBounds(187, 507, 264, 20);
-		jf.getContentPane().add(textField_2);
+		tfVenda = new JTextField();
+		tfVenda.setEditable(false);
+		tfVenda.setColumns(10);
+		tfVenda.setBounds(187, 507, 264, 20);
+		jf.getContentPane().add(tfVenda);
 
 		lblData = new JLabel("Data:");
 		lblData.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -163,14 +166,6 @@ public class IgVendas extends JFrame {
 		jf.getContentPane().add(lblQuantidade);
 
 		spinner = new JSpinner();
-
-		/**
-		 * Evento para estabelecer um valor teto para o spinner referente a quantidade do produto. 
-
-		spinner.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-
-		});*/
 		spinner.setBounds(391, 184, 72, 20);
 
 		jf.getContentPane().add(spinner);
@@ -179,7 +174,7 @@ public class IgVendas extends JFrame {
 
 		btnAddItens.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println((int)spinner.getValue());
+
 				Produto prod = new Produto();
 				prod.setNome(Validacoes.obtemNome(String.format("%s",comboProduto.getSelectedItem())));
 				Producao producao = new Producao();
@@ -190,7 +185,6 @@ public class IgVendas extends JFrame {
 				
 				float precoUnitario = new GerenciaProducao().calculaVendaProduto(prod, (int) spinner.getValue());
 				int verificacaoVendaRepetida = verificaItensTabela(prod);
-				
 				if(verificacaoVendaRepetida == -1)
 					defaultTableModel.insertRow(defaultTableModel.getRowCount(), new Object[] {
 							prod.getNome(),(int)spinner.getValue(),precoUnitario,precoUnitario * (int)spinner.getValue() });
@@ -201,9 +195,12 @@ public class IgVendas extends JFrame {
 					else {
 						float novoPrecoUnitario = new GerenciaProducao().calculaVendaProduto(prod, (int) spinner.getValue()+(int)defaultTableModel.getValueAt(verificacaoVendaRepetida, 1));
 						defaultTableModel.insertRow(verificacaoVendaRepetida, new Object[] {
-								prod.getNome(),producao.getProduto().getQuantidadeProduto()+ (int) spinner.getValue(),novoPrecoUnitario,novoPrecoUnitario * (int)spinner.getValue() });
+								prod.getNome(),producao.getProduto().getQuantidade()+ (int) spinner.getValue(),novoPrecoUnitario,novoPrecoUnitario * (int)spinner.getValue() });
 					}
 				}
+				float valorVenda = valorTotalVenda(prod);
+				tfVenda.setText(valorVenda + "");
+				
 			}
 
 			public int verificaItensTabela(Produto prod) {
@@ -215,7 +212,6 @@ public class IgVendas extends JFrame {
 				return -1;
 			}
 
-
 		});
 		btnAddItens.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnAddItens.setBounds(281, 215, 182, 23);
@@ -225,10 +221,10 @@ public class IgVendas extends JFrame {
 		comboProduto.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				Producao producao = new ArquivoProducao().obterProducao(Validacoes.obtemCodigo(String.format("%s",comboProduto.getSelectedItem())));
-				System.out.println("SPINER"+producao.getProduto().getQuantidadeProduto());
-				SpinnerNumberModel model = new SpinnerNumberModel(0, 0, producao.getProduto().getQuantidadeProduto(), 1);
+				
+				SpinnerNumberModel model = new SpinnerNumberModel(0, 0, producao.getProduto().getQuantidade(), 1);
 				spinner.setModel(model);
-				qtdeMaximaProduzida = producao.getProduto().getQuantidadeProduto();
+				qtdeMaximaProduzida = producao.getProduto().getQuantidade();
 			}
 		});
 
@@ -275,6 +271,25 @@ public class IgVendas extends JFrame {
 				igMenu.getJf().setVisible(true);
 			}
 		});
+		
+		btnConcluir.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				GerenciaIgVenda.registraVenda(jf, defaultTableModel, tfData, tfHora, tfVenda);
+				defaultTableModel.setNumRows(1);
+				defaultTableModel.setValueAt("", 0, 0);
+				defaultTableModel.setValueAt("", 0, 1);
+				defaultTableModel.setValueAt("", 0, 2);
+				defaultTableModel.setValueAt("", 0, 3);
+				comboProduto.setSelectedIndex(0);
+				tfVenda.setText("");
+				tfData.setText(Data.obtemDataAtual());
+				tfHora.setText(Validacoes.obtemHoraAtual());
+				spinner.setValue(0);
+				
+			}
+		});
 
 		jf.setVisible(true);
 	}
@@ -285,6 +300,13 @@ public class IgVendas extends JFrame {
 	}
 	public void setJf(JFrame jf) {
 		this.jf = jf;
+	}
+	
+	public float valorTotalVenda(Produto prod) {
+		float valor = 0;
+		for (int i = 0; i < defaultTableModel.getRowCount(); i++) 
+			valor += Validacoes.transformaEmFloat(defaultTableModel.getValueAt(i, 3).toString());
+		return valor;
 	}
 
 

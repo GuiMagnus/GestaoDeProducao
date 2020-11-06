@@ -1,9 +1,11 @@
 package br.com.fabrica.modelo;
 
+/**
+ * Enumeração para as unidades de medidas disponíveis
+ * @author Rafaela
+ *
+ */
 public enum UnidadeMedida {
-	/**
-	 * 
-	 */
 	GRAMA(1, "Grama", "g"), 
 	QUILOGRAMA(2, "Quilograma", "kg"),
 	MILILITRO(3, "Mililitro", "ml"),

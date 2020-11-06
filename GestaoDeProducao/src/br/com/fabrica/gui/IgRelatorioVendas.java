@@ -127,7 +127,7 @@ public class IgRelatorioVendas extends JFrame {
 
 		btnObtemDados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Venda venda = new Venda("02/01/1997", "02:01", null,3); 
+				Venda venda = new Venda(); 
 				defaultTableModel.insertRow(defaultTableModel.getRowCount(),
 					new Object[] {venda.getCodigo(), "a",
 								2.5f,37.5f,105.6f});

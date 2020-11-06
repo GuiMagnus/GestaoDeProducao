@@ -35,8 +35,6 @@ public class ArquivoInsumo extends BinaryFile{
 		return 112;
 	}
 
-
-
 	/**
 	 * Escreve o objeto como um registro do arquivo.
 	 *
@@ -60,7 +58,6 @@ public class ArquivoInsumo extends BinaryFile{
 		randomAccessFile.writeFloat(insumo.getPrecoUnitario());
 	}
 
-	// Versão sobrecarregada (overload) de writeObject.
 	public void writeObject(Insumo insumo) throws IOException {
 		Object object = insumo;
 		writeObject(object);
@@ -182,6 +179,10 @@ public class ArquivoInsumo extends BinaryFile{
 		}
 	}
 
+	/**
+	 * Obtém os insumos que estão cadastrados.
+	 * @return <code>List</code> lista de insumos cadastrados
+	 */
 	public List<Insumo> leInsumosNoArquivo() {
 		List<Insumo> listaInsumos = new ArrayList<>();
 		try {
@@ -203,8 +204,13 @@ public class ArquivoInsumo extends BinaryFile{
 	}
 	
 	
-	
-	public Insumo alteraInsumo(Insumo insumo,float qtde) {
+	/**
+	 * Altera a quantidade de um determinado insumo
+	 * @param insumo <code>Insumo</code> insumo que se deseja alterar.
+	 * @param qtde <code>int</code> informação que será atualizada. 
+	 * @return <code>Insumo</code> objeto alterado
+	 */
+	public Insumo alteraQuantidade(Insumo insumo,float qtde) {
 		Insumo insumoAux = null;
 		try {
 			openFile(ARQ_INSUMO);
@@ -228,6 +234,13 @@ public class ArquivoInsumo extends BinaryFile{
 		}
 	}
 	
+	
+	/**
+	 * Escreve um insumo em uma determinada posição.
+	 * @param insumo <code>Insumo</code> insumo a ser cadastrado.
+	 * @param posicao <code>int</code> posição que será escrito o insumo
+	 * @return Retorna True ou False indicando se a gravação teve sucesso ou falha.
+	 */
 	public boolean escreveInsumoNoArquivoPorPosicao(Insumo insumo, int posicao) {
 		try {
 			openFile(ARQ_INSUMO);
@@ -244,8 +257,13 @@ public class ArquivoInsumo extends BinaryFile{
 		}
 	}
 	
-	
-	/*public boolean alteraInsumo(int codigoProduto, int codigoInsumo, float novoPreco) {
+	/**
+	 * Altera preço de um determinado insumo
+	 * @param insumo <code>Insumo</code> insumo que se deseja alterar.
+	 * @param qtde <code>int</code> informação que será atualizada. 
+	 * @return <code>Insumo</code> objeto alterado
+	 */
+	public boolean alteraPreco(int codigoProduto, int codigoInsumo, float novoPreco) {
 		try {
 			openFile(ARQ_INSUMO);
 			for(int i = 0; i < recordQuantity(); i++) {
@@ -253,30 +271,7 @@ public class ArquivoInsumo extends BinaryFile{
 				Insumo insumo = (Insumo) readObject();
 				if(insumo.getCodigoProduto() == codigoProduto && insumo.getCodigo() == codigoInsumo) {
 					insumo.setPrecoUnitario(novoPreco);
-					escreveInsumosNoArquivoPorPosicao(insumo, i);
-					break;
-				}
-			}
-			closeFile();
-			return true;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return false;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-	*/
-	public boolean alteraInsumoNoArquivo(int codigoProduto, int codigoInsumo, float novoPreco) {
-		try {
-			openFile(ARQ_INSUMO);
-			for(int i = 0; i < recordQuantity(); i++) {
-				setFilePointer(i);
-				Insumo insumo = (Insumo) readObject();
-				if(insumo.getCodigoProduto() == codigoProduto && insumo.getCodigo() == codigoInsumo) {
-					insumo.setPrecoUnitario(novoPreco);
-					escreveInsumosNoArquivoPorPosicao(insumo, i);
+					escreveInsumoNoArquivoPorPosicao(insumo, i);
 					break;
 				}
 			}
@@ -291,30 +286,17 @@ public class ArquivoInsumo extends BinaryFile{
 		}
 	}
 	
-	public boolean escreveInsumosNoArquivoPorPosicao(Insumo insumo, int posicao) {
-		try {
-			openFile(ARQ_INSUMO);
-			setFilePointer(recordQuantity());
-			writeObject(insumo);
-			closeFile();
-			return true;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return false; 
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
+	/**
+	 * Obtém os insumos referentes a um determinado produto.
+	 * @param codigo <code>int</code> código referente ao produto
+	 * @return <code>List</code> lista de insumos do produto
+	 */
 	public List<Insumo> obtemInsumosDeUmProduto(int codigo){
-		
 		List<Insumo> listaDeInsumosDeUmProduto = new ArrayList<Insumo>();
 		List<Insumo> listaDeInsumos = leInsumosNoArquivo();
-		
 		for (Insumo insumo : listaDeInsumos)
 			if(insumo.getCodigoProduto() == codigo)
 				listaDeInsumosDeUmProduto.add(insumo);
-		
 		return listaDeInsumosDeUmProduto;
 	}
 

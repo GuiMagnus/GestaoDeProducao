@@ -18,7 +18,6 @@ public class Insumo {
 	private String nome;
 	private float quantidade;
 	private float precoUnitario;
-	private UnidadeMedida medida;
 	private List<HistoricoPreco> historico;
 	/***
 	 * Construtor default da classe Insumo
@@ -93,15 +92,6 @@ public class Insumo {
 	 */
 	public void setPrecoUnitario(float precoUnitario) {
 		this.precoUnitario = precoUnitario;
-	}
-
-	
-	public UnidadeMedida getMedida() {
-		return medida;
-	}
-
-	public void setMedida(UnidadeMedida medida) {
-		this.medida = medida;
 	}
 
 	/***

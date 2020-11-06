@@ -1,13 +1,15 @@
 package br.com.fabrica.arquivos;
 
+import static br.com.fabrica.constantes.Constantes.ARQ_VENDA;
+import static br.com.fabrica.constantes.Constantes.ARQ_VENDA_PRODUTO;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static br.com.fabrica.constantes.Constantes.*;
-import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.Venda;
+import br.com.fabrica.validacoes.Data;
 
 /**
  *  Esta classe fornece uma implementação para as operações que permitem manipular um arquivo de acesso 
@@ -23,15 +25,12 @@ public class ArquivoVenda extends BinaryFile {
 	 * 4 bytes do código da venda.
 	 *20 bytes da data da venda do produto Produto com 10 caracteres (2 bytes de cada carácter UNICODE).
 	 *18 bytes da hora da venda do produto Produto com 9 caracteres (2 bytes de cada carácter UNICODE).
-	 *100 bytes para o nome do produto vendido.
-	 *4 bytes para a quantidade desse produto vendido.
-	 *4 bytes para o preço unitário do produto.
 	 *4 bytes para o valor total de cada venda
 	 * @return um <code>int</code> com o tamanho, em bytes, do registro.
 	 */
 	@Override
 	public int recordSize() {
-		return 154;
+		return 46;
 	}
 
 	/**
@@ -52,9 +51,9 @@ public class ArquivoVenda extends BinaryFile {
 			throw new ClassCastException();
 		
 		randomAccessFile.writeInt(obtemCodigoVenda());
-		randomAccessFile.writeChars(setStringLength(venda.getData(), 10));
+		randomAccessFile.writeChars(setStringLength(venda.getData().toString(), 10));
 		randomAccessFile.writeChars(setStringLength(venda.getHora(), 9));
-		randomAccessFile.writeFloat(venda.valorTotalVendaPorProduto());
+		randomAccessFile.writeFloat(venda.getValorTotalVenda());
 	}
 
 		/**
@@ -76,12 +75,10 @@ public class ArquivoVenda extends BinaryFile {
 	public Object readObject() throws IOException {
 		Venda venda = new Venda();
 		venda.setCodigo(randomAccessFile.readInt());
-		venda.setData(readString(10));
+		Data data = new Data(readString(10)); 
+		venda.setData(data);
 		venda.setHora(readString(9));
-		
-		Produto produto = new Produto();
-		produto.setNome(readString(50));
-		produto.setQuantidadeProduto(randomAccessFile.readInt());
+		venda.setValorTotalVenda(randomAccessFile.readFloat());
 
 		return venda;
 	}
@@ -107,6 +104,10 @@ public class ArquivoVenda extends BinaryFile {
 		}
 	}
 	
+	/**
+	 * Obtém a lista de produtos que foi cadastrada.
+	 * @return <code>List</code> lista com os produtos cadastrados.
+	 */
 	public List<Venda> leProdutosNoArquivo() {
 		List<Venda> listaVendas = new ArrayList<>();
 		try {
@@ -124,6 +125,26 @@ public class ArquivoVenda extends BinaryFile {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	/**
+	 * Registra a venda que foi realizada
+	 * @param venda <code>Venda</code> venda a ser registrada
+	 * @return Retorna True ou False indicando se a gravação obteve sucesso ou falha.
+	 */
+	public boolean gravaVenda(Venda venda) {
+		try {
+			openFile(ARQ_VENDA_PRODUTO);
+			setFilePointer(recordQuantity());
+			writeObject(venda);
+			return true;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 
