@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.fabrica.modelo.HistoricoPreco;
 import br.com.fabrica.modelo.Insumo;
 
 
@@ -94,7 +95,8 @@ public class ArquivoInsumo extends BinaryFile{
 			setFilePointer(recordQuantity());
 			writeObject(insumo);
 			ArquivoHistoricoPreco ahp = new ArquivoHistoricoPreco();
-			ahp.escreveHistoricoNoArquivo(insumo.getHistorico(), ARQ_PRECO_INSUMO);
+			for(HistoricoPreco hp : insumo.getHistorico())
+				ahp.escreveHistoricoNoArquivo(hp, ARQ_PRECO_INSUMO);
 			closeFile();
 			return true;
 		} catch (FileNotFoundException e) {
@@ -263,13 +265,13 @@ public class ArquivoInsumo extends BinaryFile{
 	 * @param qtde <code>int</code> informação que será atualizada. 
 	 * @return <code>Insumo</code> objeto alterado
 	 */
-	public boolean alteraPreco(int codigoProduto, int codigoInsumo, float novoPreco) {
+	public boolean alteraPreco(int codigoInsumo, float novoPreco) {
 		try {
 			openFile(ARQ_INSUMO);
 			for(int i = 0; i < recordQuantity(); i++) {
 				setFilePointer(i);
 				Insumo insumo = (Insumo) readObject();
-				if(insumo.getCodigoProduto() == codigoProduto && insumo.getCodigo() == codigoInsumo) {
+				if(insumo.getCodigo() == codigoInsumo) {
 					insumo.setPrecoUnitario(novoPreco);
 					escreveInsumoNoArquivoPorPosicao(insumo, i);
 					break;

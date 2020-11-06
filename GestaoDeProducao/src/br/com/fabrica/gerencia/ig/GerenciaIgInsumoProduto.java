@@ -29,7 +29,6 @@ import br.com.fabrica.gui.IgInsumos;
 import br.com.fabrica.gui.IgInsumosProduto;
 import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.modelo.Produto;
-import br.com.fabrica.modelo.UnidadeMedida;
 import br.com.fabrica.validacoes.Validacoes;
 
 /**

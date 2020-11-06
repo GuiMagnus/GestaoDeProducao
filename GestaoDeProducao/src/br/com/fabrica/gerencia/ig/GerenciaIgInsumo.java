@@ -1,6 +1,6 @@
 package br.com.fabrica.gerencia.ig;
 
-import static br.com.fabrica.constantes.Constantes.CAD_INSUMO;
+import static br.com.fabrica.constantes.Constantes.*;
 import static br.com.fabrica.constantes.Constantes.ERR_CAD_INSUMO;
 import static br.com.fabrica.constantes.Constantes.INSUMO;
 import static br.com.fabrica.gui.EntradaESaida.msgErro;
@@ -40,8 +40,7 @@ public class GerenciaIgInsumo {
 		insumo.setPrecoUnitario(Validacoes.transformaEmFloat(tfPreco.getText()));
 		GerenciaHistoricoPreco ghp = new GerenciaHistoricoPreco();
 		
-		ghp.insereHistoricoPreco(insumo.getPrecoUnitario(), insumo.getHistorico(),
-				insumo.getCodigo());
+		ghp.insereHistoricoPreco(insumo.getPrecoUnitario(), insumo.getCodigo(), ARQ_HISTORICO_INSUMO);
 		
 		boolean cadastrado = arquivoInsumo.escreveInsumoNoArquivo(insumo);
 		if(cadastrado)

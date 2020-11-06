@@ -26,10 +26,15 @@ public class GerenciaProduto {
 	public float calculaPrecoFabricacao(Produto produto) {
 		GerenciaHistoricoPreco gerenciaDeHistorico = new GerenciaHistoricoPreco();
 		float precoFabricacao = 0;
-		
-		for (Insumo insumo : produto.getInsumos())
-			precoFabricacao += gerenciaDeHistorico.obtemPrecoMaisRecente(insumo.getHistorico());
-		
+		ArquivoInsumoProduto aip = new ArquivoInsumoProduto();
+		produto.setInsumos(aip.obtemInsumosDeUmProduto(produto.getCodigo()));
+		for (Insumo insumo : produto.getInsumos()) {
+			HistoricoPreco hp = gerenciaDeHistorico.obtemPrecoAntigo(insumo.getCodigo());
+			if(hp != null) {
+				precoFabricacao += hp.getPreco();
+			}
+			
+		}
 		return precoFabricacao;
 	}
 	
@@ -51,9 +56,10 @@ public class GerenciaProduto {
 	 * @return - <code>float</code> : novo percentual de lucro do produto.
 	 */
 	public float calculaAumentoPercentual(Produto produto) {
+		produto.setPrecoFabricacao(calculaPrecoFabricacao(produto));
 		float valorAumento = produto.getPrecoVenda() - produto.getPrecoFabricacao();
 		
-		float margem = (valorAumento / produto.getPrecoFabricacao()) / 100;
+		float margem = (valorAumento / produto.getPrecoFabricacao());
 		return margem;
 	}
 	

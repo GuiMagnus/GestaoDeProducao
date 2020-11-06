@@ -66,6 +66,7 @@ public class IgInsumosProduto extends JFrame {
 		jf.setResizable(false);
 
 		jf.setSize(501, 595);
+		jf.setLocationRelativeTo(null);
 
 		btnGravar = new JButton("Gravar");
 		jf.getContentPane().add(btnGravar);

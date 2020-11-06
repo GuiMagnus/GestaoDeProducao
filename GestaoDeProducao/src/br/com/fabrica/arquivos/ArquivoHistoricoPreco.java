@@ -106,18 +106,16 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 
 	/**
 	 * Escreve um <code>HistoricoPreco</code> no arquivo referente aos preços;
-	 * @param hpList lista de preços a serem salvos
+	 * @param hp preço a ser salvo
 	 * @param arquivo arquivo onde serão salvas as informações
 	 * @return <code>true</code> caso consiga escrever no arquivo. <code>false</code>
 	 * caso não consiga escrever no arquivo.
 	 */
-	public boolean escreveHistoricoNoArquivo(List<HistoricoPreco> hpList, String arquivo) {
+	public boolean escreveHistoricoNoArquivo(HistoricoPreco hp, String arquivo) {
 		try {
 			openFile(arquivo);
 			setFilePointer(recordQuantity());
-			for(HistoricoPreco hp : hpList) {
-				writeObject(hp);
-			}
+			writeObject(hp);
 			closeFile();
 			return true;
 		} catch (FileNotFoundException e) {

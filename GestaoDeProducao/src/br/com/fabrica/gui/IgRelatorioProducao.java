@@ -49,7 +49,8 @@ public class IgRelatorioProducao extends JFrame {
 		jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		// Define a janela como não redimensionável.
-		//jf.setResizable(false);
+		jf.setResizable(false);
+		jf.setLocationRelativeTo(null);
 		
 		//jf.setSize(626, 473);
 		

@@ -48,9 +48,10 @@ public class IgAlteraPrecoVendaProduto extends JFrame {
 		jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		// Define a janela como não redimensionável.
-		//jf.setResizable(false);
+		jf.setResizable(false);
 
 		jf.setSize(545, 326);
+		jf.setLocationRelativeTo(null);
 
 		btnGravar = new JButton("Gravar");
 		jf.getContentPane().add(btnGravar);
@@ -152,7 +153,9 @@ public class IgAlteraPrecoVendaProduto extends JFrame {
 		btnCancelar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				jf.setVisible(false);
+				IgMenu igMenu = new IgMenu();
+				igMenu.getJf().setVisible(true);
 			}
 		});
 

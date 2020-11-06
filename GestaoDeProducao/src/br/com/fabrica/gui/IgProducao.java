@@ -48,9 +48,10 @@ public class IgProducao extends JFrame {
 		jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		// Define a janela como não redimensionável.
-		//jf.setResizable(false);
+		jf.setResizable(false);
 		
 		jf.setSize(468, 309);
+		jf.setLocationRelativeTo(null);
 		
 		btnGravar = new JButton("Gravar");
 		jf.getContentPane().add(btnGravar);

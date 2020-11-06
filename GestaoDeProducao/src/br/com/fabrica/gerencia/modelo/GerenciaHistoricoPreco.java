@@ -22,12 +22,13 @@ public class GerenciaHistoricoPreco {
 	 * @param preco - <code>float</code> : novo preço a ser cadastrado.
 	 * @param historico - <code>List</code> : lista que irá receber o novo preço;
 	 */
-	public void insereHistoricoPreco(float preco, List<HistoricoPreco> historico, int codigo) {
+	public void insereHistoricoPreco(float preco,  int codigo, String arquivo) {
+		ArquivoHistoricoPreco ahp = new ArquivoHistoricoPreco();
 		Calendar hoje = Calendar.getInstance();
 		String data = transformaCalendarEmString(hoje);
 		HistoricoPreco hp = new HistoricoPreco(preco, data);
 		hp.setCodigoReferenciaDeDado(codigo);
-		historico.add(hp);
+		ahp.escreveHistoricoNoArquivo(hp, arquivo);
 	}
 
 	/**
@@ -37,8 +38,11 @@ public class GerenciaHistoricoPreco {
 	 */
 	public HistoricoPreco obtemPrecoAntigo(int codigo) {
 		ArquivoHistoricoPreco ahp = new ArquivoHistoricoPreco();
-		HistoricoPreco hp = ahp.obtemHistorico(codigo).get(0);
-		return hp;
+		if(ahp.obtemHistorico(codigo).size() > 0) {
+			HistoricoPreco hp = ahp.obtemHistorico(codigo).get(0);
+			return hp;
+		}
+		return null;
 		
  	}
 	/**

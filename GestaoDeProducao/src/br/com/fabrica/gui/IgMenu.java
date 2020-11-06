@@ -41,13 +41,14 @@ public class IgMenu extends JFrame {
 		// Define a janela como não redimensionável.
 		jf.setResizable(false);
 
-		jf.setSize(433, 308);
+		jf.setSize(433, 318);
 
-
+		jf.setLocationRelativeTo(null);
+		
 		lblNewLabel = new JLabel("F\u00E1brica - Gest\u00E3o de Produ\u00E7\u00E3o");
 		jf.getContentPane().add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel.setBounds(94, 22, 227, 19);
+		lblNewLabel.setBounds(101, 23, 227, 19);
 		
 		btnInsumos = new JButton("Cadastro de Insumos");
 		btnInsumos.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -61,33 +62,43 @@ public class IgMenu extends JFrame {
 		
 		btnProducao = new JButton("Cadastro de Produ\u00E7\u00E3o");
 		btnProducao.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnProducao.setBounds(29, 103, 160, 25);
+		btnProducao.setBounds(29, 150, 160, 25);
 		jf.getContentPane().add(btnProducao);
 		
 		btnVenda = new JButton("Cadastro de Vendas");
 		btnVenda.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnVenda.setBounds(223, 105, 160, 25);
+		btnVenda.setBounds(223, 150, 160, 25);
 		jf.getContentPane().add(btnVenda);
 		
 		btnRelatorioProd = new JButton("Relat\u00F3rio de Produ\u00E7\u00E3o");
 		btnRelatorioProd.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnRelatorioProd.setBounds(29, 149, 160, 25);
+		btnRelatorioProd.setBounds(29, 197, 160, 25);
 		jf.getContentPane().add(btnRelatorioProd);
 		
 		btnRelatorioDeVendas = new JButton("Relat\u00F3rio de Vendas");
 		btnRelatorioDeVendas.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnRelatorioDeVendas.setBounds(223, 151, 160, 25);
+		btnRelatorioDeVendas.setBounds(223, 197, 160, 25);
 		jf.getContentPane().add(btnRelatorioDeVendas);
 		
 		btnOrcamento = new JButton("Or\u00E7amento");
 		btnOrcamento.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnOrcamento.setBounds(29, 196, 160, 25);
+		btnOrcamento.setBounds(29, 233, 160, 25);
 		jf.getContentPane().add(btnOrcamento);
 		
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnCancelar.setBounds(223, 198, 160, 25);
+		btnCancelar.setBounds(223, 233, 160, 25);
 		jf.getContentPane().add(btnCancelar);
+		
+		JButton btnPrecoInsumo = new JButton("Alterar pre\u00E7o insumo");
+		btnPrecoInsumo.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnPrecoInsumo.setBounds(29, 103, 160, 25);
+		jf.getContentPane().add(btnPrecoInsumo);
+		
+		JButton btnAlterarPrecoProduto = new JButton("Alterar pre\u00E7o produto");
+		btnAlterarPrecoProduto.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		btnAlterarPrecoProduto.setBounds(223, 105, 160, 25);
+		jf.getContentPane().add(btnAlterarPrecoProduto);
 
 		jf.setVisible(true);
 		
@@ -108,6 +119,27 @@ public class IgMenu extends JFrame {
 				jf.setVisible(false);
 				IgProdutos igProdutos = new IgProdutos();
 				igProdutos.getJf().setVisible(true);
+			}
+		});
+		
+		btnPrecoInsumo.addActionListener(new  ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				jf.setVisible(false);
+				IgAlteraPrecoInsumo igAlteraPreco = new IgAlteraPrecoInsumo();
+				igAlteraPreco.getJf().setVisible(true);
+			}
+		});
+		
+		btnAlterarPrecoProduto.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				jf.setVisible(false);
+				IgAlteraPrecoVendaProduto igAlteraPreco = new IgAlteraPrecoVendaProduto();
+				igAlteraPreco.getJf().setVisible(true);
+				
 			}
 		});
 		

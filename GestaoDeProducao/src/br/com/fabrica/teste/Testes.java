@@ -1,6 +1,5 @@
 package br.com.fabrica.teste;
 
-import br.com.fabrica.gui.IgAlteraPrecoVendaProduto;
 import br.com.fabrica.gui.IgMenu;
 
 public class Testes {
@@ -14,7 +13,7 @@ public class Testes {
 		//new IgInformacoes();
 		//new IgVendas();
 		//new IgAlteraPrecoInsumo();
-		new IgAlteraPrecoVendaProduto();
+		//new IgAlteraPrecoVendaProduto();
 		
 	}
 }

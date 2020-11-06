@@ -28,12 +28,12 @@ public class GerenciaIgAlteraPrecoInsumo {
 	 * @param tfPreco novo preço do insumo
 	 * @param jf Janela principal
 	 */
-	public static void alteraPreco(JComboBox<String> comboProduto, JComboBox<String> comboInsumo,
-			JTextField tfPreco, JFrame jf) {
+	public static void alteraPreco(JComboBox<String> comboInsumo, JTextField tfPreco, JFrame jf) {
 		Insumo insumo = new Insumo();
-		insumo.setCodigo(Validacoes.obtemCodigo(comboProduto.getSelectedItem().toString()));
-		insumo.setCodigoProduto(Validacoes.obtemCodigo(comboInsumo.getSelectedItem().toString()));
-		boolean alteracao = arquivoInsumo.alteraPreco(insumo.getCodigoProduto(), insumo.getCodigo(),
+		insumo.setCodigo(Validacoes.obtemCodigo(comboInsumo.getSelectedItem().toString()));
+		
+		System.out.println(Validacoes.transformaEmFloat(tfPreco.getText()));
+		boolean alteracao = arquivoInsumo.alteraPreco(insumo.getCodigo(), 
 				Validacoes.transformaEmFloat(tfPreco.getText()));
 		if(alteracao)
 			msgInfo(jf, ALTERA_PRECO, ALTERACAO);

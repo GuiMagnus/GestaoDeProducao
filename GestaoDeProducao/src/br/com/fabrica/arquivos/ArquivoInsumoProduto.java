@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.fabrica.modelo.HistoricoPreco;
 import br.com.fabrica.modelo.Insumo;
 
 
@@ -98,7 +99,8 @@ public class ArquivoInsumoProduto extends BinaryFile{
 			setFilePointer(recordQuantity());
 			writeObject(insumo);
 			ArquivoHistoricoPreco ahp = new ArquivoHistoricoPreco();
-			ahp.escreveHistoricoNoArquivo(insumo.getHistorico(), ARQ_PRECO_INSUMO);
+			for(HistoricoPreco hp : insumo.getHistorico())
+				ahp.escreveHistoricoNoArquivo(hp, ARQ_PRECO_INSUMO);
 			closeFile();
 			return true;
 		} catch (FileNotFoundException e) {
@@ -124,7 +126,8 @@ public class ArquivoInsumoProduto extends BinaryFile{
 			setFilePointer(recordQuantity());
 			for(Insumo insumo : insumos) {
 				writeObject(insumo);
-				ahp.escreveHistoricoNoArquivo(insumo.getHistorico(), ARQ_PRECO_INSUMO);
+				for(HistoricoPreco hp : insumo.getHistorico())
+					ahp.escreveHistoricoNoArquivo(hp, ARQ_PRECO_INSUMO);
 			}
 			closeFile();
 			return true;

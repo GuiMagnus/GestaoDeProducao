@@ -1,6 +1,6 @@
 package br.com.fabrica.gerencia.ig;
 
-import static br.com.fabrica.constantes.Constantes.ALTERACAO;
+import static br.com.fabrica.constantes.Constantes.*;
 import static br.com.fabrica.constantes.Constantes.ERR_ALTERA_PRECO;
 import static br.com.fabrica.gui.EntradaESaida.msgErro;
 import static br.com.fabrica.gui.EntradaESaida.msgInfo;
@@ -45,12 +45,13 @@ public class GerenciaIgAlteraPrecoProduto {
 			produto.setPrecoVenda(preco);
 			produto.setMargemLucro(gp.calculaAumentoPercentual(produto));
 			GerenciaHistoricoPreco ghp = new GerenciaHistoricoPreco();
-			ghp.insereHistoricoPreco(preco, produto.getHistoricoPrecos(), produto.getCodigo());
+			ghp.insereHistoricoPreco(preco, produto.getCodigo(), ARQ_HISTORICO_INSUMO);
 		}
 			
 		float margem = Validacoes.transformaEmFloat(spinner.getValue().toString());
 		if(margem != 0) {
-			produto.setPrecoVenda(gp.calculaPrecoFabricacao(produto));
+			float preco = gp.calculaPrecoFabricacao(produto);
+			produto.setPrecoVenda(preco * (margem / 100));
 			produto.setMargemLucro(margem);
 		}
 		

@@ -105,12 +105,6 @@ public class IgOrcamento extends JFrame {
 			public void itemStateChanged(ItemEvent arg0) {
 				GerenciaIgOrcamento.obtemOrcamento(comboBox, tfValor, tfNumero,
 						tfValorTotal, tfSaldo);
-				/*
-				 * Acho que não precisa mais disso aqui!
-				tfValor.setText(""); 
-				tfNumero.setText(""); 
-				tfValorTotal.setText(""); 
-				tfSaldo.setText("");*/
 			}
 		});
 		comboBox.setBounds(74, 59, 161, 22);
@@ -149,9 +143,10 @@ public class IgOrcamento extends JFrame {
 		jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		// Define a janela como não redimensionável.
-		//jf.setResizable(false);
+		jf.setResizable(false);
 		
 		jf.setSize(415, 473);
+		jf.setLocationRelativeTo(null);
 		
 		jf.setVisible(true);
 		
