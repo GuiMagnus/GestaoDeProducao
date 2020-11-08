@@ -54,6 +54,8 @@ public class IgRelatorioProducao extends JFrame {
 		
 		jf.setLocationRelativeTo(null);
 		
+		jf.setTitle("Relatório de Produção");
+		
 		lblNewLabel = new JLabel("Produ\u00E7\u00E3o");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(255, 22, 75, 25);

@@ -67,6 +67,8 @@ public class IgInsumosProduto extends JFrame {
 
 		jf.setSize(501, 595);
 		jf.setLocationRelativeTo(null);
+		
+		jf.setTitle("Cadastro de Insumos do produto");
 
 		btnGravar = new JButton("Gravar");
 		jf.getContentPane().add(btnGravar);
@@ -177,7 +179,6 @@ public class IgInsumosProduto extends JFrame {
 				defaultTableModel.setNumRows(1);
 				defaultTableModel.setValueAt("", 0, 0);
 				defaultTableModel.setValueAt("", 0, 1);
-				defaultTableModel.setValueAt("", 0, 2);
 				comboBox.setSelectedIndex(0);
 				tfTamanho.setText("");
 				tfTamanho.setText("");

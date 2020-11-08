@@ -45,7 +45,7 @@ public class GerenciaIgAlteraPrecoProduto {
 			produto.setPrecoVenda(preco);
 			produto.setMargemLucro(gp.calculaAumentoPercentual(produto));
 			GerenciaHistoricoPreco ghp = new GerenciaHistoricoPreco();
-			ghp.insereHistoricoPreco(preco, produto.getCodigo(), ARQ_HISTORICO_INSUMO);
+			ghp.insereHistoricoPreco(preco, produto.getCodigo(), ARQ_HISTORICO_PRODUTO);
 		}
 			
 		float margem = Validacoes.transformaEmFloat(spinner.getValue().toString());

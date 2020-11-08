@@ -25,6 +25,8 @@ public class IgMenu extends JFrame {
 	private JButton btnRelatorioDeVendas;
 	private JButton btnOrcamento;
 	private JButton btnCancelar;
+	private JButton btnAlterarPrecoProduto;
+	private JButton btnPrecoInsumo;
 	
 	/**
 	 * Create the panel.
@@ -44,6 +46,7 @@ public class IgMenu extends JFrame {
 		jf.setSize(433, 318);
 
 		jf.setLocationRelativeTo(null);
+		jf.setTitle("Gestão de Produção - Menu");
 		
 		lblNewLabel = new JLabel("F\u00E1brica - Gest\u00E3o de Produ\u00E7\u00E3o");
 		jf.getContentPane().add(lblNewLabel);
@@ -90,12 +93,12 @@ public class IgMenu extends JFrame {
 		btnCancelar.setBounds(223, 233, 160, 25);
 		jf.getContentPane().add(btnCancelar);
 		
-		JButton btnPrecoInsumo = new JButton("Alterar pre\u00E7o insumo");
+		btnPrecoInsumo = new JButton("Alterar pre\u00E7o insumo");
 		btnPrecoInsumo.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnPrecoInsumo.setBounds(29, 103, 160, 25);
 		jf.getContentPane().add(btnPrecoInsumo);
 		
-		JButton btnAlterarPrecoProduto = new JButton("Alterar pre\u00E7o produto");
+		btnAlterarPrecoProduto = new JButton("Alterar pre\u00E7o produto");
 		btnAlterarPrecoProduto.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnAlterarPrecoProduto.setBounds(223, 105, 160, 25);
 		jf.getContentPane().add(btnAlterarPrecoProduto);

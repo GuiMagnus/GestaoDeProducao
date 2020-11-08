@@ -59,6 +59,8 @@ public class IgRelatorioVendas extends JFrame {
 
 		jf.setLocationRelativeTo(null);
 		
+		jf.setTitle("Relatório de Vendas");
+		
 		lblNewLabel = new JLabel("Venda");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(305, 20, 75, 25);

@@ -52,16 +52,18 @@ public class IgAlteraPrecoVendaProduto extends JFrame {
 
 		jf.setSize(545, 326);
 		jf.setLocationRelativeTo(null);
+		
+		jf.setTitle("Alteração de preços do produto");
 
 		btnGravar = new JButton("Gravar");
 		jf.getContentPane().add(btnGravar);
 		btnGravar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnGravar.setBounds(318, 234, 96, 25);
+		btnGravar.setBounds(306, 234, 96, 25);
 
 		btnCancelar = new JButton("Cancelar");
 		jf.getContentPane().add(btnCancelar);
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnCancelar.setBounds(424, 234, 83, 25);
+		btnCancelar.setBounds(412, 234, 95, 25);
 
 		lblNome = new JLabel("Nome do Produto:");
 		jf.getContentPane().add(lblNome);
@@ -113,7 +115,7 @@ public class IgAlteraPrecoVendaProduto extends JFrame {
 		
 		btnMargem = new JButton("Alterar Margem");
 		btnMargem.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnMargem.setBounds(306, 111, 122, 25);
+		btnMargem.setBounds(306, 111, 139, 25);
 		jf.getContentPane().add(btnMargem);
 
 		jf.setVisible(true);

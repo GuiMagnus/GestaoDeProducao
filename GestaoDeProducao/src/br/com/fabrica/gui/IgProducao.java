@@ -53,6 +53,8 @@ public class IgProducao extends JFrame {
 		jf.setSize(468, 309);
 		jf.setLocationRelativeTo(null);
 		
+		jf.setTitle("Cadastro de Produção");
+		
 		btnGravar = new JButton("Gravar");
 		jf.getContentPane().add(btnGravar);
 		btnGravar.setFont(new Font("Tahoma", Font.PLAIN, 13));

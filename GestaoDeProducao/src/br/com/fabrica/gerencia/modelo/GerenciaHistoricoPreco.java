@@ -22,18 +22,21 @@ public class GerenciaHistoricoPreco {
 	 * @param preco - <code>float</code> : novo preço a ser cadastrado.
 	 * @param historico - <code>List</code> : lista que irá receber o novo preço;
 	 */
-	public void insereHistoricoPreco(float preco,  int codigo, String arquivo) {
+	public boolean insereHistoricoPreco(float preco,  int codigo, String arquivo) {
 		ArquivoHistoricoPreco ahp = new ArquivoHistoricoPreco();
 		Calendar hoje = Calendar.getInstance();
 		String data = transformaCalendarEmString(hoje);
 		HistoricoPreco hp = new HistoricoPreco(preco, data);
 		hp.setCodigoReferenciaDeDado(codigo);
-		ahp.escreveHistoricoNoArquivo(hp, arquivo);
+		boolean cadastrado = ahp.escreveHistoricoNoArquivo(hp, arquivo);
+		if(cadastrado)
+			return true;
+		return false;
 	}
 
 	/**
 	 * Obtém o preço e a data mais antiga.
-	 * @param historicoPrecoshistorico - <code>List</code> : lista que contém os preços
+	 * @param <code>int</code> código
 	 * @return - <code>HistoricoPreco</code> : preço e data mais recente que foram cadastrados.
 	 */
 	public HistoricoPreco obtemPrecoAntigo(int codigo) {

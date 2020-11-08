@@ -89,6 +89,11 @@ public class Constantes {
 	public static String ERR_CAD_INSUMO = "Falha ao cadastrar insumo";
 	
 	/**
+	 * <code>String</code> : Mensagem informando que o insumo não foi cadastrado.
+	 */
+	public static String ERR_CAD_INSUMO_PRODUTO = "É necessário selecionar um produto primeiro";
+	
+	/**
 	 * <code>String</code> : Mensagem informando que a produção foi cadastrado com sucesso.
 	 */
 	public static String CAD_PRODUCAO = "Produção cadastrada com sucesso";
@@ -113,6 +118,10 @@ public class Constantes {
 	 */
 	public static String ERR_QTD_INSUMO = "A quantidade do insumo precisa ser informado";
 	
+	/**
+	 * <code>String</code> : Mensagem informando que a quantidade do insumo não foi informado.
+	 */
+	public static String ERR_INSUMOS_REPETIDOS = "Insumos Repetidos serão ignorados!";
 	/**
 	 * <code>String</code> : Mensagem informando que o preço do insumo não foi informado.
 	 */

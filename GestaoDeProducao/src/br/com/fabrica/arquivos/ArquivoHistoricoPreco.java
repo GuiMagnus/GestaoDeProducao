@@ -153,6 +153,7 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 			return null;
 		}
 	}
+
 }
 
 

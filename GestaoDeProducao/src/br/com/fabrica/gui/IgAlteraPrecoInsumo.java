@@ -19,6 +19,7 @@ import br.com.fabrica.arquivos.ArquivoInsumo;
 import br.com.fabrica.arquivos.ArquivoProduto;
 import br.com.fabrica.gerencia.ig.GerenciaIgAlteraPrecoInsumo;
 import br.com.fabrica.modelo.Insumo;
+import br.com.fabrica.validacoes.Validacoes;
 
 /**
  * Classe responsavel por criar a tela de cadastro de Insumos.
@@ -52,16 +53,18 @@ public class IgAlteraPrecoInsumo extends JFrame {
 
 		jf.setSize(501, 279);
 		jf.setLocationRelativeTo(null);
+		
+		jf.setTitle("Alteração de preços de insumos");
 
 		btnGravar = new JButton("Gravar");
 		jf.getContentPane().add(btnGravar);
 		btnGravar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnGravar.setBounds(272, 190, 96, 25);
+		btnGravar.setBounds(252, 190, 96, 25);
 
 		btnCancelar = new JButton("Cancelar");
 		jf.getContentPane().add(btnCancelar);
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnCancelar.setBounds(378, 190, 83, 25);
+		btnCancelar.setBounds(358, 190, 103, 25);
 
 
 		lblNewLabel = new JLabel("Insumo");
@@ -78,7 +81,8 @@ public class IgAlteraPrecoInsumo extends JFrame {
 		}
 		comboInsumo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				for(Insumo insumo : listaInsumos)
+				Insumo insumo = new ArquivoInsumo().obtemInsumo(Validacoes.obtemCodigo(String.format("%s",comboInsumo.getSelectedItem())));
+				if(insumo != null)
 					tfPreco.setText("" + insumo.getPrecoUnitario());
 			}
 		});

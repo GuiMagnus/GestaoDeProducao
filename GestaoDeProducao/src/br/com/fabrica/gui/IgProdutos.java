@@ -42,6 +42,7 @@ public class IgProdutos extends JFrame {
 		jf.setAutoRequestFocus(false);
 		jf.getContentPane().setLayout(null);
 		
+		jf.setTitle("Cadastro de Produtos");
 		// Define que o programa deve ser finalizado quando o usuário clicar no botão Fechar da janela.
 		jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
 

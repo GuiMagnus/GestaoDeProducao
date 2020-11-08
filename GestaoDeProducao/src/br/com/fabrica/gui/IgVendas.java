@@ -83,7 +83,7 @@ public class IgVendas extends JFrame {
 
 		jf.setVisible(true);
 		jf.setLocationRelativeTo(null);
-		
+		jf.setTitle("Vendas de produtos");
 
 		lblNewLabel = new JLabel("Venda");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -188,7 +188,7 @@ public class IgVendas extends JFrame {
 
 					producao.setProduto(prod);
 
-					float precoUnitario = new GerenciaProducao().calculaVendaProduto(prod, (int) spinner.getValue());
+					float precoUnitario = new GerenciaProducao().calculaVendaProduto(prod, (int) spinner.getValue(), tfData.getText());
 					int verificacaoVendaRepetida = verificaItensTabela(prod);
 					if(verificacaoVendaRepetida == -1)
 						defaultTableModel.insertRow(defaultTableModel.getRowCount(), new Object[] {
@@ -198,7 +198,7 @@ public class IgVendas extends JFrame {
 							msgErro(null, ERR_QTDE_MAXIMA, VENDA);
 						}
 						else {
-							float novoPrecoUnitario = new GerenciaProducao().calculaVendaProduto(prod, (int) spinner.getValue()+(int)defaultTableModel.getValueAt(verificacaoVendaRepetida, 1));
+							float novoPrecoUnitario = new GerenciaProducao().calculaVendaProduto(prod, (int) spinner.getValue()+(int)defaultTableModel.getValueAt(verificacaoVendaRepetida, 1), tfData.getText());
 							defaultTableModel.setValueAt((int)defaultTableModel.getValueAt(verificacaoVendaRepetida, 1) + (int) spinner.getValue(), verificacaoVendaRepetida, 1);
 							defaultTableModel.setValueAt(Validacoes.transformaEmFloat(String.format("%.2f",defaultTableModel.getValueAt(verificacaoVendaRepetida, 2)))+novoPrecoUnitario, verificacaoVendaRepetida, 2);
 							defaultTableModel.setValueAt((int)defaultTableModel.getValueAt(verificacaoVendaRepetida, 1) *Validacoes.transformaEmFloat(String.format("%.2f",defaultTableModel.getValueAt(verificacaoVendaRepetida, 2))) , verificacaoVendaRepetida, 3);

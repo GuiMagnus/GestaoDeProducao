@@ -45,6 +45,7 @@ public class IgInsumos extends JFrame {
 
 		jf.setSize(420, 308);
 		jf.setLocationRelativeTo(null);
+		jf.setTitle("Cadastro de Insumos");
 
 		btnGravar = new JButton("Gravar");
 		jf.getContentPane().add(btnGravar);

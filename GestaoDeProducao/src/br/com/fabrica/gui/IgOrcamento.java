@@ -45,6 +45,8 @@ public class IgOrcamento extends JFrame {
 	public IgOrcamento() {
 		jf = new JFrame();
 		
+		jf.setTitle("Orçamento");
+		
 		lblNewLabel = new JLabel("Per\u00EDodo");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(179, 23, 75, 25);
