@@ -192,6 +192,7 @@ public class ArquivoInsumo extends BinaryFile{
 			for(int i = 0; i < recordQuantity(); i++) {
 				setFilePointer(i);
 				Insumo insumo = (Insumo) readObject();
+				//System.out.println(String.format("Nome:%s\n%.2f",insumo.getNome(),insumo.getPrecoUnitario()));
 				listaInsumos.add(insumo);
 			}
 			closeFile();
@@ -301,5 +302,12 @@ public class ArquivoInsumo extends BinaryFile{
 				listaDeInsumosDeUmProduto.add(insumo);
 		return listaDeInsumosDeUmProduto;
 	}
-
+	public Insumo obtemInsumo(int codigo) {
+		List<Insumo> listaDeInsumos = leInsumosNoArquivo();
+		for (Insumo insumo : listaDeInsumos) {
+			if(insumo.getCodigo()==codigo)
+				return insumo;
+		}
+		return null;
+	}
 }

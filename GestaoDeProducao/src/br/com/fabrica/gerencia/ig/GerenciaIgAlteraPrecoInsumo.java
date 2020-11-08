@@ -32,7 +32,6 @@ public class GerenciaIgAlteraPrecoInsumo {
 		Insumo insumo = new Insumo();
 		insumo.setCodigo(Validacoes.obtemCodigo(comboInsumo.getSelectedItem().toString()));
 		
-		System.out.println(Validacoes.transformaEmFloat(tfPreco.getText()));
 		boolean alteracao = arquivoInsumo.alteraPreco(insumo.getCodigo(), 
 				Validacoes.transformaEmFloat(tfPreco.getText()));
 		if(alteracao)

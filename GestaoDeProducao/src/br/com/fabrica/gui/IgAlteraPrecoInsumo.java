@@ -19,6 +19,7 @@ import br.com.fabrica.arquivos.ArquivoInsumo;
 import br.com.fabrica.arquivos.ArquivoProduto;
 import br.com.fabrica.gerencia.ig.GerenciaIgAlteraPrecoInsumo;
 import br.com.fabrica.modelo.Insumo;
+import br.com.fabrica.validacoes.Validacoes;
 
 /**
  * Classe responsavel por criar a tela de cadastro de Insumos.
@@ -78,7 +79,8 @@ public class IgAlteraPrecoInsumo extends JFrame {
 		}
 		comboInsumo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				for(Insumo insumo : listaInsumos)
+				Insumo insumo = new ArquivoInsumo().obtemInsumo(Validacoes.obtemCodigo(String.format("%s",comboInsumo.getSelectedItem())));
+				if(insumo != null)
 					tfPreco.setText("" + insumo.getPrecoUnitario());
 			}
 		});

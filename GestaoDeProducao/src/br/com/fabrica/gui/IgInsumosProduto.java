@@ -177,7 +177,6 @@ public class IgInsumosProduto extends JFrame {
 				defaultTableModel.setNumRows(1);
 				defaultTableModel.setValueAt("", 0, 0);
 				defaultTableModel.setValueAt("", 0, 1);
-				defaultTableModel.setValueAt("", 0, 2);
 				comboBox.setSelectedIndex(0);
 				tfTamanho.setText("");
 				tfTamanho.setText("");

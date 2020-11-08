@@ -1,13 +1,6 @@
 package br.com.fabrica.gerencia.ig;
 
-import static br.com.fabrica.constantes.Constantes.CAD_INSUMO;
-import static br.com.fabrica.constantes.Constantes.ERR_CAD_INSUMO;
-import static br.com.fabrica.constantes.Constantes.ERR_CAD_UNIDADE_MEDIDA;
-import static br.com.fabrica.constantes.Constantes.ERR_NAO_CAD_INSUMO;
-import static br.com.fabrica.constantes.Constantes.ERR_NOME_INSUMO;
-import static br.com.fabrica.constantes.Constantes.ERR_QTD_INSUMO;
-import static br.com.fabrica.constantes.Constantes.ERR_UNIDADE_MEDIDA;
-import static br.com.fabrica.constantes.Constantes.INSUMO;
+import static br.com.fabrica.constantes.Constantes.*;
 import static br.com.fabrica.gui.EntradaESaida.msgErro;
 import static br.com.fabrica.gui.EntradaESaida.msgInfo;
 import static br.com.fabrica.validacoes.Validacoes.obtemCodigo;
@@ -68,6 +61,7 @@ public class GerenciaIgInsumoProduto {
 				if(prod == null)
 					msgErro(jf, ERR_CAD_UNIDADE_MEDIDA, INSUMO);
 				else {
+					
 					boolean cadastrado = arquivoInsumo.escreveInsumosNoArquivo(ins);
 
 					if(cadastrado)
@@ -78,7 +72,8 @@ public class GerenciaIgInsumoProduto {
 
 			}
 		}
-
+		else
+			msgErro(jf, ERR_CAD_INSUMO_PRODUTO, INSUMO);
 	}
 
 	/**
@@ -112,7 +107,7 @@ public class GerenciaIgInsumoProduto {
 	 */
 	public static List<Insumo> cadastraInsumosProduto(int codigo, DefaultTableModel table, JFrame jf){
 		List<Insumo> insumos = new ArrayList<Insumo>();
-
+		int repetido = 0;
 		if(table.getValueAt(0, 0).toString() == null) {
 			msgErro(jf, ERR_NOME_INSUMO, INSUMO);
 		}else {
@@ -139,9 +134,22 @@ public class GerenciaIgInsumoProduto {
 				else
 					insumo.setQuantidade(validaQuantidade);
 				insumo.setCodigoProduto(codigo);
-				insumos.add(insumo);
+				if(verificaInsumosRepetidos(insumo,codigo) == true)
+					repetido = 1;
+				else
+					insumos.add(insumo);
 			}
 		}
+		msgInfo(null, ERR_INSUMOS_REPETIDOS,CAD_INSUMO);
 		return insumos;
+	}
+
+	public static boolean verificaInsumosRepetidos(Insumo insumo, int codigo) {
+		List<Insumo> insumosProdutoNoArquivo = new ArquivoInsumoProduto().obtemInsumosDeUmProduto(codigo); 
+		for (Insumo insumoProduto : insumosProdutoNoArquivo) {
+			if(insumoProduto.getNome().equalsIgnoreCase(insumo.getNome()))
+				return true;
+		}
+		return false;
 	}
 }
