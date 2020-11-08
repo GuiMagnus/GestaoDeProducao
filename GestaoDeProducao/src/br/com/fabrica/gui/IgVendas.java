@@ -1,8 +1,6 @@
 package br.com.fabrica.gui;
 
-import static br.com.fabrica.constantes.Constantes.ERR_QTDE_MAXIMA;
-import static br.com.fabrica.constantes.Constantes.QTDE_VENDA_NULA;
-import static br.com.fabrica.constantes.Constantes.VENDA;
+import static br.com.fabrica.constantes.Constantes.*;
 import static br.com.fabrica.gui.EntradaESaida.msgErro;
 
 import java.awt.BorderLayout;
@@ -69,6 +67,8 @@ public class IgVendas extends JFrame {
 	 * Create the panel.
 	 */
 	public IgVendas() {
+		getContentPane().setLayout(null);
+
 		jf = new JFrame();
 		jf.setAutoRequestFocus(false);
 		jf.getContentPane().setLayout(null);
@@ -78,12 +78,9 @@ public class IgVendas extends JFrame {
 
 		// Define a janela como não redimensionável.
 		jf.setResizable(false);
-		
 		jf.setSize(510, 632);
-
-		jf.setVisible(true);
 		jf.setLocationRelativeTo(null);
-		jf.setTitle("Vendas de produtos");
+
 
 		lblNewLabel = new JLabel("Venda");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -188,7 +185,7 @@ public class IgVendas extends JFrame {
 
 					producao.setProduto(prod);
 
-					float precoUnitario = new GerenciaProducao().calculaVendaProduto(prod, (int) spinner.getValue(), tfData.getText());
+					float precoUnitario = new GerenciaProducao().calculaVendaProduto(prod, (int) spinner.getValue());
 					int verificacaoVendaRepetida = verificaItensTabela(prod);
 					if(verificacaoVendaRepetida == -1)
 						defaultTableModel.insertRow(defaultTableModel.getRowCount(), new Object[] {
@@ -198,10 +195,12 @@ public class IgVendas extends JFrame {
 							msgErro(null, ERR_QTDE_MAXIMA, VENDA);
 						}
 						else {
-							float novoPrecoUnitario = new GerenciaProducao().calculaVendaProduto(prod, (int) spinner.getValue()+(int)defaultTableModel.getValueAt(verificacaoVendaRepetida, 1), tfData.getText());
+							float novoPrecoUnitario = new GerenciaProducao().calculaVendaProduto(prod, (int) spinner.getValue()+(int)defaultTableModel.getValueAt(verificacaoVendaRepetida, 1));
 							defaultTableModel.setValueAt((int)defaultTableModel.getValueAt(verificacaoVendaRepetida, 1) + (int) spinner.getValue(), verificacaoVendaRepetida, 1);
 							defaultTableModel.setValueAt(Validacoes.transformaEmFloat(String.format("%.2f",defaultTableModel.getValueAt(verificacaoVendaRepetida, 2)))+novoPrecoUnitario, verificacaoVendaRepetida, 2);
 							defaultTableModel.setValueAt((int)defaultTableModel.getValueAt(verificacaoVendaRepetida, 1) *Validacoes.transformaEmFloat(String.format("%.2f",defaultTableModel.getValueAt(verificacaoVendaRepetida, 2))) , verificacaoVendaRepetida, 3);
+							//defaultTableModel.insertRow(verificacaoVendaRepetida, new Object[] {
+								//	prod.getNome(),producao.getProduto().getQuantidade()+ (int) spinner.getValue(),novoPrecoUnitario,novoPrecoUnitario * (int)spinner.getValue() });
 						}
 					}
 					float valorVenda = valorTotalVenda(prod);
@@ -264,7 +263,6 @@ public class IgVendas extends JFrame {
 
 		// Define a posição, o tamanho e exibe a janela.
 		setBounds(100, 100, 428, 314);
-		setVisible(true);
 		table.getColumnModel().getColumn(1).setPreferredWidth(95);
 		scrollPane.setViewportView(table);
 
@@ -293,7 +291,7 @@ public class IgVendas extends JFrame {
 			}
 		});
 
-		
+		jf.setVisible(true);
 	}
 
 

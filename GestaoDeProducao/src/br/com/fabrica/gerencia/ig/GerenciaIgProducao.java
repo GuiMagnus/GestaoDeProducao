@@ -54,8 +54,8 @@ public class GerenciaIgProducao {
 		int codigoProduto = Validacoes.obtemCodigo(comboBox.getSelectedItem().toString());
 		Produto produto = new ArquivoProduto().obtemProduto(codigoProduto);
 		GerenciaProducao gp = new GerenciaProducao();
-		int qtd = Integer.parseInt(tfQtdProduzida.getText());
-		if(gp.verificaInsumosECalculaPreco(produto, qtd, tfData.getText()) <= 0) {
+
+		if(gp.verificaInsumosECalculaPreco(produto, Integer.parseInt(tfQtdProduzida.getText())) <= 0) {
 			msgErro(jf, ERR_QTD_INSUMO_PROD, PRODUCAO);
 			
 		}
@@ -66,19 +66,16 @@ public class GerenciaIgProducao {
 			producao.setProduto(produto);
 			producao.setData(new Data(tfData.getText()));
 			producao.getProduto().setQuantidade(Integer.parseInt(tfQtdProduzida.getText()));
-			
-			
-			float valorProducao =  gp.verificaInsumosECalculaPreco(produto, producao.
-					getProduto().getQuantidade(), tfData.getText());
+			float valorProducao =  gp.verificaInsumosECalculaPreco(produto, producao.getProduto().getQuantidade());
 			producao.setCustoProducao(valorProducao);
 			
 			boolean cadastrado = arquivoProducao.escreveProducaoNoArquivo(producao);
 			if(cadastrado) {
 				msgInfo(jf, CAD_PRODUCAO, PRODUCAO);
 				
-				float valorVenda =  gp.calculaVendaProduto(produto,producao.getProduto().getQuantidade(), tfData.getText());
-				msgInfo(jf, String.format("O custo total para produzir é: %.2f\n"
-						+ "O valor de venda unitário é: %.2f" ,valorProducao, valorVenda),
+				float valorVenda =  gp.calculaVendaProduto(produto,producao.getProduto().getQuantidade());
+				msgInfo(jf, String.format("O custo total da produção é: %.2f\n"
+						+ "O valor de venda é: %.2f" ,valorProducao, valorVenda),
 						PRODUCAO);
 			}
 			else

@@ -2,14 +2,11 @@ package br.com.fabrica.gerencia.modelo;
 
 import java.util.List;
 
-import br.com.fabrica.arquivos.ArquivoHistoricoPreco;
 import br.com.fabrica.arquivos.ArquivoInsumo;
 import br.com.fabrica.arquivos.ArquivoInsumoProduto;
-import br.com.fabrica.modelo.HistoricoPreco;
 import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.modelo.Producao;
 import br.com.fabrica.modelo.Produto;
-import br.com.fabrica.validacoes.Data;
 
 /**
  * Classe responsável por gerenciar a produção de produtos
@@ -25,8 +22,8 @@ public class GerenciaProducao {
 	 * @param quantidade - <code>int</code> : Quantidade de prudutos que serão produzidos 
 	 * @return - <code>float</code> : valor total dos custos referentes a produção
 	 */
-	public float calculaValorTotalVenda(Produto produto, int quantidade, String data) {
-		float custo = verificaInsumosECalculaPreco(produto, quantidade, data), valor = 0;
+	public float calculaValorTotalVenda(Produto produto, int quantidade) {
+		float custo = verificaInsumosECalculaPreco(produto, quantidade), valor = 0;
 		if(custo > 0)
 			valor = produto.getMargemLucro() / 100 * custo;
 		return valor;
@@ -38,8 +35,8 @@ public class GerenciaProducao {
 	 * @param quantidade - <code>int</code> : Quantidade de prudutos que serão produzidos 
 	 * @return - <code>float</code> : valor total dos custos referentes a produção
 	 */
-	public float calculaVendaProduto(Produto produto, int quantidade, String data) {
-		float custo = verificaInsumosECalculaPreco(produto, quantidade, data), valor = 0;
+	public float calculaVendaProduto(Produto produto, int quantidade) {
+		float custo = verificaInsumosECalculaPreco(produto, quantidade), valor = 0;
 		if(custo > 0)
 			valor =  (custo/ quantidade) + ((produto.getMargemLucro()/100) * (custo/ quantidade));
 		return valor;
@@ -53,12 +50,11 @@ public class GerenciaProducao {
 	 * @param quantidade <code>int</code> quantidade de produtos que deseja produzir
 	 * @return <code>float</code> referente ao preço do produto
 	 */
-	public float verificaInsumosECalculaPreco(Produto produto, int quantidade, String data) {
+	public float verificaInsumosECalculaPreco(Produto produto, int quantidade) {
 		ArquivoInsumo ai = new ArquivoInsumo();
 		List<Insumo> insumos = ai.leInsumosNoArquivo();
 		List<Insumo> listaInsumosProduto = new GerenciaProduto().obtemListaInsumosProduto(produto);
 		float qtde = 0,valor = 0;
-		
 		if(insumos == null)
 			return 0;
 		
@@ -72,37 +68,14 @@ public class GerenciaProducao {
 						qtde = ((insumoP.getQuantidade() * quantidade)/produto.getTamanhoUnidade());
 						if(insumo.getQuantidade() < qtde)
 							continue;
-						new ArquivoInsumoProduto().alteraInsumo(insumo.getCodigo(), 
-								insumo.getCodigoProduto(), qtde * insumo.getPrecoUnitario());
-						List<HistoricoPreco> listaHP = new ArquivoHistoricoPreco().obtemHistorico(insumo.getCodigo());
-						Data data2 = new Data(data);
-						for(int i = 0; i < listaHP.size(); i++) {
-							if(insumo.getCodigo() == listaHP.get(i).getCodigo()) {
-								if(i + 1 < listaHP.size()) {
-									Data dataPreco1 = new Data(listaHP.get(i).getData());
-									Data dataPreco2 = new Data(listaHP.get(i + 1).getData());
-									if(data2.dataDentroDoPeriodo(dataPreco1, dataPreco2)) {
-										valor += listaHP.get(i).getPreco();
-										
-										break;
-										
-									}	
-									
-								}//if(i + 1 < listaHP.size())
-								else {
-									valor += listaHP.get(0).getPreco();
-									break;
-								}
-									
-							}
-						
-						}//for(int i = 0; i < listaHP.size(); i++) {	
+						valor += qtde * insumo.getPrecoUnitario();
+						new ArquivoInsumoProduto().alteraInsumo(insumo.getCodigo(), insumo.getCodigoProduto(), qtde * insumo.getPrecoUnitario());
+					
 					}
-					break;
-				}//for(Insumo insumo : insumos) {
+				}
 			}
 		}
-		return valor * qtde;
+		return valor;
 	}
 	
 }
