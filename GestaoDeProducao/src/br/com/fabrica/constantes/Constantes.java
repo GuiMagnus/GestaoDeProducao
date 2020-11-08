@@ -139,12 +139,13 @@ public class Constantes {
 	public static String ERR_ALTERA_PRECO = "Erro ao alterar o preço";
 	
 	/**
-	 * <code>String</code> : Expressão regular para validar data
+	 * Expressão regular para validação de data
+	 * dia pode ter valores entre 01 e 31, meses podem ser de 01 a 12, e anos de 1900 a 2099.
 	 */
-	public static String EXP_DATA = "\\d{2}/\\d{2}/\\d{4}";
+	public static String EXP_DATA = "(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/(19|20)\\d{2}";
 	
 	/**
-	 * <code>String</code> : Expressão regular para validar data
+	 * <code>String</code> : Expressão regular para validar hora
 	 */
 	public static String EXP_HORA = "[0-2][0-3]:[0-5][0-9]:[0-5][0-9]";
 	
@@ -178,6 +179,12 @@ public class Constantes {
 	 */
 	public static String CAD_VENDA = "Venda cadastrada com sucesso";
 	
+	
+	/**
+	 * <code>String</code> : Mensagem informando sucesso ao cadastrar venda.
+	 */
+	public static String QTDE_VENDA_NULA = "A Venda deve conter pelo menos 1 quantidade";
+	
 	/**
 	 *<code>String</code> :  Mensagem informando o cadastro de Venda.
 	 */
@@ -187,4 +194,14 @@ public class Constantes {
 	 * <code>String</code> : Mensagem informando erro ao cadastrar venda.
 	 */
 	public static String ERR_CAD_VENDA = "Não foi possível registrar a venda";
+	
+	public static String ERR_DATA_HORA_INVALIDA = "Data inválida ou Hora Inválida!\n"
+			+ "Forneça uma data no formato:dd/MM/yyyy ou Hora no formato HH:mm:ss";
+	
+	
+	public static String RELATORIO_VENDA = "Relatório de Vendas";
+	
+	public static String ERR_RELATORIO_VENDA = "Nenhuma venda realizada nesse período!";
+	
+	public static String VALOR_DEFAULT_CB_ORCAMENTO = "Selecione um mês:";
 }

@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 import br.com.fabrica.gerencia.ig.GerenciaIgOrcamento;
 import br.com.fabrica.modelo.MesesAno;
-
+import static br.com.fabrica.constantes.Constantes.*;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
@@ -109,6 +109,7 @@ public class IgOrcamento extends JFrame {
 		});
 		comboBox.setBounds(74, 59, 161, 22);
 		jf.getContentPane().add(comboBox);
+		comboBox.addItem(VALOR_DEFAULT_CB_ORCAMENTO);
 		for(MesesAno mesesAno : MesesAno.values()) {
 			comboBox.addItem(String.format("%s", mesesAno.getMes()));
 		}

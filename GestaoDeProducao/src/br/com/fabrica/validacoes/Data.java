@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * Fornece métodos para manipulação e conversão de datas.
  * 
- * @author Rafaela
+ * @author Guilherme
  * @see Calendar
  */
 public class Data implements Comparable<Data>{
@@ -204,5 +204,35 @@ public class Data implements Comparable<Data>{
 		else
 			return 0;
 	}
-	
+	public boolean comparaHora(String horaInicio, String horaFim, String horaDado) {
+		String[] horario1 = horaInicio.split(":");
+		String[] horario2 = horaFim.split(":");
+		String[] horarioDado = horaDado.split(":");
+		
+		if(Validacoes.transformaEmInt(horario1[0]) < Validacoes.transformaEmInt(horarioDado[0])&& Validacoes.transformaEmInt(horario2[0]) > Validacoes.transformaEmInt(horarioDado[0]))
+			return true;
+		else
+			if(Validacoes.transformaEmInt(horario1[0]) == Validacoes.transformaEmInt(horarioDado[0]) && Validacoes.transformaEmInt(horario2[0]) > Validacoes.transformaEmInt(horarioDado[0]) || Validacoes.transformaEmInt(horario1[0]) < Validacoes.transformaEmInt(horarioDado[0]) && Validacoes.transformaEmInt(horario2[0]) == Validacoes.transformaEmInt(horarioDado[0]))
+				return true;
+			else
+				if(Validacoes.transformaEmInt(horario1[0]) == Validacoes.transformaEmInt(horarioDado[0]) && Validacoes.transformaEmInt(horario2[0]) == Validacoes.transformaEmInt(horarioDado[0]) || Validacoes.transformaEmInt(horario1[0]) < Validacoes.transformaEmInt(horarioDado[0]) && Validacoes.transformaEmInt(horario2[0]) == Validacoes.transformaEmInt(horarioDado[0]))
+					if(Validacoes.transformaEmInt(horario1[1]) < Validacoes.transformaEmInt(horarioDado[1])&& Validacoes.transformaEmInt(horario2[1]) > Validacoes.transformaEmInt(horarioDado[1]))
+						return true;
+					else
+						if(Validacoes.transformaEmInt(horario1[0]) == Validacoes.transformaEmInt(horarioDado[0]) && Validacoes.transformaEmInt(horario2[0]) > Validacoes.transformaEmInt(horarioDado[0]) || Validacoes.transformaEmInt(horario1[0]) < Validacoes.transformaEmInt(horarioDado[0]) && Validacoes.transformaEmInt(horario2[0]) == Validacoes.transformaEmInt(horarioDado[0]))
+							return true;
+						else
+							if(Validacoes.transformaEmInt(horario1[1]) == Validacoes.transformaEmInt(horarioDado[1]) && Validacoes.transformaEmInt(horario2[1]) == Validacoes.transformaEmInt(horarioDado[1]) || Validacoes.transformaEmInt(horario1[1]) < Validacoes.transformaEmInt(horarioDado[1]) && Validacoes.transformaEmInt(horario2[1]) == Validacoes.transformaEmInt(horarioDado[1]))
+								if(Validacoes.transformaEmInt(horario1[2]) < Validacoes.transformaEmInt(horarioDado[2])&& Validacoes.transformaEmInt(horario2[2]) > Validacoes.transformaEmInt(horarioDado[2]))
+									return true;
+								else
+									if(Validacoes.transformaEmInt(horario1[2]) == Validacoes.transformaEmInt(horarioDado[2]) && Validacoes.transformaEmInt(horario2[2]) > Validacoes.transformaEmInt(horarioDado[2]) || Validacoes.transformaEmInt(horario1[2]) < Validacoes.transformaEmInt(horarioDado[2]) && Validacoes.transformaEmInt(horario2[2]) == Validacoes.transformaEmInt(horarioDado[2]))
+										return true;
+									else
+										if(Validacoes.transformaEmInt(horario1[0]) == Validacoes.transformaEmInt(horarioDado[0]) && Validacoes.transformaEmInt(horario2[0]) > Validacoes.transformaEmInt(horarioDado[0]) || Validacoes.transformaEmInt(horario1[0]) < Validacoes.transformaEmInt(horarioDado[0]) && Validacoes.transformaEmInt(horario2[0]) == Validacoes.transformaEmInt(horarioDado[0]))
+											return true;
+										else
+											return false;
+		return false;
+	}
 }

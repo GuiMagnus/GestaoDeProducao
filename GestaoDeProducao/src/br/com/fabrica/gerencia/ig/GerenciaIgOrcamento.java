@@ -11,7 +11,7 @@ import br.com.fabrica.gerencia.modelo.GerenciaOrcamento;
 import br.com.fabrica.gui.IgOrcamento;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.Venda;
-
+import static br.com.fabrica.constantes.Constantes.*;
 /**
  * Classe responsável por gerenciar as funções da classe <code>IgOrcamento</code>
  * @see IgOrcamento
@@ -32,6 +32,8 @@ public class GerenciaIgOrcamento {
 	 */
 	public static void obtemOrcamento(JComboBox<String> comboBox, JTextField tfValor, JTextField
 					tfNumero, JTextField tfValorTotal, JTextField tfSaldo) {
+		if(comboBox.getSelectedItem()== VALOR_DEFAULT_CB_ORCAMENTO)
+			return;
 		GerenciaOrcamento go = new GerenciaOrcamento();
 		List<Produto> produtos = arquivoProduto.leProdutosNoArquivo();
 		List<Venda> vendas = arquivoVenda.leProdutosNoArquivo();

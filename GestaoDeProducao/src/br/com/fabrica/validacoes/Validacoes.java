@@ -42,6 +42,9 @@ public class Validacoes {
 	public static float transformaEmFloat(String valor) {
 		return Float.parseFloat(valor.replaceFirst(",", "."));
 	}
+	public static int transformaEmInt(String valor) {
+		return Integer.parseInt(valor);
+	}
 	
 	/**
 	 * Obtem a hora atual.
