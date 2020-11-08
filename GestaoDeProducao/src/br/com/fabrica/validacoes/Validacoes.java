@@ -45,6 +45,7 @@ public class Validacoes {
 		return Float.parseFloat(valor.replaceFirst(",", "."));
 	}
 	
+	
 	/**
 	 * Obtém um valor do tipo <code>String</code> e transforma em um valor do tipo
 	 *  <code>int</code>

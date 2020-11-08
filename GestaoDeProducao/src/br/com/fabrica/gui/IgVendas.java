@@ -1,6 +1,8 @@
 package br.com.fabrica.gui;
 
-import static br.com.fabrica.constantes.Constantes.*;
+import static br.com.fabrica.constantes.Constantes.ERR_QTDE_MAXIMA;
+import static br.com.fabrica.constantes.Constantes.QTDE_VENDA_NULA;
+import static br.com.fabrica.constantes.Constantes.VENDA;
 import static br.com.fabrica.gui.EntradaESaida.msgErro;
 
 import java.awt.BorderLayout;
