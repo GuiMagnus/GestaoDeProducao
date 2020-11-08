@@ -52,6 +52,7 @@ public class GerenciaIgVenda {
 		for (int i = 0; i < dtm.getRowCount(); i++) {
 			Produto produto = new Produto();
 			produto.setNome(String.format("%s",dtm.getValueAt(i, 0)));
+			produto.setCodigo(venda.getCodigo());
 			produto.setQuantidade(Integer.parseInt(String.format("%s",dtm.getValueAt(i, 1))));
 			produto.setPrecoFabricacao(Float.parseFloat(String.format("%s",dtm.getValueAt(i, 2))));
 			produto.setPrecoVenda(Float.parseFloat(String.format("%s",dtm.getValueAt(i, 3))));

@@ -8,7 +8,7 @@ import br.com.fabrica.modelo.Producao;
 import br.com.fabrica.validacoes.Data;
 
 /**
- * Classe responsável por gerencidar o Relatório de produção
+ * Classe responsável por gerenciar o Relatório de produção
  * @author Rafaela
  *
  */

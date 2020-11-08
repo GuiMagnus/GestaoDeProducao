@@ -1,17 +1,12 @@
 package br.com.fabrica.gerencia.ig;
 
-import java.util.List;
+import static br.com.fabrica.constantes.Constantes.VALOR_DEFAULT_CB_ORCAMENTO;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
-import br.com.fabrica.arquivos.ArquivoProduto;
-import br.com.fabrica.arquivos.ArquivoVenda;
 import br.com.fabrica.gerencia.modelo.GerenciaOrcamento;
 import br.com.fabrica.gui.IgOrcamento;
-import br.com.fabrica.modelo.Produto;
-import br.com.fabrica.modelo.Venda;
-
 /**
  * Classe responsável por gerenciar as funções da classe <code>IgOrcamento</code>
  * @see IgOrcamento
@@ -19,9 +14,6 @@ import br.com.fabrica.modelo.Venda;
  *
  */
 public class GerenciaIgOrcamento {
-	private static ArquivoProduto arquivoProduto = new ArquivoProduto();
-	private static ArquivoVenda arquivoVenda = new ArquivoVenda();
-	
 	/**
 	 * Obtém as informações referentes ao orçamento.
 	 * @param comboBox lista de produtos cadastrados
@@ -32,15 +24,15 @@ public class GerenciaIgOrcamento {
 	 */
 	public static void obtemOrcamento(JComboBox<String> comboBox, JTextField tfValor, JTextField
 					tfNumero, JTextField tfValorTotal, JTextField tfSaldo) {
+		if(comboBox.getSelectedItem()== VALOR_DEFAULT_CB_ORCAMENTO)
+			return;
 		GerenciaOrcamento go = new GerenciaOrcamento();
-		List<Produto> produtos = arquivoProduto.leProdutosNoArquivo();
-		List<Venda> vendas = arquivoVenda.leProdutosNoArquivo();
-		float valor = go.somaDespedasMes((String) comboBox.getSelectedItem(), produtos);
+		float valor = go.somaDespedasMes((String) comboBox.getSelectedItem());
 		tfValor.setText(valor + "");
-		float numero = go.obtemNumeroTotalDeVendas((String) comboBox.getSelectedItem(), vendas);
+		float numero = go.obtemNumeroTotalDeVendas((String) comboBox.getSelectedItem());
 		
 		tfNumero.setText(String.format("%.2f", numero));
-		float valorTotal = go.obtemValorTotalDeVendas((String) comboBox.getSelectedItem(), vendas);
+		float valorTotal = go.obtemValorTotalDeVendas((String) comboBox.getSelectedItem());
 		tfValorTotal.setText(valorTotal + "");
 		float saldo = go.saldo(valorTotal, valor);
 		

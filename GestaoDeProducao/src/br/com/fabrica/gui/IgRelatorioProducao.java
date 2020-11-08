@@ -29,7 +29,6 @@ public class IgRelatorioProducao extends JFrame {
 	private JLabel lblNome;
 	private JLabel lblData;
 	private JButton btnObterDados;
-	private JButton btnOk;
 	private JButton btnCancelar;
 	private JFrame jf;
 	private DefaultTableModel defaultTableModel;
@@ -50,11 +49,12 @@ public class IgRelatorioProducao extends JFrame {
 
 		// Define a janela como não redimensionável.
 		jf.setResizable(false);
+		jf.setSize(626, 473);
+		
+		
 		jf.setLocationRelativeTo(null);
 		
-		//jf.setSize(626, 473);
-		
-		lblNewLabel = new JLabel("Venda");
+		lblNewLabel = new JLabel("Produ\u00E7\u00E3o");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(255, 22, 75, 25);
 		jf.getContentPane().add(lblNewLabel);
@@ -74,12 +74,7 @@ public class IgRelatorioProducao extends JFrame {
 		lblNewLabel_1.setBounds(224, 119, 165, 25);
 		jf.getContentPane().add(lblNewLabel_1);
 		
-		btnOk = new JButton("OK");
-		btnOk.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnOk.setBounds(356, 480, 89, 23);
-		jf.getContentPane().add(btnOk);
-		
-		btnCancelar = new JButton("Cancelar");
+		btnCancelar = new JButton("OK");
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnCancelar.setBounds(455, 480, 89, 23);
 		jf.getContentPane().add(btnCancelar);
@@ -131,15 +126,6 @@ public class IgRelatorioProducao extends JFrame {
 		// Define a janela como não redimensionável.
 		//jf.setResizable(false);
 		jf.setSize(591, 568);
-		
-		btnOk.addActionListener(new ActionListener() {			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				jf.setVisible(false);
-				IgMenu igMenu = new IgMenu();
-				igMenu.getJf().setVisible(true);
-			}
-		});
 		
 		btnCancelar.addActionListener(new ActionListener() {
 			

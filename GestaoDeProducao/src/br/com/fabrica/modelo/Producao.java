@@ -10,7 +10,6 @@ import br.com.fabrica.validacoes.Data;
 public class Producao implements Comparable<Producao>{
 	private int codigo;
 	private Produto produto;
-	//private int quantidade;
 	private Data data;
 	private float custoProducao;
 	/**

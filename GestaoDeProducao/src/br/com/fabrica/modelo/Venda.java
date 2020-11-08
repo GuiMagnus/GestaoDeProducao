@@ -1,5 +1,6 @@
 package br.com.fabrica.modelo;
 
+import java.util.Comparator;
 import java.util.List;
 
 import br.com.fabrica.validacoes.Data;
@@ -9,7 +10,7 @@ import br.com.fabrica.validacoes.Data;
  * @author Rafaela
  *
  */
-public class Venda {
+public class Venda implements Comparator<Venda>{
 	
 	private int codigo;
 	private Data data;
@@ -126,6 +127,11 @@ public class Venda {
 	public String toString() {
 		return String.format("Codigo: %d, data: %s, hora: %s, produto: %s",
 				codigo, data, hora, produtos);
+	}
+
+	@Override
+	public int compare(Venda data1, Venda data2) {
+		return data1.getData().compareTo(data2.getData());
 	}
 	
 }

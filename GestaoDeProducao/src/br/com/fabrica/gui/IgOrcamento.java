@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 import br.com.fabrica.gerencia.ig.GerenciaIgOrcamento;
 import br.com.fabrica.modelo.MesesAno;
-
+import static br.com.fabrica.constantes.Constantes.*;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
@@ -36,7 +36,6 @@ public class IgOrcamento extends JFrame {
 	private JLabel lblMargemDeLucro;
 	private JLabel lblSaldo;
 	private JLabel lblSaldo_1;
-	private JButton btnNewButton;
 	private JButton btnCancelar;
 	private JFrame jf;
 
@@ -73,12 +72,7 @@ public class IgOrcamento extends JFrame {
 		jf.getContentPane().add(tfValorTotal);
 		tfValorTotal.setColumns(10);
 		
-		btnNewButton = new JButton("OK");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnNewButton.setBounds(165, 369, 89, 23);
-		jf.getContentPane().add(btnNewButton);
-		
-		btnCancelar = new JButton("Cancelar");
+		btnCancelar = new JButton("OK");
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnCancelar.setBounds(273, 369, 89, 23);
 		jf.getContentPane().add(btnCancelar);
@@ -109,6 +103,7 @@ public class IgOrcamento extends JFrame {
 		});
 		comboBox.setBounds(74, 59, 161, 22);
 		jf.getContentPane().add(comboBox);
+		comboBox.addItem(VALOR_DEFAULT_CB_ORCAMENTO);
 		for(MesesAno mesesAno : MesesAno.values()) {
 			comboBox.addItem(String.format("%s", mesesAno.getMes()));
 		}

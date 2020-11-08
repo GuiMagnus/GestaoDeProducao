@@ -40,7 +40,19 @@ public class Validacoes {
 	 * @return - <code>float</code> valor transformado.
 	 */
 	public static float transformaEmFloat(String valor) {
+		if(valor.equals(""))
+			return 0;
 		return Float.parseFloat(valor.replaceFirst(",", "."));
+	}
+	
+	/**
+	 * Obtém um valor do tipo <code>String</code> e transforma em um valor do tipo
+	 *  <code>int</code>
+	 * @param valor - <code>String</code> : valor a ser convertido.
+	 * @return - <code>int</code> valor transformado.
+	 */
+	public static int transformaEmInt(String valor) {
+		return Integer.parseInt(valor);
 	}
 	
 	/**

@@ -23,10 +23,8 @@ import br.com.fabrica.modelo.UnidadeMedida;
 public class IgProdutos extends JFrame {
 	private JLabel lblNewLabel;
 	private JTextField tfNome;
-	private JTextField tfpreco;
 	private JSpinner spinner;
 	private JLabel lblMargemDeLucro;
-	private JLabel lblPreoUnitrio;
 	private JLabel lblNewLabel_1;
 	private JLabel lblNome;
 	private JButton btnInsumo;
@@ -50,24 +48,24 @@ public class IgProdutos extends JFrame {
 		// Define a janela como não redimensionável.
 		jf.setResizable(false);
 		
-		jf.setSize(525, 399);
+		jf.setSize(525, 349);
 		jf.setLocationRelativeTo(null);
 		jf.setVisible(true);
 		
 		btnGravar = new JButton("Gravar");
 		jf.getContentPane().add(btnGravar);
 		btnGravar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnGravar.setBounds(259, 307, 96, 25);
+		btnGravar.setBounds(249, 268, 96, 25);
 		
 		btnInsumo = new JButton("Cadastrar Insumo...");
 		jf.getContentPane().add(btnInsumo);
 		btnInsumo.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnInsumo.setBounds(298, 255, 164, 25);
+		btnInsumo.setBounds(298, 208, 164, 25);
 		
 		btnCancelar = new JButton("Cancelar");
 		jf.getContentPane().add(btnCancelar);
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnCancelar.setBounds(366, 307, 96, 25);
+		btnCancelar.setBounds(366, 268, 96, 25);
 		
 		lblNome = new JLabel("Nome:");
 		jf.getContentPane().add(lblNome);
@@ -95,21 +93,9 @@ public class IgProdutos extends JFrame {
 		lblMargemDeLucro.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblMargemDeLucro.setBounds(47, 161, 113, 16);
 		
-		
-		lblPreoUnitrio = new JLabel("Pre\u00E7o Unit\u00E1rio:");
-		jf.getContentPane().add(lblPreoUnitrio);
-		lblPreoUnitrio.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblPreoUnitrio.setBounds(64, 217, 96, 16);
-		
 		spinner = new JSpinner();
 		jf.getContentPane().add(spinner);
 		spinner.setBounds(174, 155, 101, 30);
-		
-		tfpreco = new JTextField();
-		tfpreco.setEditable(false);
-		jf.getContentPane().add(tfpreco);
-		tfpreco.setColumns(10);
-		tfpreco.setBounds(177, 211, 96, 30);
 		
 		comboBox = new JComboBox<String>();
 		comboBox.setBounds(176, 107, 145, 30);

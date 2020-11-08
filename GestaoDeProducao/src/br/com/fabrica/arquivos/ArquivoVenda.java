@@ -1,7 +1,6 @@
 package br.com.fabrica.arquivos;
 
 import static br.com.fabrica.constantes.Constantes.ARQ_VENDA;
-import static br.com.fabrica.constantes.Constantes.ARQ_VENDA_PRODUTO;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -50,7 +49,7 @@ public class ArquivoVenda extends BinaryFile {
 		else
 			throw new ClassCastException();
 		
-		randomAccessFile.writeInt(obtemCodigoVenda());
+		randomAccessFile.writeInt(venda.getCodigo());
 		randomAccessFile.writeChars(setStringLength(venda.getData().toString(), 10));
 		randomAccessFile.writeChars(setStringLength(venda.getHora(), 9));
 		randomAccessFile.writeFloat(venda.getValorTotalVenda());
@@ -88,13 +87,17 @@ public class ArquivoVenda extends BinaryFile {
 	 * @return retorna o código sequencial para o próximo dado de registros das vendas.
 	 */
 	public int obtemCodigoVenda() {
+		int codigo = 0;
 		try {
 			openFile(ARQ_VENDA);
+			//System.out.println("tam"+recordQuantity());
 			if(recordQuantity() == 0)
-				return 1;
+				codigo = 1;
 			else {
-				return (int) (recordQuantity() + 1);
+				codigo = (int) (recordQuantity() + 1);
 			}
+			closeFile();
+			return codigo;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			return 0;
@@ -108,7 +111,7 @@ public class ArquivoVenda extends BinaryFile {
 	 * Obtém a lista de produtos que foi cadastrada.
 	 * @return <code>List</code> lista com os produtos cadastrados.
 	 */
-	public List<Venda> leProdutosNoArquivo() {
+	public List<Venda> leVendasNoArquivo() {
 		List<Venda> listaVendas = new ArrayList<>();
 		try {
 			openFile(ARQ_VENDA);
@@ -135,9 +138,10 @@ public class ArquivoVenda extends BinaryFile {
 	 */
 	public boolean gravaVenda(Venda venda) {
 		try {
-			openFile(ARQ_VENDA_PRODUTO);
+			openFile(ARQ_VENDA);
 			setFilePointer(recordQuantity());
 			writeObject(venda);
+			closeFile();
 			return true;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -147,5 +151,56 @@ public class ArquivoVenda extends BinaryFile {
 			return false;
 		}
 	}
-
+	public List<Venda> obtemVendas(String dataHoraInicio, String dataHoraFim){
+		List<Venda> vendasPeriodo = new ArrayList<Venda>();
+		Data dataInicio = new Data(dataHoraInicio);
+		Data dataFim = new Data(dataHoraFim);
+		try {
+			openFile(ARQ_VENDA);
+			for (int i = 0; i < recordQuantity(); i++) {
+				setFilePointer(i);
+				Venda venda = (Venda) readObject();
+				if(venda.getData().dataDentroDoPeriodo(dataInicio, dataFim) == true)
+					vendasPeriodo.add(venda);
+			}
+			closeFile();
+			return vendasPeriodo;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	public List<Venda> obtemVendasHora(String horaInicio, String horaFim){
+		List<Venda> vendasPeriodo = new ArrayList<Venda>();
+		Data data = new Data();
+		try {
+			openFile(ARQ_VENDA);
+			for (int i = 0; i < recordQuantity(); i++) {
+				setFilePointer(i);
+				Venda venda = (Venda) readObject();
+				if(venda.getData().compareTo(data)==0) {
+					if(new Data().comparaHora(horaInicio, horaFim, venda.getHora())== true)
+						vendasPeriodo.add(venda);
+				}
+			}
+			closeFile();
+			return vendasPeriodo;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
 }

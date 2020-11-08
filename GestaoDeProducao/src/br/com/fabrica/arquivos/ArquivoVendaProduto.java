@@ -55,8 +55,7 @@ public class ArquivoVendaProduto extends BinaryFile {
 		randomAccessFile.writeChars(setStringLength(produto.getNome(), 50));
 		randomAccessFile.writeInt(produto.getQuantidade());
 		randomAccessFile.writeFloat(produto.getPrecoFabricacao());
-
-
+		randomAccessFile.writeFloat(produto.getPrecoVenda());
 	}
 
 	// Versão sobrecarregada (overload) de writeObject.
@@ -71,15 +70,17 @@ public class ArquivoVendaProduto extends BinaryFile {
 	 * a partir daquele código de venda. 
 	 * @return Object Retorna um objeto contendo os atributos de venda incluindo seus produtos vendidos. 
 	 */
-	@Override
+	/*@Override
 	public Object readObject() throws IOException {
 		Venda venda = new Venda();
-		venda.setCodigo(randomAccessFile.readInt());
+		//venda.setCodigo(randomAccessFile.readInt());
 
 		List<Produto> produtos = new ArrayList<Produto>();
 		for(Produto produto : produtos) {
+			produto.setCodigo(randomAccessFile.readInt());
 			produto.setNome(readString(50));
 			produto.setQuantidade(randomAccessFile.readInt());
+			produto.setPrecoFabricacao(randomAccessFile.readFloat());
 			produto.setPrecoVenda(randomAccessFile.readFloat());
 
 			produtos.add(produto);
@@ -88,7 +89,22 @@ public class ArquivoVendaProduto extends BinaryFile {
 		venda.setProdutos(produtos);
 
 		return venda;
+	}*/
+
+	@Override
+	public Object readObject() throws IOException {
+
+		Produto produto = new Produto();
+		produto.setCodigo(randomAccessFile.readInt());
+		produto.setNome(readString(50));
+		produto.setQuantidade(randomAccessFile.readInt());
+		produto.setPrecoFabricacao(randomAccessFile.readFloat());
+		produto.setPrecoVenda(randomAccessFile.readFloat());
+
+		return produto;
 	}
+
+
 	/***
 	 * Obtém o código sequencial das vendas gravado no arquivo de vendas
 	 * @return retorna o código sequencial para o próximo dado de registros das vendas.
@@ -109,7 +125,7 @@ public class ArquivoVendaProduto extends BinaryFile {
 			return 0;
 		}
 	}
-	
+
 	/**
 	 * Grava os produtos que foram vendidos em determinada venda
 	 * @param venda <code>Venda</code> venda a ser registrada.
@@ -121,6 +137,7 @@ public class ArquivoVendaProduto extends BinaryFile {
 			setFilePointer(recordQuantity());
 			for(Produto produto : venda.getProdutos())
 				writeObject(produto);
+			closeFile();
 			return true;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -130,4 +147,30 @@ public class ArquivoVendaProduto extends BinaryFile {
 			return false;
 		}
 	}
+	public List<Produto> produtosVendidos(List<Venda> vendas){
+		List<Produto> produtosVendidos = new ArrayList<Produto>();
+		try {
+			for (Venda venda : vendas) {
+
+				openFile(ARQ_VENDA_PRODUTO);
+				setFilePointer(0);
+				for (int i = 0; i < recordQuantity(); i++) {
+					Produto produto = (Produto) readObject();
+					if(venda.getCodigo() == produto.getCodigo())
+						produtosVendidos.add(produto);
+				}
+				closeFile();
+			}
+			return produtosVendidos;
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 }

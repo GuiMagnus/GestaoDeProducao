@@ -13,7 +13,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import br.com.fabrica.modelo.Venda;
+import br.com.fabrica.gerencia.ig.GerenciaIgRelatorioVenda;
 
 /**
  * Classe responsavel por criar a tela de relatório de Vendas.
@@ -23,10 +23,10 @@ import br.com.fabrica.modelo.Venda;
 @SuppressWarnings("serial")
 public class IgRelatorioVendas extends JFrame {
 	private JLabel lblNewLabel;
-	private JTextField textField;
+	private JTextField tfDataHoraInicial;
 	private JTable table;
-	private JTextField textField_3;
-	private JTextField textField_1;
+	private JTextField tfDataHoraFinal;
+	private JTextField tfValorTotalVenda;
 	private JLabel lblNome;
 	private JLabel lblData;
 	private JButton btnObtemDados;
@@ -36,11 +36,10 @@ public class IgRelatorioVendas extends JFrame {
 	private JLabel lblNewLabel_1_1;
 	private JButton btnNewButton_3;
 	private JButton btnNewButton_4;
-	private JButton btnOk;
 	private JButton btnCancelar;
 	private JFrame jf;
 	private DefaultTableModel defaultTableModel;
-
+	private static String dataHoraInicial,dataHoraFinal;
 	/**
 	 * Create the panel.
 	 */
@@ -55,9 +54,10 @@ public class IgRelatorioVendas extends JFrame {
 
 		// Define a janela como não redimensionável.
 		jf.setResizable(false);
-		jf.setLocationRelativeTo(null);
+		
 		jf.setSize(731, 620);
 
+		jf.setLocationRelativeTo(null);
 		
 		lblNewLabel = new JLabel("Venda");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -69,26 +69,17 @@ public class IgRelatorioVendas extends JFrame {
 		lblNome.setBounds(39, 56, 129, 25);
 		jf.getContentPane().add(lblNome);
 		
-		textField = new JTextField();
-		textField.setBounds(178, 59, 83, 20);
-		jf.getContentPane().add(textField);
-		textField.setColumns(10);
+		tfDataHoraInicial = new JTextField();
+		tfDataHoraInicial.setBounds(178, 59, 83, 20);
+		jf.getContentPane().add(tfDataHoraInicial);
+		tfDataHoraInicial.setColumns(10);
 		
 		lblNewLabel_1 = new JLabel("Dados da Produ\u00E7\u00E3o");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel_1.setBounds(260, 119, 165, 25);
 		jf.getContentPane().add(lblNewLabel_1);
 		
-		btnOk = new JButton("OK");
-		btnOk.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnOk.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnOk.setBounds(497, 543, 89, 23);
-		jf.getContentPane().add(btnOk);
-		
-		btnCancelar = new JButton("Cancelar");
+		btnCancelar = new JButton("OK");
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnCancelar.setBounds(596, 543, 89, 23);
 		jf.getContentPane().add(btnCancelar);
@@ -106,10 +97,10 @@ public class IgRelatorioVendas extends JFrame {
 		lblData.setBounds(281, 56, 121, 25);
 		jf.getContentPane().add(lblData);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(412, 59, 83, 20);
-		jf.getContentPane().add(textField_3);
+		tfDataHoraFinal = new JTextField();
+		tfDataHoraFinal.setColumns(10);
+		tfDataHoraFinal.setBounds(412, 59, 83, 20);
+		jf.getContentPane().add(tfDataHoraFinal);
 		
 		btnObtemDados = new JButton("Obter dados das vendas");
 		btnObtemDados.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -127,10 +118,12 @@ public class IgRelatorioVendas extends JFrame {
 
 		btnObtemDados.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Venda venda = new Venda(); 
-				defaultTableModel.insertRow(defaultTableModel.getRowCount(),
-					new Object[] {venda.getCodigo(), "a",
-								2.5f,37.5f,105.6f});
+				defaultTableModel.setNumRows(0);
+				GerenciaIgRelatorioVenda.relatorioVendas(tfDataHoraInicial,tfDataHoraFinal,tfValorTotalVenda,defaultTableModel,colunas);
+				dataHoraInicial = tfDataHoraInicial.getText();
+				dataHoraFinal = tfDataHoraFinal.getText();
+				tfDataHoraInicial.setText("");
+				tfDataHoraFinal.setText("");
 			}
 		});
 		btnObtemDados.setBounds(505, 57, 180, 23);
@@ -141,11 +134,11 @@ public class IgRelatorioVendas extends JFrame {
 		lblValorDaVenda.setBounds(39, 426, 141, 25);
 		jf.getContentPane().add(lblValorDaVenda);
 		
-		textField_1 = new JTextField();
-		textField_1.setEditable(false);
-		textField_1.setColumns(10);
-		textField_1.setBounds(178, 429, 129, 20);
-		jf.getContentPane().add(textField_1);
+		tfValorTotalVenda = new JTextField();
+		tfValorTotalVenda.setEditable(false);
+		tfValorTotalVenda.setColumns(10);
+		tfValorTotalVenda.setBounds(178, 429, 129, 20);
+		jf.getContentPane().add(tfValorTotalVenda);
 		
 		lblNewLabel_1_1 = new JLabel("Classifica\u00E7\u00E3o das vendas");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -153,11 +146,21 @@ public class IgRelatorioVendas extends JFrame {
 		jf.getContentPane().add(lblNewLabel_1_1);
 		
 		btnNewButton_3 = new JButton("Classificar relat\u00F3rio por data da venda");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GerenciaIgRelatorioVenda.ordenacaoData(defaultTableModel, dataHoraInicial,dataHoraFinal);
+			}
+		});
 		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnNewButton_3.setBounds(99, 496, 251, 23);
 		jf.getContentPane().add(btnNewButton_3);
 		
 		btnNewButton_4 = new JButton("Classificar relat\u00F3rio por hora da venda");
+		btnNewButton_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GerenciaIgRelatorioVenda.ordenacaoHora(defaultTableModel, dataHoraInicial,dataHoraFinal);
+			}
+		});
 		btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnNewButton_4.setBounds(368, 496, 261, 23);
 		jf.getContentPane().add(btnNewButton_4);
