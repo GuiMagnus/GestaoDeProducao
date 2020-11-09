@@ -30,7 +30,6 @@ public class Venda implements Comparator<Venda>{
 	 * @param data <code>String</code> Representa a data da venda
 	 * @param hora <code>String</code> Representa a hora da venda
 	 * @param produtos <code>List</code> Lista contendo os produtos que foram vendidos
-	 * @param quantidade <code>int</code> valor referente a quantidade vendida.
 	 */
 	public Venda(Data data, String hora, List<Produto> produtos) {
 		this.data = data;
@@ -48,7 +47,7 @@ public class Venda implements Comparator<Venda>{
 
 	/**
 	 * Atibui ao objeto da classe a data da venda do produto.
-	 * @param <code>String</code> valor referente data da venda do produto.
+	 * @param data <code>String</code> valor referente data da venda do produto.
 	 */
 	public void setData(Data data) {
 		this.data = data;
@@ -64,7 +63,7 @@ public class Venda implements Comparator<Venda>{
 
 	/**
 	 * Atribui ao objeto da classe a hora da venda do produto.
-	 * @param <code>String</code> valor referente a hora da venda do produto.
+	 * @param hora <code>String</code> valor referente a hora da venda do produto.
 	 */
 	public void setHora(String hora) {
 		this.hora = hora;
@@ -80,7 +79,7 @@ public class Venda implements Comparator<Venda>{
 
 	/**
 	 * Atribui ao objeto da classe a lista de produtos vendidos.
-	 * @param <code>List</code> Lista contendo os produtos vendidos.
+	 * @param produtos <code>List</code> Lista contendo os produtos vendidos.
 	 */
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
@@ -96,7 +95,7 @@ public class Venda implements Comparator<Venda>{
 
 	/**
 	 * Atribui ao objeto da classe o código de identificação da venda.
-	 * @param <code>int</code>Um código de identificação da venda
+	 * @param codigo <code>int</code>Um código de identificação da venda
 	 */
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;

@@ -18,7 +18,7 @@ public class GerenciaProducao {
 	
 	/**
 	 * Obtém o valor total de venda que é possível obter com essa produção.
-	 * @param Produto - <code>Produto</code> : produto que irá calcular o custo de produção
+	 * @param produto - <code>Produto</code> : produto que irá calcular o custo de produção
 	 * @param quantidade - <code>int</code> : Quantidade de produtos que serão produzidos 
 	 * @return - <code>float</code> : valor total dos custos referentes a produção
 	 */
@@ -31,7 +31,7 @@ public class GerenciaProducao {
 	
 	/**
 	 * Obtém o valor total de venda que é possível obter com essa produção.
-	 * @param Produto - <code>Produto</code> : produto que irá calcular o custo de produção
+	 * @param produto - <code>Produto</code> : produto que irá calcular o custo de produção
 	 * @param quantidade - <code>int</code> : Quantidade de prudutos que serão produzidos 
 	 * @return - <code>float</code> : valor total dos custos referentes a produção
 	 */

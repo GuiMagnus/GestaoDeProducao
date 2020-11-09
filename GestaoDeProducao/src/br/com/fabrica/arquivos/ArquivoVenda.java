@@ -35,7 +35,7 @@ public class ArquivoVenda extends BinaryFile {
 	/**
 	 * Escreve o objeto como um registro do arquivo.
 	 *
-	 * @param obj um <code>Object</code> que será armazenado no arquivo.
+	 * @param objeto um <code>Object</code> que será armazenado no arquivo.
 	 * 
 	 * @throws IOException se ocorrer um erro de E/S;
 	 * @throws ClassCastException se o tipo do objeto a ser escrito no arquivo não for da classe 
@@ -57,8 +57,8 @@ public class ArquivoVenda extends BinaryFile {
 
 		/**
 		 * Versão sobrecarregada (overload) de writeObject.
-		 * @param venda
-		 * @throws IOException
+		 * @param venda <code>Venda</code> a ser escrita.
+		 * @throws IOException Erro relacionado a entrada e saída de dados.
 		 */
 		public void writeObject(Venda venda) throws IOException {
 			Object object = venda;

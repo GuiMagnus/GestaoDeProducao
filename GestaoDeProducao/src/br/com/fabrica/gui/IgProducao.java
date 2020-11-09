@@ -16,6 +16,8 @@ import br.com.fabrica.modelo.Produto;
 
 import javax.swing.JComboBox;
 
+import static br.com.fabrica.constantes.Constantes.*;
+
 /**
  * Classe responsavel por criar a tela de cadastro de Produção.
  * @author Rafaela
@@ -103,7 +105,7 @@ public class IgProducao extends JFrame {
 		jf.setVisible(true);
 		
 		List<Produto> listaProdutos = new ArquivoProduto().leProdutosNoArquivo();
-
+		comboBox.addItem(VALOR_DEFAULT_COMBOBOX);
 		for (Produto prod : listaProdutos)
 			comboBox.addItem(String.format("%d - %s", prod.getCodigo(),prod.getNome()));
 

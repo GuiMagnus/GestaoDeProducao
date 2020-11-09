@@ -184,7 +184,7 @@ public abstract class BinaryFile {
 	/**
 	  * Escreve o objeto como um registro do arquivo.
 	  *
-	  * @param obj um <code>Object</code> que será armazenado no arquivo.
+	  * @param objeto um <code>Object</code> que será armazenado no arquivo.
 	  * 
 	  * @throws IOException se ocorrer um erro de E/S.
 	  **/

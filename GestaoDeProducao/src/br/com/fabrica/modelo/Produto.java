@@ -68,7 +68,7 @@ public class Produto implements Comparable<Produto>, Comparator<Produto>{
 
 	/**
 	 * Atribui ao objeto da classe Produto uma string com o nome do produto.
-	 * @param nome - <code></code> : String contendo o nome do produto.
+	 * @param nome - <code>String</code> : String contendo o nome do produto.
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -213,7 +213,7 @@ public class Produto implements Comparable<Produto>, Comparator<Produto>{
 
 	/**
 	 * Atribui ao objeto da classe o código para identificação do produto;
-	 * @return <code>int</code> : O código de identificação do produto;
+	 * @param auxiliarCodigo <code>int</code> : O código de identificação do produto;
 	 */
 	public void setCodigo(int auxiliarCodigo) {
 		this.codigo = auxiliarCodigo;

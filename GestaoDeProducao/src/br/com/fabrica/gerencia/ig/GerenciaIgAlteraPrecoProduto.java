@@ -13,12 +13,13 @@ import javax.swing.JTextField;
 import br.com.fabrica.arquivos.ArquivoProduto;
 import br.com.fabrica.gerencia.modelo.GerenciaHistoricoPreco;
 import br.com.fabrica.gerencia.modelo.GerenciaProduto;
+import br.com.fabrica.gui.IgAlteraPrecoVendaProduto;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.validacoes.Validacoes;
 
 /**
  * Classe responsável por gerenciar as funções da classe <code>IgAlteraPrecoProduto</code>
- * @see IgAlteraPrecoProduto
+ * @see IgAlteraPrecoVendaProduto
  * @author Rafaela e Guilherme
  *
  */

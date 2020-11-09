@@ -20,7 +20,9 @@ public class GerenciaHistoricoPreco {
 	 * Insere o novo preço e a nova data no histórico de preço. A data a ser
 	 * atribuida sempre será a data do dia.
 	 * @param preco - <code>float</code> : novo preço a ser cadastrado.
-	 * @param historico - <code>List</code> : lista que irá receber o novo preço;
+	 * @param codigo - <code>int</code> : código referente a informação que o dado pertence.
+	 * @param arquivo - <code>String</code> : arquivo onde serão salvos os dados.
+	 * @return <code>true</code> caso consiga inserir. <code>false</code> caso não consiga.
 	 */
 	public boolean insereHistoricoPreco(float preco,  int codigo, String arquivo) {
 		ArquivoHistoricoPreco ahp = new ArquivoHistoricoPreco();
@@ -36,8 +38,8 @@ public class GerenciaHistoricoPreco {
 
 	/**
 	 * Obtém o preço e a data mais antiga.
-	 * @param <code>int</code> código
-	 * @return - <code>HistoricoPreco</code> : preço e data mais recente que foram cadastrados.
+	 * @param codigo <code>int</code> código Referência relativo ao dado que deseja obter o preço
+	 * @return <code>HistoricoPreco</code> : preço e data mais recente que foram cadastrados.
 	 */
 	public HistoricoPreco obtemPrecoAntigo(int codigo) {
 		ArquivoHistoricoPreco ahp = new ArquivoHistoricoPreco();

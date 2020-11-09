@@ -42,7 +42,7 @@ public class ArquivoInsumoProduto extends BinaryFile{
 	/**
 	 * Escreve o objeto como um registro do arquivo.
 	 *
-	 * @param obj um <code>Object</code> que será armazenado no arquivo.
+	 * @param objeto um <code>Object</code> que será armazenado no arquivo.
 	 * 
 	 * @throws IOException se ocorrer um erro de E/S;
 	 * @throws ClassCastException se o tipo do objeto a ser escrito no arquivo não for da classe 
@@ -65,7 +65,7 @@ public class ArquivoInsumoProduto extends BinaryFile{
 	/**
 	 * Escreve um objeto insumo no arquivo.
 	 * @param insumo objeto insumo que contém as informações de um insumo
-	 * @throws IOException
+	 * @throws IOException Erro relacionada a entrada e saída de dados.
 	 */
 	public void writeObject(Insumo insumo) throws IOException {
 		Object object = insumo;
@@ -198,8 +198,9 @@ public class ArquivoInsumoProduto extends BinaryFile{
 	/**
 	 * Altera preço de um determinado insumo
 	 * @param codigoProduto <code>int</code> código do produto para alteração do insumo
-	 * @param codigoInsumo <code>int</code> codigo do insumo a ser alterado. 
-	 * @return novoPreco <code>float</code> preço a ser atualizado.
+	 * @param codigoInsumo <code>int</code> codigo do insumo a ser alterado.
+	 * @param novoPreco  <code>float</code> preço a ser atualizado.
+	 * @return <code>true</code> caso consiga alterar. <code>false</code> caso não consiga.
 	 */
 	public boolean alteraInsumo(int codigoProduto, int codigoInsumo, float novoPreco) {
 		try {

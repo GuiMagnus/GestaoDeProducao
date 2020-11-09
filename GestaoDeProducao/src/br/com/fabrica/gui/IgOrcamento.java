@@ -1,8 +1,12 @@
 package br.com.fabrica.gui;
 
+import static br.com.fabrica.constantes.Constantes.VALOR_DEFAULT_CB_ORCAMENTO;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -10,13 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import com.sun.prism.paint.Color;
-
 import br.com.fabrica.gerencia.ig.GerenciaIgOrcamento;
 import br.com.fabrica.modelo.MesesAno;
-import static br.com.fabrica.constantes.Constantes.*;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 
 /**
  * Classe responsavel por criar a tela de Orçamento.

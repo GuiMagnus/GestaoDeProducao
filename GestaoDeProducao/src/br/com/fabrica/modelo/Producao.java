@@ -24,7 +24,6 @@ public class Producao implements Comparable<Producao>{
 	 * 
 	 * @param produto -<code>Produto</code> : dados do produto a serem usados na produção como o nome do produto
 	 * a quantidade e preço
-	 * @param quantidade <code>int</code> : valor de quantidade a ser produzido.
 	 * @param data - <code>String</code> : Data da produção do produto.
 	 * @param custoProducao <code>float</code> : Custo da produção de determinado produto.
 	 */

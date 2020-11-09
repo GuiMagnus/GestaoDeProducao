@@ -29,7 +29,7 @@ public class HistoricoPreco {
 
 	/**
 	 * Obtém o valor em dinheiro atribuído a um item.
-	 * @return <code>float</float>: preço referente a variável que define o valor de um item.
+	 * @return <code>float</code>: preço referente a variável que define o valor de um item.
 	 */
 	public float getPreco() {
 		return preco;

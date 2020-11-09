@@ -21,7 +21,7 @@ public class EntradaESaida {
 	/**
 	 * Exibe um componente em uma caixa de diálogo com o texto da barra de título 
 	 * definido em titulo.
-	 * @param component Componemte em que a caixa de diálogo vai pertencer
+	 * @param componente Componemte em que a caixa de diálogo vai pertencer
 	 * @param titulo Titulo da janela de diálogo
 	 */
 	public static void msgInfo(Object componente, String titulo) {

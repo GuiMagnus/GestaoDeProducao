@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"br.com.fabrica.app"},{"l":"br.com.fabrica.arquivos"},{"l":"br.com.fabrica.constantes"},{"l":"br.com.fabrica.gerencia.ig"},{"l":"br.com.fabrica.gerencia.modelo"},{"l":"br.com.fabrica.gui"},{"l":"br.com.fabrica.modelo"},{"l":"br.com.fabrica.validacoes"}]

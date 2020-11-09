@@ -16,8 +16,8 @@ import br.com.fabrica.validacoes.Data;
  * Esta classe fornece uma implementação para as operações que permitem manipular um arquivo de acesso 
  * aleatório para ler e escrever objetos da classe <code>Produção</code>.
  *
- * @see tsi.too.arquivo.binario.BinaryFile
- * @see tsi.too.arquivo.binario.Produto
+ * @see BinaryFile
+ * @see Produto
  *
  * @author Guilherme Magnus e Rafaela
  */
@@ -41,7 +41,7 @@ public class ArquivoProducao extends BinaryFile{
 	/**
 	  * Escreve o objeto como um registro do arquivo.
 	  *
-	  * @param obj um <code>Object</code> que será armazenado no arquivo.
+	  * @param objeto um <code>Object</code> que será armazenado no arquivo.
 	  * 
 	  * @throws IOException se ocorrer um erro de E/S;
 	  * @throws ClassCastException se o tipo do objeto a ser escrito no arquivo não for da classe 
@@ -65,8 +65,8 @@ public class ArquivoProducao extends BinaryFile{
 
 	/**
 	 * Escreve um objeto com os dados de uma produção no arquivo
-	 * @param producao
-	 * @throws IOException
+	 * @param producao <code>Producao</code> que será escrita
+	 * @throws IOException Erro relacionado a entrada e saída de dados.
 	 */
 	public void writeObject(Producao producao) throws IOException {               
 		Object object = producao;
@@ -143,6 +143,7 @@ public class ArquivoProducao extends BinaryFile{
 	
 	/***
 	 * Obtém o código sequencial para a produção
+	 * @param arquivo Arquivo de onde será obtido o código
 	 * @return retorna o código sequencial para o próximo dado de histórico
 	 */
 	public int obtemCodigoProducao(String arquivo) {
@@ -194,8 +195,7 @@ public class ArquivoProducao extends BinaryFile{
 	
 	/**
 	 * Obtém as produções cadastradas.
-	 * @param nome do arquivo de onde serão lidas as produções
-	 * @param codigo <code>int</code> código referente a produção
+	 * @param arquivo Arquivo de onde irá obter as informações. 
 	 * @return <code>List</code> lista de produções
 	 */
 	public List<Producao> leProducoesNoArquivo(String arquivo) {

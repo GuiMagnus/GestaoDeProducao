@@ -39,7 +39,7 @@ public class ArquivoInsumo extends BinaryFile{
 	/**
 	 * Escreve o objeto como um registro do arquivo.
 	 *
-	 * @param obj um <code>Object</code> que será armazenado no arquivo.
+	 * @param objeto um <code>Object</code> que será armazenado no arquivo.
 	 * 
 	 * @throws IOException se ocorrer um erro de E/S;
 	 * @throws ClassCastException se o tipo do objeto a ser escrito no arquivo não for da classe 
@@ -62,7 +62,7 @@ public class ArquivoInsumo extends BinaryFile{
 	/**
 	 * Escreve um objeto insumo no arquivo.
 	 * @param insumo um objeto que contém os dados de um insumo
-	 * @throws IOException
+	 * @throws IOException Erro relacionada a entrada e saída de dados.
 	 */
 	public void writeObject(Insumo insumo) throws IOException {
 		Object object = insumo;
@@ -118,7 +118,7 @@ public class ArquivoInsumo extends BinaryFile{
 	 * no arquivo com o nome passado como parâmetro. 
 	 * @param insumos Uma lista com dados referente a classe {@link Insumo} para serem gravados 
 	 * no arquivo de insumos.
-	 * @param nome do arquivo a ser gravado os dados de insumo.
+	 * @param arquivo nome do arquivo a ser gravado os dados de insumo.
 	 * @return Retorna True ou False indicando se a gravação teve sucesso ou falha.
 	 */
 	public boolean escreveInsumosNoArquivo(List<Insumo> insumos, String arquivo) {
@@ -143,8 +143,8 @@ public class ArquivoInsumo extends BinaryFile{
 
 	/***
 	 * Escreve o dado de um Insumo em uma determinada posição do arquivo.
-	 * @param Um objeto com os dados do insumo
-	 * @param posição onde os dados serão gravados 
+	 * @param insumo Um objeto com os dados do insumo
+	 * @param posicao posição onde os dados serão gravados 
 	 * @return retorna true ou false referente ao sucesso ou falha da gravação.
 	 */
 	public boolean escreveInsumoPosicao(Insumo insumo, int posicao) {
@@ -268,7 +268,7 @@ public class ArquivoInsumo extends BinaryFile{
 	
 	/**
 	 * Altera preço de um determinado insumo
-	 * @param insumo <code>Insumo</code> insumo que se deseja alterar.
+	 * @param codigoInsumo <code>Insumo</code> insumo que se deseja alterar.
 	 * @param novoPreco <code>float</code> informação que será atualizada. 
 	 * @return <code>Insumo</code> objeto alterado
 	 */

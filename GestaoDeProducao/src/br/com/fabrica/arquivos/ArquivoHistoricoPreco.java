@@ -37,7 +37,7 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 	/**
 	 * Escreve o objeto como um registro do arquivo.
 	 *
-	 * @param obj um <code>Object</code> que será armazenado no arquivo.
+	 * @param objeto um <code>Object</code> que será armazenado no arquivo.
 	 * 
 	 * @throws IOException se ocorrer um erro de E/S;
 	 * @throws ClassCastException se o tipo do objeto a ser escrito no arquivo não for da classe 
@@ -133,7 +133,7 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 	}
 	/**
 	 * Obtém os históricos de preços que foram salvos.
-	 * @param codigo <code>int</code>> código de referencia dos dados a serem obtidos
+	 * @param codigo <code>int</code> código de referencia dos dados a serem obtidos
 	 * @return <code>List</code> lista contendo os preços;
 	 */
 	public List<HistoricoPreco> obtemHistorico(int codigo) {

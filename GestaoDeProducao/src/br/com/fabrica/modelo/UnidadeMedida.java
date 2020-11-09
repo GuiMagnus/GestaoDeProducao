@@ -38,7 +38,7 @@ public enum UnidadeMedida {
 
 	/**
 	 * Atribui ao objeto da classe o código referente a unidade da enum.
-	 * @return <code>int</code> código referente ao tipo da unidade da enum.
+	 * @param codigo <code>int</code> código referente ao tipo da unidade da enum.
 	 */
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
@@ -54,7 +54,7 @@ public enum UnidadeMedida {
 
 	/**
 	 * Atribui ao objeto o nome da unidade da enum.
-	 * @return <code>String</code> : nome da unidade da enum.
+	 * @param nome <code>String</code> : nome da unidade da enum.
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -70,7 +70,7 @@ public enum UnidadeMedida {
 
 	/**
 	 * Atribui ao objeto da classe abreviação da unidade da enum
-	 * @return <code>String</code> : Abreviação do nome da unidade da enum.
+	 * @param unidade <code>String</code> : Abreviação do nome da unidade da enum.
 	 */
 	public void setUnidade(String unidade) {
 		this.unidade = unidade;

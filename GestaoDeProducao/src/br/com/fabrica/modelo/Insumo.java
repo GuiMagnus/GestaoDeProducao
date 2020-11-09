@@ -31,6 +31,7 @@ public class Insumo {
 	/***
 	 * Construtor sobrecarregado da classe insumo onde não são atribuídos valores default mas
 	 * sim valores passados como parâmetro.
+	 * @param codigoProduto - <code>int</code>: código referente ao produto.
 	 * @param nome - <code>String</code>: nomeação dada a um insumo
 	 * @param quantidade - <code>int</code>: valor inicial do insumo
 	 * @param precoUnitario - <code>float</code>: preço inicial do insumo

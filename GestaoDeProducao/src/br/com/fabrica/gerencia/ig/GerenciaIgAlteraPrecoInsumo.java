@@ -29,7 +29,6 @@ public class GerenciaIgAlteraPrecoInsumo {
 	
 	/**
 	 * Altera o preço referente ao insumo
-	 * @param comboProduto Lista de produtos cadastrados
 	 * @param comboInsumo Lista de insumos cadastrados
 	 * @param tfPreco novo preço do insumo
 	 * @param jf Janela principal

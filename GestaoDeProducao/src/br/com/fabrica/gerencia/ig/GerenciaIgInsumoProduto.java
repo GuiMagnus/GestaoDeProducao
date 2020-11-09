@@ -19,6 +19,7 @@ import br.com.fabrica.arquivos.ArquivoInsumoProduto;
 import br.com.fabrica.arquivos.ArquivoProduto;
 import br.com.fabrica.gerencia.modelo.GerenciaInsumoProduto;
 import br.com.fabrica.gui.IgInsumos;
+import br.com.fabrica.gui.IgInsumosProduto;
 import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.validacoes.Validacoes;
@@ -104,7 +105,7 @@ public class GerenciaIgInsumoProduto {
 	/**
 	 * Cadastra os insumos referentes ao produto
 	 * @param codigo código do produto
-	 * @param defaultTableModel tabela que receberá os dados
+	 * @param table tabela que receberá os dados
 	 * @param jf Janela principal
 	 * @return <code>List</code> lista com os insumos cadastrados
 	 */

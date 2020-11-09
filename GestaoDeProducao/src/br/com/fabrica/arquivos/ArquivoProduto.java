@@ -38,7 +38,7 @@ public class ArquivoProduto extends BinaryFile{
 	/**
 	 * Escreve o objeto como um registro do arquivo.
 	 *
-	 * @param obj um <code>Object</code> que será armazenado no arquivo.
+	 * @param objeto um <code>Object</code> que será armazenado no arquivo.
 	 * 
 	 * @throws IOException se ocorrer um erro de E/S;
 	 * @throws ClassCastException se o tipo do objeto a ser escrito no arquivo não for da classe 
@@ -66,7 +66,7 @@ public class ArquivoProduto extends BinaryFile{
 	/**
 	 * Escreve no arquivo os dados de um produto.
 	 * @param produto objeto de onde serão armazenadas as informações.
-	 * @throws IOException
+	 * @throws IOException Erro relacionado a entrada e saída de dados.
 	 */
 	public void writeObject(Produto produto) throws IOException {
 		Object object = produto;
@@ -250,7 +250,7 @@ public class ArquivoProduto extends BinaryFile{
 	
 	/**
 	 * Obtém o produto cadastrado.
-	 * @param codigo <code>int</code> código referente ao produto
+	 * @param codigoProduto <code>int</code> código referente ao produto
 	 * @return <code>Produto</code> dados do produto procurado 
 	 */
 	public Produto obtemProduto(int codigoProduto) {

@@ -90,7 +90,7 @@ public class Validacoes {
 	/**
 	 * Verifica se o nome informado é válido
 	 * @param dado - <code>String</code> : string a ser verificada.
-	 * @return- <code>String</code> : string verificada ou nulo
+ 	 * @return String <code>String</code> : string verificada ou nulo
 	 */
 	public static String verificaNome(String dado) {
 		if(dado.equalsIgnoreCase(null))
@@ -102,7 +102,7 @@ public class Validacoes {
 	/**
 	 * Verifica se a quantidade informado é válido
 	 * @param dado - <code>String</code> : string a ser verificada.
-	 * @return- <code>float</code> : string convertida em float ou o valor 0;
+	 * @return  <code>float</code> : string convertida em float ou o valor 0;
 	 */
 	public static float verificaQuantidade(String dado) {
 		if(dado.equalsIgnoreCase(""))
@@ -114,7 +114,7 @@ public class Validacoes {
 	/**
 	 * Verifica se o preço informado é válido
 	 * @param dado - <code>String</code> : string a ser verificada.
-	 * @return- <code>float</code> : string convertida em float ou o valor 0;
+	 * @return <code>float</code> : string convertida em float ou o valor 0;
 	 */
 	public static float verificaPreco(String dado) {
 		if(dado.equalsIgnoreCase(""))

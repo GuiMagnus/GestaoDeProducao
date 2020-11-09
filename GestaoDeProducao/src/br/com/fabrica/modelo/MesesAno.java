@@ -56,7 +56,7 @@ public enum MesesAno {
 
 	/**
 	 * Determina o número do mês
-	 * @param mes numero do mes que está sendo determinado
+	 * @param numeroMes numero do mes que está sendo determinado
 	 */
 	public void setNumeroMes(int numeroMes) {
 		this.numeroMes = numeroMes;
@@ -72,7 +72,7 @@ public enum MesesAno {
 	
 	/**
 	 * Determina a quantidade de dias do mês
-	 * @param mes quantidade de dias do Mês que está sendo determinado
+	 * @param qtdDias quantidade de dias do Mês que está sendo determinado
 	 */
 	public void setQtdDias(int qtdDias) {
 		this.qtdDias = qtdDias;

@@ -1,5 +1,7 @@
 package br.com.fabrica.gui;
 
+import static br.com.fabrica.constantes.Constantes.VALOR_DEFAULT_COMBOBOX;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -75,13 +77,12 @@ public class IgAlteraPrecoVendaProduto extends JFrame {
 		jf.getContentPane().add(lblNewLabel);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblNewLabel.setBounds(165, 11, 184, 19);
-		//DefaultTableModel dtm = (DefaultTableModel)table.getModel();
 		comboBox = new JComboBox<String>();
 		comboBox.setBounds(177, 61, 330, 30);
 		jf.getContentPane().add(comboBox);
 
 		listaProdutos = new ArquivoProduto().leProdutosNoArquivo();
-
+		comboBox.addItem(VALOR_DEFAULT_COMBOBOX);
 		for (Produto prod : listaProdutos)
 			comboBox.addItem(String.format("%d - %s", prod.getCodigo(),prod.getNome()));
 		
