@@ -1,6 +1,9 @@
 package br.com.fabrica.gerencia.modelo;
 
 import java.util.Calendar;
+
+import static br.com.fabrica.constantes.Constantes.*;
+
 import java.util.List;
 
 import br.com.fabrica.arquivos.ArquivoProducao;
@@ -36,7 +39,7 @@ public class GerenciaOrcamento {
 			}		
 		}
 		ArquivoProducao ap = new ArquivoProducao();
-		List<Producao> litaProducao = ap.leProducoesNoArquivo();
+		List<Producao> litaProducao = ap.leProducoesNoArquivo(ARQ_PRODUCAO);
 		for(Producao producao : litaProducao) {
 			if(producao.getData().dataDentroDoPeriodo(dataI, dataF)) {
 				valorDespesa += producao.getCustoProducao();

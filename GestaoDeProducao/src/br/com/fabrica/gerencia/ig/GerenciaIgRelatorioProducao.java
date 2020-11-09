@@ -18,6 +18,7 @@ public class GerenciaIgRelatorioProducao {
 				tfDataF.getText());
 		Collections.sort(listaPeriodo);
 		for(int i = 0; i < listaPeriodo.size(); i++) {
+			System.out.println(listaPeriodo.get(i).getProduto().getNome());
 			dfm.insertRow(dfm.getRowCount(),
 					new Object[] {listaPeriodo.get(i).getProduto().getNome(), listaPeriodo.get(i).getProduto().getQuantidade(),
 							listaPeriodo.get(i).getCustoProducao()

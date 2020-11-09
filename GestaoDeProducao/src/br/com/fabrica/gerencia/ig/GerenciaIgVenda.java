@@ -1,6 +1,6 @@
 package br.com.fabrica.gerencia.ig;
 
-import static br.com.fabrica.constantes.Constantes.CAD_VENDA;
+import static br.com.fabrica.constantes.Constantes.*;
 import static br.com.fabrica.constantes.Constantes.ERR_CAD_VENDA;
 import static br.com.fabrica.constantes.Constantes.VENDA;
 import static br.com.fabrica.gui.EntradaESaida.msgErro;
@@ -69,14 +69,15 @@ public class GerenciaIgVenda {
 				msgErro(jf, ERR_CAD_VENDA, VENDA);
 		}
 		
+		//Altera Quantidade Produção
 		ArquivoProducao ap = new ArquivoProducao();
-		List<Producao> listaProducao = ap.leProducoesNoArquivo();
+		List<Producao> listaProducao = ap.leProducoesNoArquivo(ARQ_PRODUCAO);
 		for(Producao producao : listaProducao) {
 			for(Produto produto : produtos) {
-				if(producao.getProduto().getNome().equalsIgnoreCase(produto.getNome())) {
+				if(producao.getCodigo() == produto.getCodigo()) {
 					producao.getProduto().setQuantidade(producao.getProduto().getQuantidade() - 
 							produto.getQuantidade());
-					ap.alteraProducao(producao);
+					ap.alteraProducao(producao, ARQ_PRODUCAO);
 				}
 			}
 		}

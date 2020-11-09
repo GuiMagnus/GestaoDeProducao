@@ -225,7 +225,7 @@ public class IgVendas extends JFrame {
 		comboProduto = new JComboBox<String>();
 		comboProduto.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				Producao producao = new ArquivoProducao().obterProducao(Validacoes.obtemCodigo(String.format("%s",comboProduto.getSelectedItem())));
+				Producao producao = new ArquivoProducao().obterProducao(Validacoes.obtemCodigo(String.format("%s",comboProduto.getSelectedItem())), ARQ_PRODUCAO);
 
 				SpinnerNumberModel model = new SpinnerNumberModel(0, 0, producao.getProduto().getQuantidade(), 1);
 				spinner.setModel(model);
@@ -287,6 +287,11 @@ public class IgVendas extends JFrame {
 				tfData.setText(Data.obtemDataAtual());
 				tfHora.setText(Validacoes.obtemHoraAtual());
 				spinner.setValue(0);
+				
+				Producao producao = new ArquivoProducao().obterProducao(Validacoes.obtemCodigo(String.format("%s",comboProduto.getSelectedItem())), ARQ_PRODUCAO);
+				SpinnerNumberModel model = new SpinnerNumberModel(0, 0, producao.getProduto().getQuantidade(), 1);
+				spinner.setModel(model);
+				qtdeMaximaProduzida = producao.getProduto().getQuantidade();
 
 			}
 		});

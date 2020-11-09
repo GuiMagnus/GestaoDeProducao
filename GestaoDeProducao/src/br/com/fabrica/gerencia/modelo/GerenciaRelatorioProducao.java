@@ -7,6 +7,7 @@ import br.com.fabrica.arquivos.ArquivoProducao;
 import br.com.fabrica.modelo.Producao;
 import br.com.fabrica.validacoes.Data;
 
+import static br.com.fabrica.constantes.Constantes.*;
 /**
  * Classe responsável por gerenciar o Relatório de produção
  * @author Rafaela
@@ -23,7 +24,7 @@ public class GerenciaRelatorioProducao {
 	public static List<Producao> producaoPorPeriodo(String dataI, String dataF) {
 		Data d1 = new Data(dataI);
 		Data d2 = new Data(dataF);
-		List<Producao> listaProducao = new ArquivoProducao().leProducoesNoArquivo();
+		List<Producao> listaProducao = new ArquivoProducao().leProducoesNoArquivo(ARQ_REL_PROD);
 		List<Producao> listaPeriodo = new ArrayList<Producao>();
 		for(Producao producao : listaProducao) {
 			if(producao.getData().dataDentroDoPeriodo(d1, d2))

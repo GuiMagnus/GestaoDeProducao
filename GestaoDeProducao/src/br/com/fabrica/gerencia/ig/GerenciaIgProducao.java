@@ -64,13 +64,17 @@ public class GerenciaIgProducao {
 			List<Insumo> insumosDoEstoque = new GerenciaInsumo().obtemPrecoInsumosEstoque(insumosProduto);
 			produto.setInsumos(insumosDoEstoque);
 			producao.setProduto(produto);
+			
+			producao.setCodigo(new ArquivoProducao().obtemCodigoProducao(ARQ_PRODUCAO));
 			producao.setData(new Data(tfData.getText()));
 			producao.getProduto().setQuantidade(Integer.parseInt(tfQtdProduzida.getText()));
 			float valorProducao =  gp.verificaInsumosECalculaPreco(produto, producao.getProduto().getQuantidade());
 			producao.setCustoProducao(valorProducao);
 			
-			boolean cadastrado = arquivoProducao.escreveProducaoNoArquivo(producao);
-			if(cadastrado) {
+			arquivoProducao.escreveProducaoNoArquivo(producao, ARQ_REL_PROD);
+			
+			Producao cadastrado = arquivoProducao.alteraQuantidadeProducao(producao, ARQ_PRODUCAO);
+			if(cadastrado != null) {
 				msgInfo(jf, CAD_PRODUCAO, PRODUCAO);
 				
 				float valorVenda =  gp.calculaVendaProduto(produto,producao.getProduto().getQuantidade());

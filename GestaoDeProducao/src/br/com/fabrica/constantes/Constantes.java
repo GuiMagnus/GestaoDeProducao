@@ -12,6 +12,11 @@ public class Constantes {
 	public static String ARQ_PRODUTO = "..\\GestaoDeProducao\\arquivos\\produto.dat";
 	
 	/**
+	 * <code>String</code> : Determina o arquivo relacionado ao relatório de produção.
+	 */
+	public static String ARQ_REL_PROD = "..\\GestaoDeProducao\\arquivos\\relatorioProducao.dat";
+	
+	/**
 	 * <code>String</code> : Determina o arquivo relacionado a Histórico de preços.
 	 */
 	public static String ARQ_HISTORICO_INSUMO = "..\\GestaoDeProducao\\arquivos\\historicoPrecoInsumo.dat";

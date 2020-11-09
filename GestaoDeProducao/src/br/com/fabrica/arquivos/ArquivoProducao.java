@@ -55,11 +55,12 @@ public class ArquivoProducao extends BinaryFile{
 		else
 			throw new ClassCastException();
 		
-		randomAccessFile.writeInt(obtemCodigoProducao());
+		randomAccessFile.writeInt(producao.getCodigo());
 		randomAccessFile.writeChars(setStringLength(producao.getProduto().getNome(),50));
 		randomAccessFile.writeInt(producao.getProduto().getQuantidade());
-		randomAccessFile.writeChars(setStringLength(producao.getData().toString(), 10));
 		randomAccessFile.writeFloat(producao.getCustoProducao());
+		randomAccessFile.writeChars(setStringLength(producao.getData().toString(), 10));
+		
 	}
 
 	public void writeObject(Producao producao) throws IOException {               
@@ -79,14 +80,14 @@ public class ArquivoProducao extends BinaryFile{
 		Producao producao = new Producao();
 		
 		producao.setCodigo(randomAccessFile.readInt());
-		
 		Produto produto = new Produto();
 		produto.setNome(readString(50));
 		produto.setQuantidade(randomAccessFile.readInt());
 		producao.setProduto(produto);
+		producao.setCustoProducao(randomAccessFile.readFloat());
 		Data data = new Data(readString(10));
 		producao.setData(data);
-		producao.setCustoProducao(randomAccessFile.readFloat());
+		
 		return producao;
 	}
 	
@@ -96,19 +97,19 @@ public class ArquivoProducao extends BinaryFile{
 	 * @param producao Um objeto producao a ser gravado no arquivo.
 	 * @return Retorna True ou False indicando se a gravação obteve sucesso ou falha.
 	 */
-	public boolean escreveProducaoNoArquivo(Producao producao) {
+	public Producao escreveProducaoNoArquivo(Producao producao, String arquivo) {
 		try {
-			openFile(ARQ_PRODUCAO);
+			openFile(arquivo);
 			setFilePointer(recordQuantity());
 			writeObject(producao);
 			closeFile();
-			return true;
+			return producao;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			return false; 
+			return null; 
 		} catch (IOException e) {
 			e.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 	
@@ -117,9 +118,9 @@ public class ArquivoProducao extends BinaryFile{
 	 * @param indice <code>int</code> referencia ao produto que será obtido
 	 * @return informações referentes a produção.
 	 */
-	public Producao leProducaoNoArquivo(int indice) {
+	public Producao leProducaoNoArquivo(int indice, String arquivo) {
 		try {
-			openFile(ARQ_PRODUCAO);
+			openFile(arquivo);
 			setFilePointer(indice);
 			Producao producao = (Producao) readObject();
 			closeFile();
@@ -137,19 +138,23 @@ public class ArquivoProducao extends BinaryFile{
 	 * Obtém o código sequencial para a produção
 	 * @return retorna o código sequencial para o próximo dado de histórico
 	 */
-	public int obtemCodigoProducao() {
+	public int obtemCodigoProducao(String arquivo) {
+		int codigo = 0;
 		try {
+			openFile(arquivo);
 			if(recordQuantity() == 0)
-				return 1;
+				codigo = 1;
 			else {
-				return (int) (recordQuantity() + 1);
+				codigo = (int) (recordQuantity() + 1);
 			}
+			closeFile();
+			return codigo;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			return 0;
+			return codigo;
 		} catch (IOException e) {
 			e.printStackTrace();
-			return 0;
+			return codigo;
 		}
 	}
 	
@@ -158,10 +163,10 @@ public class ArquivoProducao extends BinaryFile{
 	 * @param codigo <code>int</code> código referente a produção
 	 * @return <code>Producao</code> dados da produção procurada. 
 	 */
-	public Producao obterProducao(int codigo) {
+	public Producao obterProducao(int codigo, String arquivo) {
 		Producao producao = null;
 		try {
-			openFile(ARQ_PRODUCAO);
+			openFile(arquivo);
 			for (int i = 0; i < recordQuantity(); i++) {
 				setFilePointer(i);
 				producao = (Producao) readObject();
@@ -184,10 +189,10 @@ public class ArquivoProducao extends BinaryFile{
 	 * @param codigo <code>int</code> código referente a produção
 	 * @return <code>List</code> lista de produções
 	 */
-	public List<Producao> leProducoesNoArquivo() {
+	public List<Producao> leProducoesNoArquivo(String arquivo) {
 		List<Producao> listaProducao = new ArrayList<>();
 		try {
-			openFile(ARQ_PRODUCAO);
+			openFile(arquivo);
 			for(int i = 0; i < recordQuantity(); i++) {
 				setFilePointer(i);
 				Producao producao = (Producao) readObject();
@@ -209,18 +214,16 @@ public class ArquivoProducao extends BinaryFile{
 	 * @param prod <code>Producao</code> produção a ser alterada.
 	 * @return <code>Producao</code> produção alterada.
 	 */
-	public Producao alteraProducao(Producao prod) {
+	public Producao alteraProducao(Producao prod, String arquivo) {
 		Producao producao = null;
 		try {
-			openFile(ARQ_PRODUCAO);
+			openFile(arquivo);
 			for(int i = 0; i < recordQuantity(); i++) {
 				setFilePointer(i);
 				producao = (Producao) readObject();
-				
-				if(producao.getCodigo() == prod.getCodigo()) {
-					producao = prod;
-					//produto.setTamanhoUnidade(prod.getTamanhoUnidade());
-					escreveProducaoPorPosicao(producao, i);
+				if(producao.getProduto().getNome().equalsIgnoreCase(prod.getProduto().getNome())) {
+					producao.getProduto().setQuantidade(prod.getProduto().getQuantidade());
+					escreveProducaoPorPosicao(producao, i, ARQ_PRODUCAO);
 					break;
 				}
 			}
@@ -236,14 +239,49 @@ public class ArquivoProducao extends BinaryFile{
 	}
 	
 	/**
+	 * Altera as informações de uma produção cadastrada.
+	 * @param prod <code>Producao</code> produção a ser alterada.
+	 * @return <code>Producao</code> produção alterada.
+	 */
+	public Producao alteraQuantidadeProducao(Producao prod, String arquivo) {
+		Producao producao = null;
+		try {
+			openFile(arquivo);
+			
+			for(int i = 0; i < recordQuantity(); i++) {
+				setFilePointer(i);
+				producao = (Producao) readObject();
+				if(!producao.getProduto().getNome().equalsIgnoreCase(prod.getProduto().getNome())) {
+					System.out.println("No if");
+					continue;
+				}else {
+					producao.getProduto().setQuantidade(producao.getProduto().getQuantidade() + 
+							prod.getProduto().getQuantidade());
+					escreveProducaoPorPosicao(producao, i, arquivo);
+					closeFile();
+					return producao;
+				}
+			}
+			closeFile();
+			return escreveProducaoNoArquivo(prod, arquivo);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null	;
+		}
+	}
+	
+	/**
 	 * Escreve uma produção em uma determinada posição.
 	 * @param producao <code>Producao</code> producao a ser cadastrada.
 	 * @param posicao <code>int</code> posição que será escrito a produção
 	 * @return Retorna True ou False indicando se a gravação teve sucesso ou falha.
 	 */
-	public boolean escreveProducaoPorPosicao(Producao producao, int posicao) {
+	public boolean escreveProducaoPorPosicao(Producao producao, int posicao, String arquivo) {
 		try {
-			openFile(ARQ_PRODUCAO);
+			openFile(arquivo);
 			setFilePointer(posicao);
 			writeObject(producao);
 			closeFile();
