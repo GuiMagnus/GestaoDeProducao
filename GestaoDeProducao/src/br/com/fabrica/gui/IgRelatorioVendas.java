@@ -14,10 +14,11 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import br.com.fabrica.gerencia.ig.GerenciaIgRelatorioVenda;
+import java.awt.Color;
 
 /**
  * Classe responsavel por criar a tela de relatório de Vendas.
- * @author Rafaela
+ * @author Rafaela e Guilherme
  *
  */
 @SuppressWarnings("serial")
@@ -137,6 +138,7 @@ public class IgRelatorioVendas extends JFrame {
 		jf.getContentPane().add(lblValorDaVenda);
 		
 		tfValorTotalVenda = new JTextField();
+		tfValorTotalVenda.setDisabledTextColor(Color.BLACK);
 		tfValorTotalVenda.setEditable(false);
 		tfValorTotalVenda.setColumns(10);
 		tfValorTotalVenda.setBounds(178, 429, 129, 20);

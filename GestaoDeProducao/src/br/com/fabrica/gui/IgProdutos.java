@@ -16,7 +16,7 @@ import br.com.fabrica.modelo.UnidadeMedida;
 
 /**
  * Classe responsavel por criar a tela de cadastro de Produtos.
- * @author Rafaela
+ * @author Rafaela e Guilherme
  *
  */
 @SuppressWarnings("serial")

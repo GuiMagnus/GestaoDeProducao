@@ -69,7 +69,6 @@ public class GerenciaIgVenda {
 				msgErro(jf, ERR_CAD_VENDA, VENDA);
 		}
 		
-		//Altera Quantidade Produção
 		ArquivoProducao ap = new ArquivoProducao();
 		List<Producao> listaProducao = ap.leProducoesNoArquivo(ARQ_PRODUCAO);
 		for(Producao producao : listaProducao) {

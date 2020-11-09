@@ -9,7 +9,7 @@ import br.com.fabrica.modelo.Insumo;
 /**
  * Classe responsável por gerenciar os insumos
  * @see Insumo
- * @author Rafaela
+ * @author Rafaela e Guilherme
  *
  */
 public class GerenciaInsumoProduto {

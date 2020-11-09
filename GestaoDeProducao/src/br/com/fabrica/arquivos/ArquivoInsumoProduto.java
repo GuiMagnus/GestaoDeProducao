@@ -17,7 +17,7 @@ import br.com.fabrica.modelo.Insumo;
 /**
  * Esta classe fornece uma implementação para as operações que permitem manipular um arquivo de acesso 
  * aleatório para ler e escrever objetos da classe <code>Insumo</code>.
- * @author GuilhermeMagnus
+ * @author Guilherme Magnus e Rafaela.
  *
  */
 public class ArquivoInsumoProduto extends BinaryFile{
@@ -62,7 +62,11 @@ public class ArquivoInsumoProduto extends BinaryFile{
 		randomAccessFile.writeFloat(insumo.getQuantidade());
 	}
 
-	// Versão sobrecarregada (overload) de writeObject.
+	/**
+	 * Escreve um objeto insumo no arquivo.
+	 * @param insumo objeto insumo que contém as informações de um insumo
+	 * @throws IOException
+	 */
 	public void writeObject(Insumo insumo) throws IOException {
 		Object object = insumo;
 		writeObject(object);
@@ -193,9 +197,9 @@ public class ArquivoInsumoProduto extends BinaryFile{
 	
 	/**
 	 * Altera preço de um determinado insumo
-	 * @param insumo <code>Insumo</code> insumo que se deseja alterar.
-	 * @param qtde <code>int</code> informação que será atualizada. 
-	 * @return <code>Insumo</code> objeto alterado
+	 * @param codigoProduto <code>int</code> código do produto para alteração do insumo
+	 * @param codigoInsumo <code>int</code> codigo do insumo a ser alterado. 
+	 * @return novoPreco <code>float</code> preço a ser atualizado.
 	 */
 	public boolean alteraInsumo(int codigoProduto, int codigoInsumo, float novoPreco) {
 		try {

@@ -13,7 +13,7 @@ import br.com.fabrica.validacoes.Data;
 /**
  *  Esta classe fornece uma implementação para as operações que permitem manipular um arquivo de acesso 
  * aleatório para ler e escrever objetos da classe <code>Venda</code>.
- * @author Guilherme Magnus
+ * @author Guilherme Magnus e Rafaela
  *
  */
 public class ArquivoVenda extends BinaryFile {
@@ -90,7 +90,6 @@ public class ArquivoVenda extends BinaryFile {
 		int codigo = 0;
 		try {
 			openFile(ARQ_VENDA);
-			//System.out.println("tam"+recordQuantity());
 			if(recordQuantity() == 0)
 				codigo = 1;
 			else {
@@ -151,6 +150,13 @@ public class ArquivoVenda extends BinaryFile {
 			return false;
 		}
 	}
+	
+	/**
+	 * Obtém vendas em um período de datas.
+	 * @param dataHoraInicio período inicial
+	 * @param dataHoraFim período final
+	 * @return Uma lista com todas as vendas de um período.
+	 */
 	public List<Venda> obtemVendas(String dataHoraInicio, String dataHoraFim){
 		List<Venda> vendasPeriodo = new ArrayList<Venda>();
 		Data dataInicio = new Data(dataHoraInicio);
@@ -166,17 +172,20 @@ public class ArquivoVenda extends BinaryFile {
 			closeFile();
 			return vendasPeriodo;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
 		
 	}
-	
+	/**
+	 * Obtém vendas em um período de horas.
+	 * @param horaInicio período inicial
+	 * @param horaFim período final
+	 * @return Uma lista com todas as vendas de um período.
+	 */
 	public List<Venda> obtemVendasHora(String horaInicio, String horaFim){
 		List<Venda> vendasPeriodo = new ArrayList<Venda>();
 		Data data = new Data();
@@ -193,11 +202,9 @@ public class ArquivoVenda extends BinaryFile {
 			closeFile();
 			return vendasPeriodo;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

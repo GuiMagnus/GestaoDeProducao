@@ -7,7 +7,7 @@ import br.com.fabrica.validacoes.Data;
 
 /**
  * Classe responsável por armazenar os dados referentes a venda
- * @author Rafaela
+ * @author Rafaela e Guilherme.
  *
  */
 public class Venda implements Comparator<Venda>{
@@ -16,7 +16,6 @@ public class Venda implements Comparator<Venda>{
 	private Data data;
 	private String hora;
 	private List<Produto> produtos;
-	//private int quantidade;// verificar pois o objeto produto já possui o atributo quantidade
 	private float valorTotalVenda;
 	/**
 	 * Construtor default da classe Venda.
@@ -38,6 +37,7 @@ public class Venda implements Comparator<Venda>{
 		this.hora = hora;
 		this.produtos = produtos;
 	}
+	
 	/**
 	 * Obtém a data da venda do produto.
 	 * @return <code>String</code> valor referente data da venda do produto.
@@ -45,8 +45,6 @@ public class Venda implements Comparator<Venda>{
 	public Data getData() {
 		return data;
 	}
-
-	
 
 	/**
 	 * Atibui ao objeto da classe a data da venda do produto.
@@ -104,21 +102,22 @@ public class Venda implements Comparator<Venda>{
 		this.codigo = codigo;
 	}
 
-	
+	/**
+	 * Obtém o valor total da venda.
+	 * @return contem o valor da venda.
+	 */
 	public float getValorTotalVenda() {
 		return valorTotalVenda;
 	}
-
+	
+	/**
+	 * Atribui ao objeto da classe venda o valor total daquela venda.
+	 * @param valorTotalVenda contém o valor total da venda.
+	 */
 	public void setValorTotalVenda(float valorTotalVenda) {
 		this.valorTotalVenda = valorTotalVenda;
 	}
 
-	public float valorTotalVendaPorProduto() {
-		float valor = 0;
-		for(Produto produto : produtos)
-			valor += produto.getPrecoFabricacao() * produto.getQuantidade();
-		return valor;
-	}
 	
 	/**
 	 * Representação String contendo os atributos da venda.
@@ -128,7 +127,13 @@ public class Venda implements Comparator<Venda>{
 		return String.format("Codigo: %d, data: %s, hora: %s, produto: %s",
 				codigo, data, hora, produtos);
 	}
-
+	
+	/**
+	 * Comparação entre duas datas. 
+	 * @param data1 data a ser comparada.
+	 * @param data2 data a ser comparada.
+	 * @return retorna o valor indicando o resultado obtido da comparação das datas.
+	 */
 	@Override
 	public int compare(Venda data1, Venda data2) {
 		return data1.getData().compareTo(data2.getData());

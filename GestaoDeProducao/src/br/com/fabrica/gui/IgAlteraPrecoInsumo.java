@@ -79,6 +79,7 @@ public class IgAlteraPrecoInsumo extends JFrame {
 		for(Insumo insumo : listaInsumos) {
 			comboInsumo.addItem(String.format("%d - %s", insumo.getCodigo(),insumo.getNome()));
 		}
+		
 		comboInsumo.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				Insumo insumo = new ArquivoInsumo().obtemInsumo(Validacoes.obtemCodigo(String.format("%s",comboInsumo.getSelectedItem())));

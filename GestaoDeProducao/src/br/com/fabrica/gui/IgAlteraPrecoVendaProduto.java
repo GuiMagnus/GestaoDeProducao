@@ -18,7 +18,7 @@ import br.com.fabrica.modelo.Produto;
 
 /**
  * Classe responsavel por criar a tela de cadastro de Insumos.
- * @author Rafaela
+ * @author Rafaela e GUilherme
  *
  */
 @SuppressWarnings("serial")

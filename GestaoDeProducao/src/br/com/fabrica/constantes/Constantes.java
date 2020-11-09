@@ -49,7 +49,7 @@ public class Constantes {
 	
 	
 	/**
-	 * <code>String</code> : Determina o arquivo relacionado a produtos.
+	 * <code>String</code> : Determina o arquivo relacionado aos preços de um insumo.
 	 */
 	public static String ARQ_PRECO_INSUMO = "..\\GestaoDeProducao\\arquivos\\historicoPrecoInsumo.dat";
 	
@@ -94,7 +94,7 @@ public class Constantes {
 	public static String ERR_CAD_INSUMO = "Falha ao cadastrar insumo";
 	
 	/**
-	 * <code>String</code> : Mensagem informando que o insumo não foi cadastrado.
+	 * <code>String</code> : Mensagem informando que o insumo não foi cadastrado pos não foi escolhido nenhum produto.
 	 */
 	public static String ERR_CAD_INSUMO_PRODUTO = "É necessário selecionar um produto primeiro";
 	
@@ -123,10 +123,6 @@ public class Constantes {
 	 */
 	public static String ERR_QTD_INSUMO = "A quantidade do insumo precisa ser informado";
 	
-	/**
-	 * <code>String</code> : Mensagem informando que a quantidade do insumo não foi informado.
-	 */
-	public static String ERR_INSUMOS_REPETIDOS = "Insumos Repetidos serão ignorados!";
 	/**
 	 * <code>String</code> : Mensagem informando que o preço do insumo não foi informado.
 	 */
@@ -169,7 +165,7 @@ public class Constantes {
 	public static String ERR_QTD_INSUMO_PROD = "Não existem insumos o suficiente para essa produção";
 	
 	/**
-	 * <code>String</code> : Expressão regular para validar data
+	 * <code>String</code> : Valor default definido em um comboBox.
 	 */
 	public static String VALOR_DEFAULT_COMBOBOX = "Selecione uma opção";
 	
@@ -195,27 +191,41 @@ public class Constantes {
 	
 	
 	/**
-	 * <code>String</code> : Mensagem informando sucesso ao cadastrar venda.
+	 * <code>String</code> : Mensagem informando que a quantidade da venda não pode ser nulo
 	 */
 	public static String QTDE_VENDA_NULA = "A Venda deve conter pelo menos 1 quantidade";
+	
 	
 	/**
 	 *<code>String</code> :  Mensagem informando o cadastro de Venda.
 	 */
 	public static String VENDA = "Venda de produtos";
 	
+	
 	/**
 	 * <code>String</code> : Mensagem informando erro ao cadastrar venda.
 	 */
 	public static String ERR_CAD_VENDA = "Não foi possível registrar a venda";
 	
+	/**
+	 * <code>String</code> : Mensagem informando data ou hora inválida.
+	 */
 	public static String ERR_DATA_HORA_INVALIDA = "Data inválida ou Hora Inválida!\n"
 			+ "Forneça uma data no formato:dd/MM/yyyy ou Hora no formato HH:mm:ss";
 	
 	
+	/**
+	 * <code>String</code> : Título do Relatório de vendas.
+	 */
 	public static String RELATORIO_VENDA = "Relatório de Vendas";
 	
+	/**
+	 * <code>String</code> : Mensagem informando que nenhuma venda foi realizada no período.
+	 */
 	public static String ERR_RELATORIO_VENDA = "Nenhuma venda realizada nesse período!";
 	
+	/**
+	 * <code>String</code> : Valor default do combo box relacionado ao mês do orçamento.
+	 */
 	public static String VALOR_DEFAULT_CB_ORCAMENTO = "Selecione um mês:";
 }

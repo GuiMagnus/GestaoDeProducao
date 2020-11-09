@@ -18,7 +18,7 @@ import java.io.*;
  * @version 0.3
  */
 public abstract class BinaryFile {
-	private String fileName; // Nome do arquivo em disco.
+	private String fileName;
 	
 	/** 
 	 * Arquivo binário de acesso aleatório para escrita e leitura de dados.

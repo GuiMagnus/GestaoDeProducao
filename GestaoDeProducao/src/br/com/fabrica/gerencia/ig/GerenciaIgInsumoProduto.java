@@ -19,7 +19,6 @@ import br.com.fabrica.arquivos.ArquivoInsumoProduto;
 import br.com.fabrica.arquivos.ArquivoProduto;
 import br.com.fabrica.gerencia.modelo.GerenciaInsumoProduto;
 import br.com.fabrica.gui.IgInsumos;
-import br.com.fabrica.gui.IgInsumosProduto;
 import br.com.fabrica.modelo.Insumo;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.validacoes.Validacoes;
@@ -27,7 +26,7 @@ import br.com.fabrica.validacoes.Validacoes;
 /**
  * Classe responsável por gerenciar as funções da classe <code>IgInsumoProduto</code>
  * @see IgInsumosProduto
- * @author Rafaela
+ * @author Rafaela e Guilherme
  *
  */
 public class GerenciaIgInsumoProduto {
@@ -81,13 +80,17 @@ public class GerenciaIgInsumoProduto {
 	 * @param codigo código do produto
 	 * @param defaultTableModel tabela que receberá os dados
 	 * @param jf Janela principal
+	 * @param tamanhoUnidade tamanho da unidade de determinado produto.
 	 */
-	public static void obtemInsumosProduto(int codigo, DefaultTableModel defaultTableModel, JFrame jf){
+	public static void obtemInsumosProduto(int codigo, DefaultTableModel defaultTableModel,
+			JFrame jf, JTextField tamanhoUnidade){
 		GerenciaInsumoProduto gi = new GerenciaInsumoProduto();
 		if(codigo != 0) {
 			List<Insumo> insumos = gi.obtemInsumosProduto(codigo); 
 			if(insumos.size() > 0) {
 				defaultTableModel.setNumRows(0);
+				Produto produto = new ArquivoProduto().obtemProduto(codigo);
+				tamanhoUnidade.setText(String.format("%.2f",produto.getTamanhoUnidade()));
 				for(int i = 0; i < insumos.size(); i++) {
 					defaultTableModel.insertRow(defaultTableModel.getRowCount(),
 							new Object[] {insumos.get(i).getNome(),insumos.get(i).getQuantidade()});
@@ -107,7 +110,6 @@ public class GerenciaIgInsumoProduto {
 	 */
 	public static List<Insumo> cadastraInsumosProduto(int codigo, DefaultTableModel table, JFrame jf){
 		List<Insumo> insumos = new ArrayList<Insumo>();
-		int repetido = 0;
 		if(table.getValueAt(0, 0).toString() == null) {
 			msgErro(jf, ERR_NOME_INSUMO, INSUMO);
 		}else {
@@ -135,15 +137,19 @@ public class GerenciaIgInsumoProduto {
 					insumo.setQuantidade(validaQuantidade);
 				insumo.setCodigoProduto(codigo);
 				if(verificaInsumosRepetidos(insumo,codigo) == true)
-					repetido = 1;
+					continue;
 				else
 					insumos.add(insumo);
 			}
 		}
-		msgInfo(null, ERR_INSUMOS_REPETIDOS,CAD_INSUMO);
 		return insumos;
 	}
-
+	/**
+	 * Verifica se o insumo a ser cadastrado já está no arquivo de insumos.
+	 * @param insumo Insumo a ser verificado.
+	 * @param codigo codigo do produto para verificação do insumo.
+	 * @return true ou false indicando se o produto já está cadastrado ou não
+	 */
 	public static boolean verificaInsumosRepetidos(Insumo insumo, int codigo) {
 		List<Insumo> insumosProdutoNoArquivo = new ArquivoInsumoProduto().obtemInsumosDeUmProduto(codigo); 
 		for (Insumo insumoProduto : insumosProdutoNoArquivo) {

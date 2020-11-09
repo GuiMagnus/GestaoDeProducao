@@ -33,11 +33,12 @@ import br.com.fabrica.modelo.Producao;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.validacoes.Data;
 import br.com.fabrica.validacoes.Validacoes;
+import java.awt.Color;
 
 
 /**
  * Classe responsavel por criar a tela de cadastro de Venda.
- * @author Rafaela
+ * @author Rafaela e Guilherme
  *
  */
 @SuppressWarnings("serial")
@@ -119,6 +120,7 @@ public class IgVendas extends JFrame {
 		jf.getContentPane().add(lblValorTotalDa);
 
 		tfVenda = new JTextField();
+		tfVenda.setDisabledTextColor(Color.BLACK);
 		tfVenda.setEditable(false);
 		tfVenda.setColumns(10);
 		tfVenda.setBounds(187, 507, 264, 20);
@@ -200,7 +202,7 @@ public class IgVendas extends JFrame {
 							defaultTableModel.setValueAt(Validacoes.transformaEmFloat(String.format("%.2f",defaultTableModel.getValueAt(verificacaoVendaRepetida, 2)))+novoPrecoUnitario, verificacaoVendaRepetida, 2);
 							defaultTableModel.setValueAt((int)defaultTableModel.getValueAt(verificacaoVendaRepetida, 1) *Validacoes.transformaEmFloat(String.format("%.2f",defaultTableModel.getValueAt(verificacaoVendaRepetida, 2))) , verificacaoVendaRepetida, 3);
 							//defaultTableModel.insertRow(verificacaoVendaRepetida, new Object[] {
-								//	prod.getNome(),producao.getProduto().getQuantidade()+ (int) spinner.getValue(),novoPrecoUnitario,novoPrecoUnitario * (int)spinner.getValue() });
+							//	prod.getNome(),producao.getProduto().getQuantidade()+ (int) spinner.getValue(),novoPrecoUnitario,novoPrecoUnitario * (int)spinner.getValue() });
 						}
 					}
 					float valorVenda = valorTotalVenda(prod);
@@ -226,16 +228,17 @@ public class IgVendas extends JFrame {
 		comboProduto.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				Producao producao = new ArquivoProducao().obterProducao(Validacoes.obtemCodigo(String.format("%s",comboProduto.getSelectedItem())), ARQ_PRODUCAO);
-
-				SpinnerNumberModel model = new SpinnerNumberModel(0, 0, producao.getProduto().getQuantidade(), 1);
-				spinner.setModel(model);
-				qtdeMaximaProduzida = producao.getProduto().getQuantidade();
+				if(producao != null) {
+					SpinnerNumberModel model = new SpinnerNumberModel(0, 0, producao.getProduto().getQuantidade(), 1);
+					spinner.setModel(model);
+					qtdeMaximaProduzida = producao.getProduto().getQuantidade();
+				}
 			}
 		});
 
 		comboProduto.setBounds(106, 149, 356, 22);
 		listaProdutos =  new ArquivoProduto().leProdutosNoArquivo();
-
+		comboProduto.addItem(VALOR_DEFAULT_COMBOBOX);
 		for (Produto produtos : listaProdutos)
 			comboProduto.addItem(String.format("%d - %s", produtos.getCodigo(),produtos.getNome()));
 
@@ -287,12 +290,14 @@ public class IgVendas extends JFrame {
 				tfData.setText(Data.obtemDataAtual());
 				tfHora.setText(Validacoes.obtemHoraAtual());
 				spinner.setValue(0);
-				
+
 				Producao producao = new ArquivoProducao().obterProducao(Validacoes.obtemCodigo(String.format("%s",comboProduto.getSelectedItem())), ARQ_PRODUCAO);
 				SpinnerNumberModel model = new SpinnerNumberModel(0, 0, producao.getProduto().getQuantidade(), 1);
 				spinner.setModel(model);
 				qtdeMaximaProduzida = producao.getProduto().getQuantidade();
-
+				tfHora.setText(Validacoes.obtemHoraAtual());
+				tfCodigo.setText(String.format("%d",new ArquivoVenda().obtemCodigoVenda()));
+				tfData.setText(Data.obtemDataAtual());
 			}
 		});
 

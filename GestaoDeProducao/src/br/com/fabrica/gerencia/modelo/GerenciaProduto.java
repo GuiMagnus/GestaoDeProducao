@@ -13,7 +13,7 @@ import br.com.fabrica.modelo.Produto;
 /**
  * Classe responsável por gerenciar os produtos que a fábrica possui.
  * @see Produto
- * @author Rafaela
+ * @author Rafaela e Guilherme
  *
  */
 public class GerenciaProduto {
@@ -49,7 +49,6 @@ public class GerenciaProduto {
 		return precoVenda;
 	}
 	
-	//TODO voltar
 	/**
 	 * Calcula o valor do aumento percentual de um produto.
 	 * @param produto - <code>Produto</code> : Produto que terá seu percentual alterado.

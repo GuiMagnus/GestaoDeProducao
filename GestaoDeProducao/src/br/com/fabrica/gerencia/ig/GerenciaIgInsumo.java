@@ -29,7 +29,10 @@ public class GerenciaIgInsumo {
 	 * Obtém os dados informados nos componentes presentes na tela {@link IgInsumos},
 	 * atribui o objeto à classe {@link Insumo} e salva o insumo cadastrado no arquivo
 	 * correspondente.
-	 * 
+	 * @param tfNome <code>JTextField</code> nome do insumo
+	 * @param spinner <code>JSpinner</code> quantidade do insumo
+	 * @param tfPreco <code>JTextField</code> preço do insumo.
+	 * @param jf <code>JFrame</code> tela principal.
 	 */
 	public static void cadastraInsumo(JTextField tfNome,JSpinner spinner, JTextField tfPreco, 
 			JFrame jf) {

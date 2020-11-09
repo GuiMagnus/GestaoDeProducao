@@ -20,7 +20,7 @@ import br.com.fabrica.modelo.Produto;
 /**
  * Classe responsável por gerenciar as funções da classe <code>IgProduto</code>
  * @see IgProduto
- * @author Rafaela
+ * @author Rafaela e Guilherme
  *
  */
 public class GerenciaIgProduto {

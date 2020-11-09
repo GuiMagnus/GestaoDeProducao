@@ -14,7 +14,7 @@ import br.com.fabrica.modelo.Venda;
 /**
  *  Esta classe fornece uma implementação para as operações que permitem manipular um arquivo de acesso 
  * aleatório para ler e escrever objetos da classe <code>Venda</code>.
- * @author Guilherme Magnus
+ * @author Guilherme Magnus e Rafaela
  *
  */
 public class ArquivoVendaProduto extends BinaryFile {
@@ -65,32 +65,10 @@ public class ArquivoVendaProduto extends BinaryFile {
 	}
 
 	/**
-	 * Lê o código de uma venda a partir do arquivo de vendas
-	 * e adiciona em uma lista referente a classe {@link Venda} todos os produtos que foram vendidos
-	 * a partir daquele código de venda. 
-	 * @return Object Retorna um objeto contendo os atributos de venda incluindo seus produtos vendidos. 
+	 * Lê um dado do arquivo de produtos vendidos.
+	 * 
+	 * @return Object Retorna um objeto contendo os seus produtos vendidos. 
 	 */
-	/*@Override
-	public Object readObject() throws IOException {
-		Venda venda = new Venda();
-		//venda.setCodigo(randomAccessFile.readInt());
-
-		List<Produto> produtos = new ArrayList<Produto>();
-		for(Produto produto : produtos) {
-			produto.setCodigo(randomAccessFile.readInt());
-			produto.setNome(readString(50));
-			produto.setQuantidade(randomAccessFile.readInt());
-			produto.setPrecoFabricacao(randomAccessFile.readFloat());
-			produto.setPrecoVenda(randomAccessFile.readFloat());
-
-			produtos.add(produto);
-		}
-
-		venda.setProdutos(produtos);
-
-		return venda;
-	}*/
-
 	@Override
 	public Object readObject() throws IOException {
 
@@ -147,6 +125,12 @@ public class ArquivoVendaProduto extends BinaryFile {
 			return false;
 		}
 	}
+	
+	/**
+	 * Obtém os produtos que foram vendidos.
+	 * @param vendas Lista que contém os produtos que foram vendidos
+	 * @return os produtos vendidos de uma determinada venda.
+	 */
 	public List<Produto> produtosVendidos(List<Venda> vendas){
 		List<Produto> produtosVendidos = new ArrayList<Produto>();
 		try {
@@ -163,11 +147,9 @@ public class ArquivoVendaProduto extends BinaryFile {
 			}
 			return produtosVendidos;
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

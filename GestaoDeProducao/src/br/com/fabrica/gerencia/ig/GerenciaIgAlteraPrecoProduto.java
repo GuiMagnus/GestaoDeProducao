@@ -19,7 +19,7 @@ import br.com.fabrica.validacoes.Validacoes;
 /**
  * Classe responsável por gerenciar as funções da classe <code>IgAlteraPrecoProduto</code>
  * @see IgAlteraPrecoProduto
- * @author Rafaela
+ * @author Rafaela e Guilherme
  *
  */
 public class GerenciaIgAlteraPrecoProduto {

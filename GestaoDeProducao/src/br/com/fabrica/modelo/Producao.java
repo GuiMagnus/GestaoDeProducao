@@ -109,6 +109,10 @@ public class Producao implements Comparable<Producao>{
 				getCodigo(), produto.getNome(), data, custoProducao);
 	}
 
+	/**
+	 * Compara os nomes dos produtos de uma produção
+	 * @return int indicando se é igual maior ou menor o resultado da comparação
+	 */
 	@Override
 	public int compareTo(Producao producao) {
 		return producao.produto.getNome().compareToIgnoreCase(producao.produto.getNome());

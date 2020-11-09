@@ -31,7 +31,7 @@ import br.com.fabrica.validacoes.Validacoes;
 import static br.com.fabrica.constantes.Constantes.*;
 /**
  * Classe responsavel por criar a tela de cadastro de Insumos.
- * @author Rafaela
+ * @author Rafaela e Guilherme
  *
  */
 @SuppressWarnings("serial")
@@ -73,12 +73,12 @@ public class IgInsumosProduto extends JFrame {
 		btnGravar = new JButton("Gravar");
 		jf.getContentPane().add(btnGravar);
 		btnGravar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnGravar.setBounds(267, 495, 96, 25);
+		btnGravar.setBounds(260, 495, 96, 25);
 
 		btnCancelar = new JButton("Cancelar");
 		jf.getContentPane().add(btnCancelar);
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnCancelar.setBounds(379, 495, 83, 25);
+		btnCancelar.setBounds(366, 495, 96, 25);
 
 		lblNome = new JLabel("Nome do Produto:");
 		jf.getContentPane().add(lblNome);
@@ -88,7 +88,7 @@ public class IgInsumosProduto extends JFrame {
 		lblNewLabel_1 = new JLabel("Tamanho da unidade:");
 		jf.getContentPane().add(lblNewLabel_1);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblNewLabel_1.setBounds(38, 108, 122, 16);
+		lblNewLabel_1.setBounds(38, 108, 139, 16);
 
 
 		lblNewLabel = new JLabel("Insumo");
@@ -98,11 +98,11 @@ public class IgInsumosProduto extends JFrame {
 
 		tfTamanho = new JTextField();
 		tfTamanho.setColumns(10);
-		tfTamanho.setBounds(177, 102, 141, 30);
+		tfTamanho.setBounds(187, 102, 141, 30);
 		jf.getContentPane().add(tfTamanho);
 
 		panel = new JPanel();
-		panel.setBounds(38, 236, 424, 236);
+		panel.setBounds(38, 215, 424, 257);
 		jf.getContentPane().add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 
@@ -141,11 +141,11 @@ public class IgInsumosProduto extends JFrame {
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				GerenciaIgInsumoProduto.obtemInsumosProduto(Validacoes.obtemCodigo(
-						comboBox.getSelectedItem().toString()), defaultTableModel, jf);
+						comboBox.getSelectedItem().toString()), defaultTableModel, jf,tfTamanho);
 			}
 		});
 		
-		comboBox.setBounds(177, 61, 284, 30);
+		comboBox.setBounds(187, 61, 277, 30);
 		jf.getContentPane().add(comboBox);
 
 		listaProdutos = new ArquivoProduto().leProdutosNoArquivo();
@@ -163,10 +163,6 @@ public class IgInsumosProduto extends JFrame {
 		JLabel lblNewLabel_2 = new JLabel("A quantidade de insumo  \u00E9 por tamanho de cada unidade do produto.");
 		lblNewLabel_2.setBounds(48, 190, 414, 14);
 		jf.getContentPane().add(lblNewLabel_2);
-		
-		JLabel lblNewLabel_2_1 = new JLabel("A unidade de medida precisa ser (kg),(g),(l),(ml)");
-		lblNewLabel_2_1.setBounds(48, 211, 414, 14);
-		jf.getContentPane().add(lblNewLabel_2_1);
 
 		jf.setVisible(true);
 
@@ -181,7 +177,7 @@ public class IgInsumosProduto extends JFrame {
 				defaultTableModel.setValueAt("", 0, 1);
 				comboBox.setSelectedIndex(0);
 				tfTamanho.setText("");
-				tfTamanho.setText("");
+				
 
 			}
 		});

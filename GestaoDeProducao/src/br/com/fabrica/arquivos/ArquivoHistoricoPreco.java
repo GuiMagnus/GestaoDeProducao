@@ -58,6 +58,11 @@ public class ArquivoHistoricoPreco extends BinaryFile{
 
 	}
 
+	/**
+	 * escreve um histórico de preço no arquivo
+	 * @param historicoPreco Um objeto que contém um histórico de preço
+	 * @throws IOException
+	 */
 	private void writeObject(HistoricoPreco historicoPreco) throws IOException {
 		Object object = historicoPreco;
 		writeObject(object);

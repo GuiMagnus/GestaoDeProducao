@@ -19,7 +19,7 @@ import br.com.fabrica.validacoes.Data;
  * @see tsi.too.arquivo.binario.BinaryFile
  * @see tsi.too.arquivo.binario.Produto
  *
- * @author Guilherme Magnus
+ * @author Guilherme Magnus e Rafaela
  */
 
 public class ArquivoProducao extends BinaryFile{
@@ -63,6 +63,11 @@ public class ArquivoProducao extends BinaryFile{
 		
 	}
 
+	/**
+	 * Escreve um objeto com os dados de uma produção no arquivo
+	 * @param producao
+	 * @throws IOException
+	 */
 	public void writeObject(Producao producao) throws IOException {               
 		Object object = producao;
 		writeObject(object);
@@ -94,6 +99,7 @@ public class ArquivoProducao extends BinaryFile{
 	/**
 	 * Recebe um Objeto com dados de uma produção referente a classe {@link Producao} a serem gravados
 	 * no arquivo de producao.
+	 * @param arquivo uma String contendo o nome do arquivo onde serão gravados os dados.
 	 * @param producao Um objeto producao a ser gravado no arquivo.
 	 * @return Retorna True ou False indicando se a gravação obteve sucesso ou falha.
 	 */
@@ -116,6 +122,7 @@ public class ArquivoProducao extends BinaryFile{
 	/**
 	 * Obtém uma produção que foi cadastrada.
 	 * @param indice <code>int</code> referencia ao produto que será obtido
+	 * @param arquivo<code>String</code>nome do arquivo onde serão obtidos os dados.
 	 * @return informações referentes a produção.
 	 */
 	public Producao leProducaoNoArquivo(int indice, String arquivo) {
@@ -161,6 +168,7 @@ public class ArquivoProducao extends BinaryFile{
 	/**
 	 * Obtém a produção de um determinado produto.
 	 * @param codigo <code>int</code> código referente a produção
+	 * @param arquivo<code>String</code> nome do arquivo de onde será obtida a produção
 	 * @return <code>Producao</code> dados da produção procurada. 
 	 */
 	public Producao obterProducao(int codigo, String arquivo) {
@@ -186,6 +194,7 @@ public class ArquivoProducao extends BinaryFile{
 	
 	/**
 	 * Obtém as produções cadastradas.
+	 * @param nome do arquivo de onde serão lidas as produções
 	 * @param codigo <code>int</code> código referente a produção
 	 * @return <code>List</code> lista de produções
 	 */
@@ -211,6 +220,7 @@ public class ArquivoProducao extends BinaryFile{
 	
 	/**
 	 * Altera as informações de uma produção cadastrada.
+	 * @param arquivo <code>String</code> nome do arquivo de onde serão alterados os dados de produção
 	 * @param prod <code>Producao</code> produção a ser alterada.
 	 * @return <code>Producao</code> produção alterada.
 	 */
@@ -241,6 +251,7 @@ public class ArquivoProducao extends BinaryFile{
 	/**
 	 * Altera as informações de uma produção cadastrada.
 	 * @param prod <code>Producao</code> produção a ser alterada.
+	 * @param arquivo <code>String</code> nome do arquivo de onde será alterada a quantidade da produção
 	 * @return <code>Producao</code> produção alterada.
 	 */
 	public Producao alteraQuantidadeProducao(Producao prod, String arquivo) {
@@ -277,6 +288,7 @@ public class ArquivoProducao extends BinaryFile{
 	 * Escreve uma produção em uma determinada posição.
 	 * @param producao <code>Producao</code> producao a ser cadastrada.
 	 * @param posicao <code>int</code> posição que será escrito a produção
+	 * @param arquivo <code>String</code> nome do arquivo de onde será escrito os dados de produção
 	 * @return Retorna True ou False indicando se a gravação teve sucesso ou falha.
 	 */
 	public boolean escreveProducaoPorPosicao(Producao producao, int posicao, String arquivo) {

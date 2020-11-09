@@ -10,7 +10,7 @@ import br.com.fabrica.validacoes.Data;
 import static br.com.fabrica.constantes.Constantes.*;
 /**
  * Classe responsável por gerenciar o Relatório de produção
- * @author Rafaela
+ * @author Rafaela e Guilherme
  *
  */
 public class GerenciaRelatorioProducao {

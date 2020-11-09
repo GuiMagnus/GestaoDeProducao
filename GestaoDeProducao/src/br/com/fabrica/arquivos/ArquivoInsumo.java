@@ -16,7 +16,7 @@ import br.com.fabrica.modelo.Insumo;
 /**
  * Esta classe fornece uma implementação para as operações que permitem manipular um arquivo de acesso 
  * aleatório para ler e escrever objetos da classe <code>Insumo</code>.
- * @author GuilhermeMagnus
+ * @author Guilherme Magnus e Rafaela.
  *
  */
 public class ArquivoInsumo extends BinaryFile{
@@ -59,6 +59,11 @@ public class ArquivoInsumo extends BinaryFile{
 		randomAccessFile.writeFloat(insumo.getPrecoUnitario());
 	}
 
+	/**
+	 * Escreve um objeto insumo no arquivo.
+	 * @param insumo um objeto que contém os dados de um insumo
+	 * @throws IOException
+	 */
 	public void writeObject(Insumo insumo) throws IOException {
 		Object object = insumo;
 		writeObject(object);
@@ -110,9 +115,10 @@ public class ArquivoInsumo extends BinaryFile{
 
 	/**
 	 * Recebe uma lista de insumos de determinado produto e escreve os registros
-	 * no arquivo de insumos. 
+	 * no arquivo com o nome passado como parâmetro. 
 	 * @param insumos Uma lista com dados referente a classe {@link Insumo} para serem gravados 
 	 * no arquivo de insumos.
+	 * @param nome do arquivo a ser gravado os dados de insumo.
 	 * @return Retorna True ou False indicando se a gravação teve sucesso ou falha.
 	 */
 	public boolean escreveInsumosNoArquivo(List<Insumo> insumos, String arquivo) {
@@ -136,11 +142,12 @@ public class ArquivoInsumo extends BinaryFile{
 
 
 	/***
-	 * Obtém o código sequencial dos insumos a partir do número de registro no arquivo de insumos
-	 * caso esteja vazio este será o primeiro produto a ser gravado no arquivo.
-	 * @return retorna o código sequencial para o próximo dado do registro de produtos.
+	 * Escreve o dado de um Insumo em uma determinada posição do arquivo.
+	 * @param Um objeto com os dados do insumo
+	 * @param posição onde os dados serão gravados 
+	 * @return retorna true ou false referente ao sucesso ou falha da gravação.
 	 */
-	public boolean obtemCodigoInsumo(Insumo insumo, int posicao) {
+	public boolean escreveInsumoPosicao(Insumo insumo, int posicao) {
 		try {
 			openFile(ARQ_INSUMO);
 			setFilePointer(posicao);
@@ -192,7 +199,6 @@ public class ArquivoInsumo extends BinaryFile{
 			for(int i = 0; i < recordQuantity(); i++) {
 				setFilePointer(i);
 				Insumo insumo = (Insumo) readObject();
-				//System.out.println(String.format("Nome:%s\n%.2f",insumo.getNome(),insumo.getPrecoUnitario()));
 				listaInsumos.add(insumo);
 			}
 			closeFile();
@@ -263,7 +269,7 @@ public class ArquivoInsumo extends BinaryFile{
 	/**
 	 * Altera preço de um determinado insumo
 	 * @param insumo <code>Insumo</code> insumo que se deseja alterar.
-	 * @param qtde <code>int</code> informação que será atualizada. 
+	 * @param novoPreco <code>float</code> informação que será atualizada. 
 	 * @return <code>Insumo</code> objeto alterado
 	 */
 	public boolean alteraPreco(int codigoInsumo, float novoPreco) {
@@ -302,6 +308,12 @@ public class ArquivoInsumo extends BinaryFile{
 				listaDeInsumosDeUmProduto.add(insumo);
 		return listaDeInsumosDeUmProduto;
 	}
+	
+	/**
+	 * Obtém um insumo do arquivo a partir de um código passado como parâmetro.
+	 * @param codigo define qual insumo será obtido
+	 * @return um objeto insumo.
+	 */
 	public Insumo obtemInsumo(int codigo) {
 		List<Insumo> listaDeInsumos = leInsumosNoArquivo();
 		for (Insumo insumo : listaDeInsumos) {

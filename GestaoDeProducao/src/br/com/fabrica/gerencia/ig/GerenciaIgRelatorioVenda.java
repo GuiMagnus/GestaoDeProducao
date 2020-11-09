@@ -20,8 +20,23 @@ import br.com.fabrica.arquivos.ArquivoVendaProduto;
 import br.com.fabrica.modelo.Produto;
 import br.com.fabrica.modelo.Venda;
 import br.com.fabrica.validacoes.Validacoes;
-public class GerenciaIgRelatorioVenda {
 
+/**
+ * 
+ * @author Guilherme Magnus e Rafaela.
+ *
+ */
+public class GerenciaIgRelatorioVenda {
+	
+	/**
+	 * Obtém os dados das vendas realizadas de um determinado período,
+	 *  as ordena tanto em hora quanto em data e exibe em uma tabela.
+	 * @param tfDataHoraInicial período Inicial.
+	 * @param tfDataHoraFinal período Final.
+	 * @param tfValorTotalVenda Valor total de todas as vendas.
+	 * @param defaultTableModel tabela onde serão exibidos os dados.
+	 * @param colunas número de colunas da tabela.
+	 */
 	public static void relatorioVendas(JTextField tfDataHoraInicial, JTextField tfDataHoraFinal, JTextField tfValorTotalVenda,
 			DefaultTableModel defaultTableModel,String[] colunas) {
 
@@ -56,6 +71,13 @@ public class GerenciaIgRelatorioVenda {
 				msgErro(null, ERR_DATA_HORA_INVALIDA, RELATORIO_VENDA);
 	}
 
+	/**
+	 * Obtém os dados das vendas armazenados em uma tabela, organiza-os pelo período de data 
+	 * informado no parâmetro
+	 * @param defaultTableModel tabela de onde os dados serão obtidos
+	 * @param dataVendaInicial período inicial.
+	 * @param dataVendaFinal período final.
+	 */
 	public static void ordenacaoData(DefaultTableModel defaultTableModel,String dataVendaInicial,String dataVendaFinal) {
 		List<Produto> produtosVendidos = obtemDadosTabela(defaultTableModel);
 		List<Venda> vendas = new ArrayList<Venda>();
@@ -76,7 +98,13 @@ public class GerenciaIgRelatorioVenda {
 		List<Produto> produtosOrdenados = organizaProdutosVendidos(vendas, produtosVendidos);
 		insereDadosTabela(produtosOrdenados, defaultTableModel);
 	}
-
+	/**
+	 * Obtém os dados das vendas armazenados em uma tabela, organiza-os pelo período de hora 
+	 * informado no parâmetro
+	 * @param defaultTableModel tabela de onde os dados serão obtidos
+	 * @param dataHoraInicial período inicial.
+	 * @param dataHoraFinal período final.
+	 */
 	public static void ordenacaoHora(DefaultTableModel defaultTableModel, String dataHoraInicial,
 			String dataHoraFinal) {
 		List<Produto> produtosVendidos = obtemDadosTabela(defaultTableModel);
@@ -99,6 +127,11 @@ public class GerenciaIgRelatorioVenda {
 		insereDadosTabela(produtosOrdenados, defaultTableModel);
 	}
 	
+	/**
+	 * Obtém os dados de uma tabela e os armazenad em uma lista do tipo Produto.
+	 * @param defaultTableModel tabela de onde os dados serão obtidos.
+	 * @return uma lista contendo os dados da tabela dos produtos vendidos.
+	 */
 	public static List<Produto> obtemDadosTabela(DefaultTableModel defaultTableModel) {
 		List<Produto> produtosVendidos = new ArrayList<Produto>();
 		for (int i = 0; i < defaultTableModel.getRowCount(); i++) {
@@ -113,6 +146,11 @@ public class GerenciaIgRelatorioVenda {
 		return produtosVendidos;
 	}
 	
+	/**
+	 * Obtém os dados de uma lista referente aos produtos vendidos e os joga na tabela.
+	 * @param produtosList lista de produtos vendidos.
+	 * @param defaultTableModel tabela onde os dados serão armazenados e exibidos
+	 */
 	public static void insereDadosTabela(List<Produto> produtosList, DefaultTableModel defaultTableModel) {
 		defaultTableModel.setNumRows(0);
 		for (int i = 0; i < produtosList.size(); i++) {
@@ -125,6 +163,13 @@ public class GerenciaIgRelatorioVenda {
 		}
 	}
 	
+	/**
+	 * Organiza os produtos obtidos e o coloca em ordem de data ou hora, a ser definida pelos botões da 
+	 * interface
+	 * @param vendas lista de vendas realizadas
+	 * @param produtosVendidos produtos vendidos.
+	 * @return uma lista com os produtos das vendas ordenados
+	 */
 	public static List<Produto> organizaProdutosVendidos(List<Venda>vendas,List<Produto> produtosVendidos){
 		List<Produto> produtosOrdenados = new ArrayList<Produto>();
 		for (int i = 0; i < vendas.size(); i++) {
@@ -136,7 +181,12 @@ public class GerenciaIgRelatorioVenda {
 		return produtosOrdenados;
 	}
 	
-	public static boolean insereValorTotalVenda(List<Venda> vendasRealizadas,JTextField tfValorTotalVenda) {
+	/**
+	 * Insere no textField o valor total das vendas.
+	 * @param vendasRealizadas lista de vendas realizadas.
+	 * @param tfValorTotalVenda campo onde será exibido o valor total das vendas
+	 */
+	public static void insereValorTotalVenda(List<Venda> vendasRealizadas,JTextField tfValorTotalVenda) {
 
 		float valorTotal = 0;
 		for (int i = 0; i < vendasRealizadas.size(); i++) {
@@ -144,6 +194,5 @@ public class GerenciaIgRelatorioVenda {
 		}
 		tfValorTotalVenda.setText(String.format("%.2f",valorTotal));
 		
-		return true;
 	}
 }

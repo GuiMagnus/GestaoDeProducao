@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import com.sun.prism.paint.Color;
+
 import br.com.fabrica.gerencia.ig.GerenciaIgOrcamento;
 import br.com.fabrica.modelo.MesesAno;
 import static br.com.fabrica.constantes.Constantes.*;
@@ -63,12 +65,14 @@ public class IgOrcamento extends JFrame {
 		jf.getContentPane().add(lblNewLabel_1);
 		
 		tfValor = new JTextField();
+		tfValor.setDisabledTextColor(java.awt.Color.BLACK);
 		tfValor.setEnabled(false);
 		tfValor.setBounds(201, 135, 161, 20);
 		jf.getContentPane().add(tfValor);
 		tfValor.setColumns(10);
 		
 		tfValorTotal = new JTextField();
+		tfValorTotal.setDisabledTextColor(java.awt.Color.BLACK);
 		tfValorTotal.setEnabled(false);
 		tfValorTotal.setBounds(201, 211, 161, 20);
 		jf.getContentPane().add(tfValorTotal);
@@ -91,11 +95,13 @@ public class IgOrcamento extends JFrame {
 		jf.getContentPane().add(lblMargemDeLucro);
 		
 		tfNumero = new JTextField();
+		tfNumero.setDisabledTextColor(java.awt.Color.BLACK);
 		tfNumero.setEnabled(false);
 		tfNumero.setColumns(10);
 		tfNumero.setBounds(201, 172, 161, 20);
 		jf.getContentPane().add(tfNumero);
 		
+		//.setDisabledTextColor(Color.RED);
 		comboBox = new JComboBox<String>();
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -127,6 +133,7 @@ public class IgOrcamento extends JFrame {
 		jf.getContentPane().add(lblSaldo_1);
 		
 		tfSaldo = new JTextField();
+		tfSaldo.setDisabledTextColor(java.awt.Color.BLACK);
 		tfSaldo.setEnabled(false);
 		tfSaldo.setColumns(10);
 		tfSaldo.setBounds(74, 302, 161, 20);

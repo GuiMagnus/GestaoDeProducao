@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Classe responsável por armazenar os dados do produto
- * @author Rafaela
+ * @author Rafaela e Guilherme
  *
  */
 public class Produto implements Comparable<Produto>, Comparator<Produto>{
@@ -114,6 +114,10 @@ public class Produto implements Comparable<Produto>, Comparator<Produto>{
 		return precoFabricacao;
 	}
 	
+	/**
+	 * Atribui ao objeto produto o preço de sua frabricação.
+	 * @param precoFabricacao valor do preço de fabricação de um produto.
+	 */
 	public void setPrecoFabricacao(float precoFabricacao) {
 		this.precoFabricacao = precoFabricacao;
 	}
@@ -150,10 +154,18 @@ public class Produto implements Comparable<Produto>, Comparator<Produto>{
 		this.quantidade = quantidade;
 	}
 
+	/**
+	 * retorna o tamanho da unidade de um produto.
+	 * @return tamanho da unidade
+	 */
 	public float getTamanhoUnidade() {
 		return tamanhoUnidade;
 	}
 
+	/**
+	 * Atribui o tamanho da unidade ao objeto produto.
+	 * @param tamanhoUnidade valor de tamanho da unidade.
+	 */
 	public void setTamanhoUnidade(float tamanhoUnidade) {
 		this.tamanhoUnidade = tamanhoUnidade;
 	}
@@ -207,20 +219,22 @@ public class Produto implements Comparable<Produto>, Comparator<Produto>{
 		this.codigo = auxiliarCodigo;
 	}
 	
+	/**
+	 * Obtém o código da venda de um produto.
+	 * @return um valor contendo o código de uma venda
+	 */
 	public int getCodigoVenda() {
 		return codigoVenda;
 	}
 
-
+	/**
+	 * Atribui ao objeto da classe produto o código de sua venda.
+	 * @param codigoVenda valor de código para uma venda de um produto.
+	 */
 	public void setCodigoVenda(int codigoVenda) {
 		this.codigoVenda = codigoVenda;
 	}
 
-
-	/**
-	 * Representação String contendo os dados dos atributos do produto.
-	 */
-	
 
 	/**
 	 * Compara os objetos do tipo Produto usando o nome do produto. A comparação é case insensitive.
@@ -230,6 +244,10 @@ public class Produto implements Comparable<Produto>, Comparator<Produto>{
 		return nome.compareToIgnoreCase(produto.nome);
 	}
 
+	
+	/**
+	 * Representação String contendo os dados dos atributos do produto.
+	 */
 	@Override
 	public String toString() {
 		return String.format(

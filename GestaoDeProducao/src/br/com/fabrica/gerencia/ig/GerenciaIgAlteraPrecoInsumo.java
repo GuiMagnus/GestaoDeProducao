@@ -21,7 +21,7 @@ import br.com.fabrica.validacoes.Validacoes;
 /**
  * Classe responsável por gerenciar as funções da classe <code>IgAlteraPrecoInsumo</code>
  * @see IgAlteraPrecoInsumo
- * @author Rafaela
+ * @author Rafaela e Guilherme
  *
  */
 public class GerenciaIgAlteraPrecoInsumo {

@@ -13,7 +13,7 @@ import br.com.fabrica.validacoes.Validacoes;
 /**
  *  Esta classe fornece uma implementação para as operações que permitem manipular um arquivo de acesso 
  * aleatório para ler e escrever objetos da classe <code>Produto</code>.
- * @author Guilherme Magnus
+ * @author Guilherme Magnus e Rafaela.
  *
  */
 public class ArquivoProduto extends BinaryFile{
@@ -63,7 +63,11 @@ public class ArquivoProduto extends BinaryFile{
 	}
 
 
-	// Versão sobrecarregada (overload) de writeObject.
+	/**
+	 * Escreve no arquivo os dados de um produto.
+	 * @param produto objeto de onde serão armazenadas as informações.
+	 * @throws IOException
+	 */
 	public void writeObject(Produto produto) throws IOException {
 		Object object = produto;
 		writeObject(object);
